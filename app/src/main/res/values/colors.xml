@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="back_ic_color">#FFFFFF</color>
+  <color name="svColor">#F5F5F5</color>
+    <color name="bbColor">#777777</color>
+    <color name="background">#130F0F</color>
+    <color name="grey">#1ED760</color>
+</resources>

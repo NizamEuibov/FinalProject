@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Final Project</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_string">Choose 3 or more artists you like</string>
+    <string name="svArtist">Search</string>
+    <string name="emailText">What’s your email?</string>
+    <string name="passwordText">Create a password</string>
+    <string name="nameText">What’s your name?</string>
+    <string name="tvTextName">This appears on your spotify profile</string>
+    <string name="genderText">What’s your gender?</string>
+    <string name="accountText">Create account</string>
+    <string name="tvEmailText">You’ll need to confirm this email later.</string>
+    <string name="buttonText">Next</string>
+    <string name="tvPasswordText">Use at least 8 characters.</string>
+    <string name="buttonNameText">Create an account</string>
+    <string name="cv1First">By tapping on “Create account”, you agree to the spotify Terms of Use.</string>
+    <string name="cv1Second">Terms of Use</string>
+    <string name="cv1Third">To learn more about how Spotify collect, uses,
+        shares and protects your personal data, Please see the Spotify Privacy Policy.</string>
+    <string name="cv2First">Privacy Policy</string>
+    <string name="cv2Second">Please send me news and offers from Spotify.</string>
+    <string name="cv2Third">Share my registration data with Spotify’s content providers for marketing purposes.</string>
+
+</resources>
+
+
+
