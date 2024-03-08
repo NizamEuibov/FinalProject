@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_navgraph"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/emailFragment">
+
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.EmailFragment"
+        android:label="EmailFragment">
+        <action
+            android:id="@+id/action_emailFragment_to_passwordFragment"
+            app:destination="@id/passwordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.PasswordFragment"
+        android:label="PasswordFragment">
+        <action
+            android:id="@+id/action_passwordFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
+        <action
+            android:id="@+id/action_passwordFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/genderFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.GenderFragment"
+        android:label="GenderFragment">
+        <action
+            android:id="@+id/action_genderFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
+        <action
+            android:id="@+id/action_genderFragment_to_passwordFragment"
+            app:destination="@id/passwordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.NameFragment"
+        android:label="NameFragment" >
+        <action
+            android:id="@+id/action_nameFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
+    </fragment>
+</navigation>

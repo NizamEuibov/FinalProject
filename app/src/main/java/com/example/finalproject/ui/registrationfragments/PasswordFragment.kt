@@ -5,56 +5,47 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
+import com.example.finalproject.databinding.FragmentGenderBinding
+import com.example.finalproject.databinding.FragmentNameBinding
+import com.example.finalproject.databinding.FragmentPasswordBinding
+import com.example.finalproject.databinding.FragmentPasswordBinding.*
+import com.example.finalproject.viewmodels.forregistrationfragments.RegistrationViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PasswordFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PasswordFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var binding: FragmentGenderBinding? = null
+    private val viewModel by viewModels<RegistrationViewModel>()
+    private val password = binding?.etRegistration?.text
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_password, container, false)
+        binding = FragmentGenderBinding.inflate(layoutInflater,container,false)
+        return (binding?.root)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PasswordFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PasswordFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.buttonNext?.setOnClickListener {
+            sendPassword()
+        }
+        binding?.mbBack?.setOnClickListener {
+            findNavController().navigate(R.id.action_passwordFragment_to_emailFragment)
+        }
     }
+
+    private fun sendPassword() {
+        if (password?.isNotEmpty() == true ) {
+            viewModel.password = password.toString()
+        } else {
+            Toast.makeText(context, "Fill the gaps", Toast.LENGTH_LONG).show()
+        }
+        findNavController().navigate(R.id.action_passwordFragment_to_genderFragment)
+    }
+
 }

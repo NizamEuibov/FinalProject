@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
@@ -28,6 +29,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -36,13 +38,19 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures{
+        viewBinding=true
+    }
 }
 
 dependencies {
+
     implementation("com.google.dagger:hilt-android:2.46.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation ("androidx.room:room-runtime:2.6.1")
+    kapt("android.arch.persistence.room:compiler:1.1.1")
     implementation ("androidx.room:room-ktx:2.6.1")
     implementation( "androidx.fragment:fragment-ktx:1.6.2")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -50,7 +58,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("com.google.firebase:firebase-crashlytics:18.6.2")
-    implementation("com.google.firebase:firebase-config:21.6.1")
+    implementation("com.google.firebase:firebase-config:21.6.2")
     val okhttpVersion = "4.11.0"
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")

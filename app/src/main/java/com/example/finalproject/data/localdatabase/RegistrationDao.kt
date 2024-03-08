@@ -7,4 +7,4 @@ import androidx.room.Upsert
 interface RegistrationDao {
     @Upsert
     suspend fun upsertUser(user:RegistrationEntity)
-}
+    }
