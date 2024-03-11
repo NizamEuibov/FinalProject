@@ -8,40 +8,57 @@
 
     <fragment
         android:id="@+id/emailFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.EmailFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.fragments.EmailFragment"
         android:label="EmailFragment">
         <action
             android:id="@+id/action_emailFragment_to_passwordFragment"
             app:destination="@id/passwordFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/passwordFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.PasswordFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.fragments.PasswordFragment"
         android:label="PasswordFragment">
         <action
             android:id="@+id/action_passwordFragment_to_genderFragment"
             app:destination="@id/genderFragment" />
-        <action
-            android:id="@+id/action_passwordFragment_to_emailFragment"
-            app:destination="@id/emailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.GenderFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.fragments.GenderFragment"
         android:label="GenderFragment">
         <action
             android:id="@+id/action_genderFragment_to_nameFragment"
             app:destination="@id/nameFragment" />
-        <action
-            android:id="@+id/action_genderFragment_to_passwordFragment"
-            app:destination="@id/passwordFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/nameFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.NameFragment"
+        android:name="com.example.finalproject.ui.registrationfragments.fragments.NameFragment"
         android:label="NameFragment" >
         <action
             android:id="@+id/action_nameFragment_to_genderFragment"
             app:destination="@id/genderFragment" />
+        <action
+            android:id="@+id/action_nameFragment_to_artistsFragment"
+            app:destination="@id/artistsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/artistsFragment"
+        android:name="com.example.finalproject.ui.artistsfragment.fragment.ArtistsFragment"
+        android:label="fragment_artists"
+        tools:layout="@layout/fragment_artists" >
+        <action
+            android:id="@+id/action_artistsFragment_to_podcatsFragment"
+            app:destination="@id/podcatsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/podcatsFragment"
+        android:name="com.example.finalproject.ui.podcastfragment.fragment.PodcatsFragment"
+        android:label="fragment_podcats"
+        tools:layout="@layout/fragment_podcats" />
+
 </navigation>

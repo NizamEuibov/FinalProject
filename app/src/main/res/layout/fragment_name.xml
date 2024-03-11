@@ -6,22 +6,32 @@
     android:background="@color/background">
 
 
-    <Button
-        android:id="@+id/mbBack"
-        style="@style/IconOnly"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvBack"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginBottom="25dp"
-        android:backgroundTint="@drawable/artists"
-        app:icon="@drawable/ic_back"
-        app:iconPadding="-17dp"
-        app:iconTint="@color/bbColor"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/black"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/Circle" />
+        android:layout_marginTop="34dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="25dp"
+        >
 
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:scaleType="center"
+            android:layout_gravity="center"
+            app:tint="@color/bbColor"
+            android:contentDescription="@string/todo"
+            android:layout_margin="6dp"/>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvAccount"
@@ -35,9 +45,8 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tvName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/mbBack"
+        app:layout_constraintStart_toEndOf="@id/cvBack"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -52,7 +61,6 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/etRegistration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAccount" />
@@ -67,7 +75,6 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/edittextcorner"
         android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvName" />
@@ -96,7 +103,6 @@
         android:layout_marginTop="51dp"
         android:layout_marginEnd="34dp"
         android:backgroundTint="@color/bbColor"
-        app:layout_constraintBottom_toTopOf="@id/tvLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etRegistration" />
@@ -109,11 +115,9 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="56dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/tvLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -140,10 +144,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
 
-
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/tvLayout2"
@@ -153,11 +154,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="78dp"
         android:orientation="vertical"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toTopOf="@id/buttonAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvLayout1">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -184,10 +185,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
 
-
     </LinearLayout>
-
-
 
     <RadioButton
         android:id="@+id/rb2Name"
@@ -201,7 +199,6 @@
         android:layout_marginEnd="24dp"
         />
 
-
     <RadioButton
         android:id="@+id/rb1Name"
         android:layout_width="26dp"
@@ -212,8 +209,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="7dp"/>
-
-
 
     <Button
         android:id="@+id/buttonAccount"
@@ -227,7 +222,6 @@
         android:text="@string/buttonNameText"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintTop_toBottomOf="@id/tvLayout2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

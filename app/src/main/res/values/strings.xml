@@ -21,6 +21,7 @@
     <string name="cv2First">Privacy Policy</string>
     <string name="cv2Second">Please send me news and offers from Spotify.</string>
     <string name="cv2Third">Share my registration data with Spotify’s content providers for marketing purposes.</string>
+    <string name="todo">TODO</string>
 
 </resources>
 
