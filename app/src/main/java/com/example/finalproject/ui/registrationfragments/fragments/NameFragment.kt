@@ -15,8 +15,9 @@ import com.example.finalproject.databinding.FragmentNameBinding
 import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
 import com.example.finalproject.ui.registrationfragments.viewmodel.RegistrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class NameFragment : Fragment() {
     private val viewModel by viewModels<RegistrationViewModel>()
     private lateinit var binding: FragmentNameBinding
@@ -78,7 +79,7 @@ class NameFragment : Fragment() {
         val name = binding.etRegistration.text.toString()
         if (checkName(name)) {
             val user = RegistrationEntity(0, email, password, gender, name)
-            viewModel.sendDataToDatabase(user)
+            viewModel.sendDataToRepository(user)
             findNavController().navigate(R.id.action_nameFragment_to_artistsFragment)
         }
 

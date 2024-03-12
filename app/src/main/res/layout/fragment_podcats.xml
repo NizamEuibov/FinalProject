@@ -1,19 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.podcastfragment.fragment.PodcatsFragment">
+    android:background="@color/background"
+    tools:context=".ui.podcastfragment.fragment.PodcastsFragment">
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rvPodcast"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:listitem="@layout/podcasts_list"
-      />
+    <TextView
+        android:id="@+id/tvPodcast"
+        android:layout_width="246dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="75dp"
+        android:text="@string/tvpodcasts"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/svPodcast"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/svPodcast"
+        android:layout_width="376dp"
+        android:layout_height="42dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/serach_corner"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPodcast"
+        app:queryHint="Search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPodcast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svPodcast"
+        tools:listitem="@layout/podcasts_list"
+        android:layout_marginHorizontal="9dp"
+        android:layout_marginTop="57dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

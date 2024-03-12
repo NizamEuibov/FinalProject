@@ -15,8 +15,9 @@ import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentEmailBinding
 import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class EmailFragment : Fragment() {
     private lateinit var binding: FragmentEmailBinding
 
@@ -37,20 +38,27 @@ class EmailFragment : Fragment() {
             sentEmail()
         }
 
-        binding.etRegistration.addTextChangedListener(object :TextWatcher{
+        binding.cvBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
+
+        binding.etRegistration.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val email= binding.etRegistration.text.toString()
+                val email = binding.etRegistration.text.toString()
                 if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     binding.buttonNext.enable()
                 } else {
                     binding.buttonNext.disable()
-                    binding.etRegistration.error="This email is invalid. Make sure it's written like example@email.com"
+                    binding.etRegistration.error =
+                        "This email is invalid. Make sure it's written like example@email.com"
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -59,11 +67,11 @@ class EmailFragment : Fragment() {
     }
 
     private fun sentEmail() {
-        val email= binding.etRegistration.text.toString()
+        val email = binding.etRegistration.text.toString()
 
 
         if (email.isNotEmpty()) {
-            val bundle= bundleOf(
+            val bundle = bundleOf(
                 "email" to email
             )
 

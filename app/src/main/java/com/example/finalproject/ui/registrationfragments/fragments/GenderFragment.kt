@@ -15,7 +15,9 @@ import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentGenderBinding
 import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GenderFragment : Fragment() {
     private var binding: FragmentGenderBinding? = null
 

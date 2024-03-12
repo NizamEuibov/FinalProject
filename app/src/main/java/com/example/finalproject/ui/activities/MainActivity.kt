@@ -5,8 +5,9 @@ import android.os.Bundle
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var binding:ActivityMainBinding?=null
     override fun onCreate(savedInstanceState: Bundle?) {

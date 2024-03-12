@@ -22,6 +22,14 @@
     <string name="cv2Second">Please send me news and offers from Spotify.</string>
     <string name="cv2Third">Share my registration data with Spotify’s content providers for marketing purposes.</string>
     <string name="todo">TODO</string>
+    <string name="tv_Spotify">Millions of Songs. Free on Spotify.</string>
+    <string name="but_Login">Sign up free</string>
+    <string name="but_log_in">Log in</string>
+    <string name="log_in_to_spotify">Log in to Spotify</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="tvpodcasts">Now choose some podcasts.</string>
 
 </resources>
 

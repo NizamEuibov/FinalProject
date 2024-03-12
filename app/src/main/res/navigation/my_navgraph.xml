@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/my_navgraph"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/emailFragment">
+    app:startDestination="@id/logInFragment">
 
     <fragment
         android:id="@+id/emailFragment"
@@ -13,6 +13,7 @@
         <action
             android:id="@+id/action_emailFragment_to_passwordFragment"
             app:destination="@id/passwordFragment" />
+
     </fragment>
 
     <fragment
@@ -22,6 +23,7 @@
         <action
             android:id="@+id/action_passwordFragment_to_genderFragment"
             app:destination="@id/genderFragment" />
+
     </fragment>
 
     <fragment
@@ -37,9 +39,7 @@
         android:id="@+id/nameFragment"
         android:name="com.example.finalproject.ui.registrationfragments.fragments.NameFragment"
         android:label="NameFragment" >
-        <action
-            android:id="@+id/action_nameFragment_to_genderFragment"
-            app:destination="@id/genderFragment" />
+
         <action
             android:id="@+id/action_nameFragment_to_artistsFragment"
             app:destination="@id/artistsFragment" />
@@ -53,12 +53,37 @@
         <action
             android:id="@+id/action_artistsFragment_to_podcatsFragment"
             app:destination="@id/podcatsFragment" />
+        <action
+            android:id="@+id/action_artistsFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/podcatsFragment"
-        android:name="com.example.finalproject.ui.podcastfragment.fragment.PodcatsFragment"
+        android:name="com.example.finalproject.ui.podcastfragment.fragment.PodcastsFragment"
         android:label="fragment_podcats"
         tools:layout="@layout/fragment_podcats" />
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.finalproject.ui.login.fragments.LogUiFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_ui" >
+        <action
+            android:id="@+id/action_logInFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+
+        <action
+            android:id="@+id/action_logInFragment_to_loginnFragment"
+            app:destination="@id/loginnFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginnFragment"
+        android:name="com.example.finalproject.ui.login.fragments.LoginnFragment"
+        android:label="fragment_login_"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginnFragment_to_artistsFragment"
+            app:destination="@id/artistsFragment" />
+    </fragment>
 
 </navigation>

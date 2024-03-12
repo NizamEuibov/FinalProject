@@ -14,8 +14,9 @@ import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentPasswordBinding
 import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PasswordFragment : Fragment() {
     private lateinit var binding: FragmentPasswordBinding
     private lateinit var email: String
