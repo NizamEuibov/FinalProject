@@ -30,6 +30,11 @@
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
     <string name="tvpodcasts">Now choose some podcasts.</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottom_search">Search</string>
+    <string name="bottom_your_library">Your Library</string>
+    <string name="tvsearch">Search</string>
+    <string name="svcancel">Cancel</string>
 
 </resources>
 

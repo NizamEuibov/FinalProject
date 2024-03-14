@@ -28,14 +28,7 @@ object AppModule {
     }
 }
 
-object MyData {
-   lateinit var appDatabase: RegistrationDatabase
-}
 
-@Database(entities = [RegistrationEntity::class], version = 1)
-abstract class RegistrationDatabase : RoomDatabase() {
-    abstract fun registrationDao(): RegistrationDao
-}
 
 
 

@@ -1,4 +1,4 @@
-package com.example.finalproject.ui.login.fragments
+package com.example.finalproject.ui.loginfragments.fragments
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,14 +14,17 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentLoginBinding
 import com.example.finalproject.ui.extension.Button.enable
-import com.example.finalproject.ui.login.model.LoginModel
-import com.example.finalproject.ui.login.viewmodel.LogInViewModel
+import com.example.finalproject.ui.loginfragments.model.LoginModel
+import com.example.finalproject.ui.loginfragments.viewmodel.LogInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginnFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LogInViewModel by viewModels()
+    private val viewModel: LogInViewModel by viewModels<LogInViewModel>()
+    lateinit var email: String
+    lateinit var password: String
+    lateinit var data: LoginModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,10 +48,10 @@ class LoginnFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.isNotEmpty() == true && !(Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
-                    binding.buttonLogInn.enable()
-                } else {
+                if (s?.isEmpty() == true && !(Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
                     binding.etForLogin.error = "Please enter your Spotify email address."
+                } else {
+                    binding.buttonLogInn.enable()
                 }
             }
 
@@ -65,22 +68,23 @@ class LoginnFragment : Fragment() {
 
 
     private fun getLogin() {
-        val email = binding.etForLogin.text.toString()
-        val password = binding.etForPassword.text.toString()
-        val data = LoginModel(email, password)
+        email = binding.etForLogin.text.toString()
+        password = binding.etForPassword.text.toString()
+        data = LoginModel(email, password)
+
+
         if (viewModel.checkData(data) == true) {
-            findNavController().navigate(R.id.action_loginnFragment_to_artistsFragment)
+            findNavController().navigate(R.id.action_loginnFragment_to_homeFragment)
         } else {
             Toast.makeText(
                 requireContext(),
                 "Oops! Something went wrong, please try again or check your email or password",
                 Toast.LENGTH_LONG
             ).show()
-
-
         }
 
     }
 
-
 }
+
+

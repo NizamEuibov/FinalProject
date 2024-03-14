@@ -58,19 +58,19 @@ class NameFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().isNotEmpty()) {
-                    binding.buttonAccount.enable()
-                } else {
+
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                if (!checkName(s.toString())) {
                     binding.buttonAccount.disable()
+                } else {
+                    binding.buttonAccount.enable()
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
         })
-
+//problem var kecidlerle bagli
 
     }
 
@@ -89,6 +89,6 @@ class NameFragment : Fragment() {
     private fun checkName(text: String): Boolean {
         val radioButton1 = binding.rb1Name
         val radioButton2 = binding.rb2Name
-        return text.isNotEmpty() && radioButton2.isChecked && radioButton1.isChecked
+        return !(text.isNotEmpty() && radioButton2.isChecked && radioButton1.isChecked)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.finalproject.ui.login.model
+package com.example.finalproject.ui.loginfragments.model
 
 data class LoginModel(
     val email:String,

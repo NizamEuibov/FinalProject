@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     tools:context=".ui.serachfragments.SearchFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    
+    
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvSearch"
+        android:layout_width="100dp"
+        android:layout_height="33dp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:text="@string/tvsearch"
+        app:layout_constraintStart_toStartOf="@id/svSearch"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
 
-</FrameLayout>
+        />
+    
+    
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/svSearch"
+        android:layout_width="380dp"
+        android:layout_height="46dp"
+        android:background="@drawable/serach_corner"
+        app:queryHint="Artists, songs, or podcasts"
+        app:iconifiedByDefault="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSearch"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="15dp"
+        />
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svSearch"
+        android:layout_marginTop="25dp"
+        />
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

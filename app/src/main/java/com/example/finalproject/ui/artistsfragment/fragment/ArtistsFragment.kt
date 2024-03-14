@@ -14,12 +14,11 @@ import com.example.finalproject.databinding.FragmentArtistsBinding
 import com.example.finalproject.ui.artistsfragment.adapters.ArtistsAdapter
 import com.example.finalproject.ui.artistsfragment.model.ModelArtistsFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 
 @AndroidEntryPoint
 class ArtistsFragment : Fragment(), ArtistsAdapter.OnActionListener {
     private lateinit var binding: FragmentArtistsBinding
-    private lateinit var adapater: ArtistsAdapter
+    private lateinit var adapter: ArtistsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,10 +54,10 @@ class ArtistsFragment : Fragment(), ArtistsAdapter.OnActionListener {
     }
 
     private fun init1() {
-        adapater = ArtistsAdapter(requireContext(), this)
-        binding.rvArtists.adapter = adapater
+        adapter = ArtistsAdapter(requireContext(), this)
+        binding.rvArtists.adapter = adapter
         binding.rvArtists.layoutManager = GridLayoutManager(context, 3)
-        adapater.addNotes(imageList)
+        adapter.addNotes(imageList)
 
     }
 
@@ -102,7 +101,7 @@ class ArtistsFragment : Fragment(), ArtistsAdapter.OnActionListener {
             Toast.makeText(requireContext(), "No data found", Toast.LENGTH_SHORT).show()
         }
         else{
-            adapater.addNotes(filteredList)
+            adapter.addNotes(filteredList)
         }
 
 

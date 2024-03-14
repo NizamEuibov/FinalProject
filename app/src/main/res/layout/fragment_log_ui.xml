@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
-    tools:context=".ui.login.viewmodel.LogInFragment">
+    tools:context=".ui.loginfragments.viewmodel.LogInFragment">
 
 <ImageView
     android:id="@+id/ivLogin"

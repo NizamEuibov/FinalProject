@@ -75,7 +75,6 @@
         android:layout_height="51dp"
         android:textColor="@color/white"
         android:background="@drawable/edittextcorner"
-        android:text="a@mail.ru"
         android:paddingStart="10dp"
         app:layout_constraintBottom_toTopOf="@id/buttonNext"
         app:layout_constraintEnd_toEndOf="parent"

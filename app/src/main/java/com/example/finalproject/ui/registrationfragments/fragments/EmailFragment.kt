@@ -46,22 +46,30 @@ class EmailFragment : Fragment() {
         binding.etRegistration.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val email = binding.etRegistration.text.toString()
-                if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    binding.buttonNext.enable()
-                } else {
-                    binding.buttonNext.disable()
-                    binding.etRegistration.error =
-                        "This email is invalid. Make sure it's written like example@email.com"
-                }
             }
 
             override fun afterTextChanged(s: Editable?) {
+                val email = binding.etRegistration.text
 
-            }
+                if (s != null) {
+                    if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+                        binding.buttonNext.enable()
+
+                    } else {
+                        binding.buttonNext.disable()
+                        binding.etRegistration.error =
+                            "This email is invalid. Make sure it's written like example@email.com"
+
+                    }
+                }
+                }
+
+
+
 
         })
     }

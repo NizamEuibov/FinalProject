@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    tools:context=".ui.homefragment.HomeFragment">
+
+   <com.google.android.material.bottomnavigation.BottomNavigationView
+       android:id="@+id/bnvHome"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/background"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:menu="@menu/spotify_bottom"
+       android:orientation="horizontal"
+       app:itemTextColor="@color/bbColor"
+       app:itemIconTint="@color/bbColor"
+       />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
