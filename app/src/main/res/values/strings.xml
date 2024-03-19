@@ -35,6 +35,10 @@
     <string name="bottom_your_library">Your Library</string>
     <string name="tvsearch">Search</string>
     <string name="svcancel">Cancel</string>
+    <string name="artists_button">Done</string>
+    <string name="tvAlbums">Choose album</string>
+    <string name="tvHome">Artists and Albums you choose</string>
+    <string name="tvHomeArtist">artist</string>
 
 </resources>
 

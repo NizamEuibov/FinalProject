@@ -9,8 +9,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civArtist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
         android:src="@drawable/ic_fashion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:text="@string/emailText"
         android:textColor="@color/white"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/civArtist"
         app:layout_constraintEnd_toEndOf="parent"

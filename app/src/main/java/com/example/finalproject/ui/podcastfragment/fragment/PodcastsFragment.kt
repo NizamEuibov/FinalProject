@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentPodcatsBinding
-import com.example.finalproject.ui.artistsfragment.model.ModelArtistsFragment
 import com.example.finalproject.ui.podcastfragment.adapter.PodcastAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,7 +39,7 @@ class PodcastsFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    filteredPodcast(newText)
+
                 }
                 return true
             }
@@ -51,46 +50,23 @@ class PodcastsFragment : Fragment() {
     private fun init() {
         adapter = PodcastAdapter(requireContext())
         binding.rvPodcast.adapter = adapter
-        adapter.addImage(imageList)
         binding.rvPodcast.layoutManager = GridLayoutManager(context, 3)
     }
 
 
-    private val imageList = mutableListOf(
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm"),
-        ModelArtistsFragment(R.drawable.ic_fashion, "jhfuiljm")
-    )
 
-    private fun filteredPodcast(query: String) {
-        val filteredPodcast = mutableListOf<ModelArtistsFragment>()
-        for (i in imageList) {
-            if (i.name.lowercase().contains(query)) {
-                filteredPodcast.add(i)
-            }
-        }
-        if (query.isEmpty()) {
-            Toast.makeText(requireContext(), "No data Found", Toast.LENGTH_SHORT).show()
-        } else {
-            adapter.addImage(filteredPodcast)
-        }
-    }
+//    private fun filteredPodcast(query: String) {
+//        val filteredPodcast = mutableListOf<ModelArtistsFragment>()
+//        for (i in imageList) {
+//            if (i.name.lowercase().contains(query)) {
+//                filteredPodcast.add(i)
+//            }
+//        }
+//        if (query.isEmpty()) {
+//            Toast.makeText(requireContext(), "No data Found", Toast.LENGTH_SHORT).show()
+//        } else {
+//            adapter.addImage(filteredPodcast)
+//        }
+//    }
 
 }

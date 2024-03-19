@@ -62,10 +62,10 @@ class NameFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (!checkName(s.toString())) {
-                    binding.buttonAccount.disable()
-                } else {
+                if (checkName(s.toString())) {
                     binding.buttonAccount.enable()
+                } else {
+                    binding.buttonAccount.disable()
                 }
             }
 
@@ -89,6 +89,6 @@ class NameFragment : Fragment() {
     private fun checkName(text: String): Boolean {
         val radioButton1 = binding.rb1Name
         val radioButton2 = binding.rb2Name
-        return !(text.isNotEmpty() && radioButton2.isChecked && radioButton1.isChecked)
+        return (text.isNotEmpty() && radioButton2.isChecked && radioButton1.isChecked)
     }
 }

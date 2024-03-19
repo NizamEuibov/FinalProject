@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
-    tools:context=".ui.serachfragments.SearchFragment">
+    tools:context=".ui.serachfragments.fragments.SearchFragment">
     
     
     <TextView
@@ -35,6 +35,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvSearch"
         android:layout_marginHorizontal="18dp"
         android:layout_marginTop="15dp"
+        android:inputType="none"
         />
     
     <androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/svSearch"
         android:layout_marginTop="25dp"
         />
+
 
 
 
