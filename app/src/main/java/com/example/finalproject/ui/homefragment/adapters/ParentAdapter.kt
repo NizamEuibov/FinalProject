@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.example.finalproject.data.networkdata.models.NameAndImage
+import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.HomeListBinding
 
 class ParentAdapter(private val context: Context): RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
     private lateinit var binding:HomeListBinding
-    private val dataList= mutableListOf<NameAndImage>()
+    private val dataList= mutableListOf<DataTypeModel.NameAndImage>()
 
 
     override fun onCreateViewHolder(
@@ -36,7 +36,7 @@ class ParentAdapter(private val context: Context): RecyclerView.Adapter<ParentAd
 
   inner  class ParentViewHolder(private var binding: HomeListBinding):ViewHolder(binding.root) {
 
-        fun onBind(data:NameAndImage){
+        fun onBind(data: DataTypeModel.NameAndImage){
             with(binding){
                 Glide.with(context).load(data.image)
                     .into(ivHomeImage)
@@ -53,7 +53,7 @@ class ParentAdapter(private val context: Context): RecyclerView.Adapter<ParentAd
     }
 
 
-    fun addList(newList:List<NameAndImage>){
+    fun addList(newList:List<DataTypeModel.NameAndImage>){
         dataList.clear()
         dataList.addAll(newList)
         notifyDataSetChanged()

@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalproject.R
-import com.example.finalproject.data.networkdata.models.NameAndImage
+import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentArtistsBinding
 import com.example.finalproject.ui.artistsfragment.adapters.ArtistsAdapter
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
@@ -26,7 +26,7 @@ class ArtistsFragment : Fragment() {
     private lateinit var binding: FragmentArtistsBinding
     private lateinit var adapter: ArtistsAdapter
     private val viewModel: ArtistsViewModel by viewModels()
-    private var artistsList: List<NameAndImage> = emptyList()
+    private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
 
 
     override fun onCreateView(
@@ -77,7 +77,7 @@ class ArtistsFragment : Fragment() {
             }
         }
         adapter.setSelectedListener(object : ArtistsAdapter.SelectedListener {
-            override fun onSelected(selectedItems: List<NameAndImage>) {
+            override fun onSelected(selectedItems: List<DataTypeModel.NameAndImage>) {
 
 
                 if (selectedItems.size < 3) {

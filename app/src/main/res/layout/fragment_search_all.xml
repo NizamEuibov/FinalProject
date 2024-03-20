@@ -49,4 +49,15 @@ app:layout_constraintTop_toTopOf="@id/svSearchAll"
         tools:listitem="@layout/search_all_list"
         android:layout_marginTop="10dp"/>
 
+
+    <View
+        android:id="@+id/vSearchBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:background="@color/background"
+        app:layout_constraintTop_toBottomOf="@id/svSearchAll"
+       app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

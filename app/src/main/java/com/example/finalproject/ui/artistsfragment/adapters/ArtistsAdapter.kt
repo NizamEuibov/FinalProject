@@ -8,14 +8,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
-import com.example.finalproject.data.networkdata.models.NameAndImage
+import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.ArtistsListBinding
 
 class ArtistsAdapter(val context: Context) :
     RecyclerView.Adapter<ArtistsAdapter.ArtistsViewHolder>() {
-    private var selectedList = mutableListOf<NameAndImage>()
+    private var selectedList = mutableListOf<DataTypeModel.NameAndImage>()
     private  var selectedListener: SelectedListener?=null
-    private val dataList = mutableListOf<NameAndImage>()
+    private val dataList = mutableListOf<DataTypeModel.NameAndImage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistsViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -54,7 +54,7 @@ class ArtistsAdapter(val context: Context) :
         }
 
 
-        fun onBind(data: NameAndImage, isSelected: Boolean) {
+        fun onBind(data: DataTypeModel.NameAndImage, isSelected: Boolean) {
             with(binding) {
                 Glide.with(context).load(data.image).into(civArtist)
                 tvArtistList.text = data.name
@@ -74,7 +74,7 @@ class ArtistsAdapter(val context: Context) :
         }
     }
 
-    fun addNotes(newList: List<NameAndImage>) {
+    fun addNotes(newList: List<DataTypeModel.NameAndImage>) {
         dataList.clear()
         dataList.addAll(newList)
         notifyDataSetChanged()
@@ -87,6 +87,6 @@ class ArtistsAdapter(val context: Context) :
 
 
     interface SelectedListener {
-        fun onSelected(selectedItems: List<NameAndImage>)
+        fun onSelected(selectedItems: List<DataTypeModel.NameAndImage>)
     }
 }

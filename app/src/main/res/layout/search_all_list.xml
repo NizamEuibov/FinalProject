@@ -23,10 +23,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/civSearchAll"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/tvSearchArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bbColor"
+        android:text="@string/list2_artist"
+        app:layout_constraintStart_toEndOf="@id/civSearchAll"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchAll"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
         />
 
 

@@ -39,6 +39,8 @@
     <string name="tvAlbums">Choose album</string>
     <string name="tvHome">Artists and Albums you choose</string>
     <string name="tvHomeArtist">artist</string>
+    <string name="List2_album">Album</string>
+    <string name="list2_artist">Artist</string>
 
 </resources>
 
