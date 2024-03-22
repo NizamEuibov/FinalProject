@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
-import com.example.finalproject.databinding.AlbumsListBinding
 import com.example.finalproject.databinding.SearchAlbumListBinding
 import com.example.finalproject.databinding.SearchAllListBinding
+import javax.inject.Inject
 
-class SearchAllAdapter(private val context: Context) :
+class SearchAllAdapter @Inject constructor(val context: Context) :
     RecyclerView.Adapter<ViewHolder>() {
     private lateinit var binding: SearchAllListBinding
     private val dataList = mutableListOf<DataTypeModel>()
+    private var listener: Listener? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,7 +31,11 @@ class SearchAllAdapter(private val context: Context) :
 
             else -> {
                 val binding =
-                    SearchAlbumListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                    SearchAlbumListBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 SearchAllAlbumViewHolder(binding)
             }
         }
@@ -38,15 +43,22 @@ class SearchAllAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
-            is SearchAllViewHolder -> holder.onBind(dataList[position] as DataTypeModel.NameAndImage)
-            is SearchAllAlbumViewHolder -> holder.onBind(dataList[position] as DataTypeModel.AlbumList)
+            is SearchAllViewHolder -> holder.onBind(
+                dataList[position] as DataTypeModel.NameAndImage,
+                listener
+            )
+
+            is SearchAllAlbumViewHolder -> holder.onBind(
+                dataList[position] as DataTypeModel.AlbumList,
+                listener
+            )
         }
 
 
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(dataList[position]){
+        return when (dataList[position]) {
             is DataTypeModel.NameAndImage -> ARTISTS_TYPE
             else -> ALBUM_TYPE
         }
@@ -58,21 +70,27 @@ class SearchAllAdapter(private val context: Context) :
 
     inner class SearchAllViewHolder(private var binding: SearchAllListBinding) :
         ViewHolder(binding.root) {
-        fun onBind(data: DataTypeModel.NameAndImage) {
+        fun onBind(data: DataTypeModel.NameAndImage, listener: Listener?) {
             Glide.with(context).load(data.image)
                 .into(binding.civSearchAll)
             binding.tvSearchAll.text = data.name
+            itemView.setOnClickListener {
+                listener?.onClickListener(data)
+            }
         }
 
     }
 
     inner class SearchAllAlbumViewHolder(private val binding: SearchAlbumListBinding) :
         ViewHolder(binding.root) {
-        fun onBind(data: DataTypeModel.AlbumList) {
+        fun onBind(data: DataTypeModel.AlbumList, listener: Listener?) {
             Glide.with(context).load(data.image)
                 .into(binding.civSearchAll)
-            binding.tvSearchAll.text=data.name
+            binding.tvSearchAll.text = data.name
+            itemView.setOnClickListener {
+                listener?.onClickListener(data)
 
+            }
         }
 
     }
@@ -87,6 +105,14 @@ class SearchAllAdapter(private val context: Context) :
     companion object {
         private const val ARTISTS_TYPE = 0
         private const val ALBUM_TYPE = 1
+    }
+
+    interface Listener {
+        fun onClickListener(data: DataTypeModel)
+    }
+
+    fun setOnClicikListener(listener: Listener) {
+        this.listener = listener
     }
 
 }

@@ -60,11 +60,7 @@
             app:destination="@id/homeFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/podcatsFragment"
-        android:name="com.example.finalproject.ui.podcastfragment.fragment.PodcastsFragment"
-        android:label="fragment_podcats"
-        tools:layout="@layout/fragment_podcats" />
+
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.finalproject.ui.loginfragments.fragments.LogUiFragment"
@@ -106,6 +102,16 @@
         android:id="@+id/searchAllFragment"
         android:name="com.example.finalproject.ui.serachfragments.fragments.SearchAllFragment"
         android:label="fragment_search_all"
-        tools:layout="@layout/fragment_search_all" />
+        tools:layout="@layout/fragment_search_all" >
+
+        <action
+            android:id="@+id/action_searchAllFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumsFragment"
+        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumsFragment"
+        android:label="fragment_album"
+        tools:layout="@layout/fragment_albums" />
 
 </navigation>

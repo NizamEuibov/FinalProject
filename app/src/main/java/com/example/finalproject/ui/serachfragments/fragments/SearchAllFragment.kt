@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalproject.R
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentSearchAllBinding
 import com.example.finalproject.ui.serachfragments.adapter.SearchAllAdapter
@@ -21,7 +24,7 @@ class SearchAllFragment : Fragment() {
     private lateinit var adapter: SearchAllAdapter
     private var listArtists: List<DataTypeModel> = emptyList()
     private val viewModel: SearchAllViewModel by viewModels()
-    private val combinedList = mutableListOf<Any>()
+    private var id:Int?=null
 
 
     override fun onCreateView(
@@ -54,6 +57,25 @@ class SearchAllFragment : Fragment() {
 
         })
 
+        adapter.setOnClicikListener(object :SearchAllAdapter.Listener{
+            override fun onClickListener(data: DataTypeModel) {
+                when(data){
+                    is DataTypeModel.NameAndImage ->{
+                        val bundle= bundleOf(
+                            "id" to data.id)
+                        findNavController().navigate(R.id.action_searchAllFragment_to_albumsFragment, bundle)}
+
+                        else -> {
+                        error("Invalid")
+                    }
+                }
+            }
+
+        })
+
+
+
+
     }
 
     private fun init() {
@@ -70,6 +92,8 @@ class SearchAllFragment : Fragment() {
         }
 
 
+
+
     }
 
 
@@ -78,7 +102,7 @@ class SearchAllFragment : Fragment() {
             when (item) {
                 is DataTypeModel.NameAndImage -> item.name.lowercase().contains(query)
                 is DataTypeModel.AlbumList -> item.name?.lowercase()?.contains(query) == true
-                is DataTypeModel.Model -> false
+                else -> {false}
             }
         }
         if (searchList.isEmpty()) {

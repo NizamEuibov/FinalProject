@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.albumsfragment.fragment.AlbumViewFragment">
+
+
+<ImageView
+    android:id="@+id/ivAlbumView"
+    android:layout_width="234dp"
+    android:layout_height="234dp"
+    android:layout_marginHorizontal="97dp"
+    android:layout_marginTop="75dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:contentDescription="@string/todo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivAlbumView"
+        android:paddingStart="16dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="30dp"
+        tools:ignore="RtlSymmetry">
+         <TextView
+             android:id="@+id/tvAlbumView"
+             android:layout_width="0dp"
+             android:layout_height="34dp"
+             android:textSize="25sp"
+             android:textStyle="bold"
+             android:text="@string/tvsearch"
+             android:textColor="@color/white"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             />
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civAlbumView"
+            android:layout_width="23dp"
+            android:layout_height="21dp"
+            android:src="@drawable/ic_fashion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumView"
+            app:layout_constraintEnd_toStartOf="@+id/tvArtistName"
+            android:layout_marginTop="12dp"
+            />
+        <TextView
+            android:id="@+id/tvArtistName"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:textSize="14sp"
+            android:text="@string/todo"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/civAlbumView"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumView"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="7dp"
+            />
+        
+        
+        <ImageButton
+            android:id="@+id/bAlbumPauseAndPlay"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:backgroundTint="@color/grey"
+           android:src="@drawable/ic_pause"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/artists"
+            android:layout_marginBottom="11dp"
+            android:layout_marginEnd="26dp"
+            android:contentDescription="@string/todo"
+            />
+        
+        <ImageButton
+            android:id="@+id/bAlbumViewHeart"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="@color/background"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/todo"
+            />
+
+        <ImageButton
+            android:id="@+id/bAlbumViewDownload"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_download"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="@color/background"
+            app:layout_constraintStart_toEndOf="@id/bAlbumViewHeart"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="31dp"
+            />
+
+        <ImageButton
+            android:id="@+id/bAlbumViewPoint"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_3point"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="@color/background"
+            app:layout_constraintStart_toEndOf="@id/bAlbumViewDownload"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="31dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAlbumView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+        android:layout_marginTop="7dp"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

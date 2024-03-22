@@ -5,43 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".ui.podcastfragment.fragment.PodcastsFragment">
+    tools:context=".ui.albumsfragment.fragment.AlbumsFragment">
 
     <TextView
-        android:id="@+id/tvPodcast"
+        android:id="@+id/tvAlbum"
         android:layout_width="246dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/tvpodcasts"
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/svPodcast"
+        app:layout_constraintStart_toStartOf="@+id/svAlbum"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/svPodcast"
+        android:id="@+id/svAlbum"
         android:layout_width="376dp"
         android:layout_height="42dp"
         android:layout_marginHorizontal="26dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/serach_corner"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPodcast"
+        app:layout_constraintTop_toBottomOf="@+id/tvAlbum"
         app:queryHint="Search" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPodcast"
+        android:id="@+id/rvAlbum"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svPodcast"
-        tools:listitem="@layout/podcasts_list"
+        app:layout_constraintTop_toBottomOf="@id/svAlbum"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="9dp"
-        android:layout_marginTop="57dp"/>
+        android:layout_marginTop="30dp"/>
+
+    <View
+        android:id="@+id/vAlbumFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svAlbum"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

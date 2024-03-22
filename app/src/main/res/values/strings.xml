@@ -29,7 +29,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
-    <string name="tvpodcasts">Now choose some podcasts.</string>
+    <string name="tvpodcasts">Now choose albums.</string>
     <string name="bottom_home">Home</string>
     <string name="bottom_search">Search</string>
     <string name="bottom_your_library">Your Library</string>
@@ -41,6 +41,15 @@
     <string name="tvHomeArtist">artist</string>
     <string name="List2_album">Album</string>
     <string name="list2_artist">Artist</string>
+    <string name="tv_album">Album</string>
+    <string name="tbClose">Close</string>
+    <string name="tv_go">Go to radio</string>
+    <string name="tvadd_to">Add to queue</string>
+    <string name="tvadd">Add to playlist</string>
+    <string name="tvlike_all">Like all songs</string>
+    <string name="tvshare">Share</string>
+    <string name="tvview_artist">View Artist</string>
+    <string name="tvlike">Like</string>
 
 </resources>
 
