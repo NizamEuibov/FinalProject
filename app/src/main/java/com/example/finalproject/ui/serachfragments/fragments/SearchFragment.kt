@@ -19,7 +19,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         return (binding.root)
     }
@@ -30,6 +30,13 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_searchAllFragment)
         }
         init()
+
+        adapter.setOnClickListener(object :SearchAdapter.Listener{
+            override fun onClickListener(data: CardListModel) {
+                findNavController().navigate(R.id.action_searchFragment_to_searchAllFragment)
+            }
+
+        })
 
 
     }

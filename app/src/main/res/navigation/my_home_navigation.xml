@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_home_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.finalproject.ui.homefragment.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/albumsFragment"
+        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumsFragment"
+        android:label="fragment_albums"
+        tools:layout="@layout/fragment_albums" >
+        <action
+            android:id="@+id/action_albumsFragment_to_albumViewFragment"
+            app:destination="@id/albumViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumViewFragment"
+        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumViewFragment"
+        android:label="fragment_album_view"
+        tools:layout="@layout/fragment_album_view" >
+        <action
+            android:id="@+id/action_albumViewFragment_to_albumControlFragment"
+            app:destination="@id/albumControlFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumControlFragment"
+        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumControlFragment"
+        android:label="fragment_album_control"
+        tools:layout="@layout/fragment_album_control" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.finalproject.ui.serachfragments.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchAllFragment"
+            app:destination="@id/searchAllFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchAllFragment"
+        android:name="com.example.finalproject.ui.serachfragments.fragments.SearchAllFragment"
+        android:label="fragment_search_all"
+        tools:layout="@layout/fragment_search_all" >
+        <action
+            android:id="@+id/action_searchAllFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yourLibraryFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.YourLibraryFragment"
+        android:label="fragment_your_library"
+        tools:layout="@layout/fragment_your_library" />
+</navigation>

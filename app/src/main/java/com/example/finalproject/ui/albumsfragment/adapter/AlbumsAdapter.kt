@@ -37,7 +37,10 @@ class AlbumsAdapter @Inject constructor(val context: Context) :
             Glide.with(context).load(data.image)
                 .into(binding.ivAlbum)
             binding.tvAlbums.text = data.name
-            listener?.onClickListener(data)
+            itemView.setOnClickListener{
+                listener?.onClickListener(data)
+            }
+
         }
 
 

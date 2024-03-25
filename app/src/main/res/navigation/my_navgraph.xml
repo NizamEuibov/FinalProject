@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/my_navgraph"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/artistsFragment">
 
     <fragment
         android:id="@+id/emailFragment"
@@ -53,65 +53,35 @@
 
         <action
             android:id="@+id/action_artistsFragment_to_logInFragment"
-            app:destination="@id/logInFragment"
-            app:popUpTo="@id/logInFragment" />
+            app:destination="@id/loginnFragment"
+          />
         <action
             android:id="@+id/action_artistsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_artistsFragment_to_loginnFragment"
+            app:destination="@id/loginnFragment" />
     </fragment>
-
-
     <fragment
-        android:id="@+id/logInFragment"
+        android:id="@+id/logUiFragment"
         android:name="com.example.finalproject.ui.loginfragments.fragments.LogUiFragment"
-        android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_ui" >
+        android:label="LogUiFragment" >
         <action
-            android:id="@+id/action_logInFragment_to_emailFragment"
+            android:id="@+id/action_logUiFragment_to_emailFragment"
             app:destination="@id/emailFragment" />
-
         <action
-            android:id="@+id/action_logInFragment_to_loginnFragment"
+            android:id="@+id/action_logUiFragment_to_loginnFragment"
             app:destination="@id/loginnFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginnFragment"
         android:name="com.example.finalproject.ui.loginfragments.fragments.LoginnFragment"
-        android:label="fragment_login_"
-        tools:layout="@layout/fragment_login" >
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 
-        <action
-            android:id="@+id/action_loginnFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.finalproject.ui.homefragment.fragment.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.finalproject.ui.serachfragments.fragments.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_searchAllFragment"
-            app:destination="@id/searchAllFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchAllFragment"
-        android:name="com.example.finalproject.ui.serachfragments.fragments.SearchAllFragment"
-        android:label="fragment_search_all"
-        tools:layout="@layout/fragment_search_all" >
+    <action
+        android:id="@+id/action_loginnFragment_to_homeFragment"
+        app:destination="@+id/homeFragment"/>
 
-        <action
-            android:id="@+id/action_searchAllFragment_to_albumsFragment"
-            app:destination="@id/albumsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/albumsFragment"
-        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumsFragment"
-        android:label="fragment_album"
-        tools:layout="@layout/fragment_albums" />
 
 </navigation>

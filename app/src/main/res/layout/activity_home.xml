@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.HomeActivity"
+    app:layoutDescription="@xml/activity_home_scene">
+
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/homeFragmentContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constraintMotion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/my_home_navigation" />
+
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="7dp"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bnvHome"
+        android:id="@+id/constraintMotion">
+
+        <ImageView
+            android:id="@+id/ivMotion"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_fashion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/todo"/>
+
+
+        <TextView
+            android:id="@+id/tvMotion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="@string/tvTextName"
+            app:layout_constraintStart_toEndOf="@id/ivMotion"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="9dp"
+            />
+        
+        <TextView
+            android:id="@+id/tvMotion2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/motion_beatspill"
+            android:drawableStart="@drawable/ic_blue"
+            android:drawablePadding="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/grey"
+            app:layout_constraintStart_toEndOf="@id/ivMotion"
+            app:layout_constraintTop_toBottomOf="@id/tvMotion"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="9dp"
+            />
+
+        <ImageButton
+            android:id="@+id/ibMotion"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_pause2"
+            android:background="@color/background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="7dp"
+            android:contentDescription="@string/todo"/>
+
+        <ImageButton
+            android:id="@+id/ibMotion2"
+            android:layout_width="29dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_blue"
+            android:background="@color/background"
+            app:layout_constraintEnd_toStartOf="@id/ibMotion"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/todo"
+          />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvHome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:itemIconTint="@color/bbColor"
+        app:itemTextColor="@color/bbColor"
+        app:menu="@menu/spotify_navigation_view" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
+
