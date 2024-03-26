@@ -57,6 +57,10 @@ class SearchAllFragment : Fragment() {
 
         })
 
+        binding.svCancel.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         adapter.setOnClicikListener(object :SearchAllAdapter.Listener{
             override fun onClickListener(data: DataTypeModel) {
                 when(data){

@@ -38,14 +38,31 @@
         app:layout_constraintBottom_toTopOf="@id/bnvHome"
         android:id="@+id/constraintMotion">
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+       
+       <ImageButton
+           android:id="@+id/ibClose"
+           android:layout_width="21dp"
+           android:layout_height="21dp"
+           android:src="@drawable/ic_down"
+           android:background="@color/background"
+           app:layout_constraintStart_toStartOf="@id/constraintMotion"
+           app:layout_constraintTop_toTopOf="@id/constraintMotion"
+           android:contentDescription="@string/todo"
+           android:visibility="gone"
+           />
+       
+       
+       
         <ImageView
             android:id="@+id/ivMotion"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="55dp"
             android:src="@drawable/ic_fashion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/constraintMotion"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
+            android:layout_marginBottom="9dp"
             android:contentDescription="@string/todo"/>
 
 
@@ -57,10 +74,23 @@
             android:textSize="14sp"
             android:text="@string/tvTextName"
             app:layout_constraintStart_toEndOf="@id/ivMotion"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
             android:layout_marginTop="7dp"
             android:layout_marginStart="9dp"
             />
+
+
+    <TextView
+        android:id="@+id/tvAlbumName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="11sp"
+        android:textColor="@color/white"
+        android:text="@string/tvTextName"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/constraintMotion"
+        app:layout_constraintTop_toTopOf="@id/constraintMotion"
+        />
         
         <TextView
             android:id="@+id/tvMotion2"
@@ -73,38 +103,145 @@
             android:textColor="@color/grey"
             app:layout_constraintStart_toEndOf="@id/ivMotion"
             app:layout_constraintTop_toBottomOf="@id/tvMotion"
+            app:layout_constraintBottom_toTopOf="@id/skMotion"
             android:layout_marginTop="7dp"
             android:layout_marginStart="9dp"
+            android:layout_marginBottom="9dp"
             />
 
         <ImageButton
             android:id="@+id/ibMotion"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="70dp"
             android:src="@drawable/ic_pause2"
             android:background="@color/background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/constraintMotion"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
             android:layout_marginEnd="7dp"
+            android:layout_marginBottom="9dp"
             android:contentDescription="@string/todo"/>
 
         <ImageButton
             android:id="@+id/ibMotion2"
             android:layout_width="29dp"
-            android:layout_height="match_parent"
+            android:layout_height="70dp"
             android:src="@drawable/ic_blue"
             android:background="@color/background"
             app:layout_constraintEnd_toStartOf="@id/ibMotion"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
+            android:layout_marginBottom="9dp"
             android:contentDescription="@string/todo"
           />
+        
+        
+        <ImageButton
+            android:id="@+id/ibShuffle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_shuffle"
+            android:visibility="gone"
+            android:background="@color/background"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
+            app:layout_constraintStart_toStartOf="@id/constraintMotion"
+            android:contentDescription="@string/todo"
+            />
+
+        <ImageButton
+            android:id="@+id/ibPrevious"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_previous"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/constraintMotion"
+            app:layout_constraintEnd_toEndOf="@id/constraintMotion"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
+            android:contentDescription="@string/todo"
+            android:background="@color/background"
+            />
+
+        <ImageButton
+            android:id="@+id/ibPlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_pause"
+            android:visibility="gone"
+            android:background="@drawable/round_ic"
+            app:layout_constraintStart_toStartOf="@id/constraintMotion"
+            app:layout_constraintEnd_toEndOf="@id/constraintMotion"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
+            android:contentDescription="@string/todo"
+            />
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/ibNext"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_next"
+            android:background="@color/background"
+            app:layout_constraintStart_toStartOf="@id/constraintMotion"
+            app:layout_constraintEnd_toEndOf="@id/constraintMotion"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
+            android:contentDescription="@string/todo"
+            />
+
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/ibRepeat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_repeat"
+            app:layout_constraintStart_toStartOf="@id/constraintMotion"
+            app:layout_constraintEnd_toEndOf="@id/constraintMotion"
+            app:layout_constraintTop_toTopOf="@id/constraintMotion"
+            android:contentDescription="@string/todo"
+            android:background="@color/background"
+            />
 
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<SeekBar
+    android:id="@+id/skMotion"
+    android:layout_width="match_parent"
+    android:layout_height="5dp"
+    app:layout_constraintStart_toStartOf="@id/constraintMotion"
+    app:layout_constraintEnd_toEndOf="@id/constraintMotion"
+    app:layout_constraintTop_toBottomOf="@id/ivMotion"
+    />
+    
+    
+    <ImageButton
+        android:id="@+id/ibShare"
+        android:layout_width="15dp"
+        android:layout_height="19dp"
+        android:src="@drawable/ic_share"
+        android:visibility="gone"
+        android:background="@color/background"
+        android:contentDescription="@string/todo"
+        />
+
+
+<ImageButton
+    android:id="@+id/ibPlayList"
+    android:layout_width="18dp"
+    android:layout_height="16dp"
+    android:src="@drawable/ic_playlist"
+    android:contentDescription="@string/todo"
+    android:background="@color/background"
+    android:visibility="gone"
+    />
+    
+    <ImageButton
+        android:id="@+id/ib3Point"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@string/todo"
+        android:visibility="gone"
+        android:background="@color/background"
+        android:src="@drawable/ic_3point"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvHome"

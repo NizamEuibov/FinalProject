@@ -47,10 +47,16 @@
     <string name="tvadd_to">Add to queue</string>
     <string name="tvadd">Add to playlist</string>
     <string name="tvlike_all">Like all songs</string>
-    <string name="tvshare">Share</string>
+    <string name="tvShare">Share</string>
     <string name="tvview_artist">View Artist</string>
     <string name="tvlike">Like</string>
     <string name="motion_beatspill">BEATSPILL+</string>
+    <string name="track_share">Share</string>
+    <string name="track_copy_link">Copy Link</string>
+    <string name="track_whatsapp">Whatsapp</string>
+    <string name="track_twitter">Twitter</string>
+    <string name="track_message">Message</string>
+    <string name="track_more">More</string>
 
 </resources>
 

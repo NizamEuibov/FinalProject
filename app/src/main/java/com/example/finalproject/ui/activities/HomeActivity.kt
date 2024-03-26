@@ -1,5 +1,6 @@
 package com.example.finalproject.ui.activities
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        musicCheck()
 
 
         val bottomNav=binding.bnvHome
@@ -44,6 +46,20 @@ class HomeActivity : AppCompatActivity() {
 
                 else -> false
             }
+        }
+    }
+
+
+
+    private fun musicCheck(){
+        val mediaPlayer=MediaPlayer.create(this,R.raw.music)
+
+        binding.ibPlay.setOnClickListener {
+            if (mediaPlayer.isPlaying)
+                mediaPlayer.start()
+
+            else
+                mediaPlayer.pause()
         }
     }
         }

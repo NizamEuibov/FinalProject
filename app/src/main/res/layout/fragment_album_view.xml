@@ -8,6 +8,18 @@
     tools:context=".ui.albumsfragment.fragment.AlbumViewFragment">
 
 
+
+    <ImageButton
+        android:id="@+id/bBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/background"
+        android:src="@drawable/ic_back"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="9dp"
+        />
 <ImageView
     android:id="@+id/ivAlbumView"
     android:layout_width="234dp"

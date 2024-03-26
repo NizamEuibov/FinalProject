@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentAlbumViewBinding
 
 class AlbumViewFragment : Fragment() {
@@ -40,6 +42,14 @@ class AlbumViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         albumView()
+
+        binding.bBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
+        binding.bAlbumViewPoint.setOnClickListener {
+            findNavController().navigate(R.id.action_albumViewFragment_to_albumControlFragment)
+        }
     }
 
 
