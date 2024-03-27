@@ -9,4 +9,8 @@ interface ArtistApiService {
 
     @GET("/v3.0/artists/albums/?client_id=1a88e795")
     suspend fun getArtistsApi():Response<DataTypeModel.Model>
+
+
+    @GET("/v3.0/artists/tracks/?client_id=1a88e795")
+    suspend fun getTracks():Response<DataTypeModel.Model>
 }

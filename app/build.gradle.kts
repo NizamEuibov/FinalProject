@@ -60,7 +60,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation("com.google.firebase:firebase-crashlytics:18.6.2")
+    implementation("com.google.firebase:firebase-crashlytics:18.6.3")
     implementation("com.google.firebase:firebase-config:21.6.3")
     val okhttpVersion = "4.12.0"
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")

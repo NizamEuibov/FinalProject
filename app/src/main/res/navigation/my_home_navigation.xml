@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_albumViewFragment_to_albumControlFragment"
             app:destination="@id/albumControlFragment" />
+        <action
+            android:id="@+id/action_albumViewFragment_to_trackControlFragment"
+            app:destination="@id/trackControlFragment" />
     </fragment>
     <fragment
         android:id="@+id/albumControlFragment"
@@ -57,4 +60,17 @@
         android:name="com.example.finalproject.ui.libraryfragment.YourLibraryFragment"
         android:label="fragment_your_library"
         tools:layout="@layout/fragment_your_library" />
+    <fragment
+        android:id="@+id/trackShareFragment"
+        android:name="com.example.finalproject.ui.track.fragment.TrackShareFragment"
+        android:label="fragment_track_share"
+        tools:layout="@layout/fragment_track_share" />
+    <fragment
+        android:id="@+id/trackControlFragment"
+        android:name="com.example.finalproject.ui.track.fragment.TrackControlFragment"
+        android:label="TrackControlFragment" >
+        <action
+            android:id="@+id/action_trackControlFragment_to_trackShareFragment"
+            app:destination="@id/trackShareFragment" />
+    </fragment>
 </navigation>

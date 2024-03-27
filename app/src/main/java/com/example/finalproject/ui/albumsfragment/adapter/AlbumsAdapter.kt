@@ -17,7 +17,7 @@ class AlbumsAdapter @Inject constructor(val context: Context) :
     private var listener:Listener?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PodcastViewHolder {
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         val binding = AlbumsListBinding.inflate(inflater, parent, false)
         return PodcastViewHolder(binding)
     }

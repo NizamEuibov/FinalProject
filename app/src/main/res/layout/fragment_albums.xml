@@ -7,16 +7,33 @@
     android:background="@color/background"
     tools:context=".ui.albumsfragment.fragment.AlbumsFragment">
 
+
+   <ImageButton
+       android:id="@+id/cvBack"
+       android:layout_width="21dp"
+       android:layout_height="21dp"
+       android:background="@color/background"
+       android:src="@drawable/ic_back"
+       android:layout_marginStart="20dp"
+       android:layout_marginTop="25dp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintEnd_toStartOf="@id/tvAlbum"
+       />
+
+
+
     <TextView
         android:id="@+id/tvAlbum"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
         android:text="@string/tvpodcasts"
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/svAlbum"
+        app:layout_constraintStart_toEndOf="@id/cvBack"
         app:layout_constraintTop_toTopOf="parent" />
 
 

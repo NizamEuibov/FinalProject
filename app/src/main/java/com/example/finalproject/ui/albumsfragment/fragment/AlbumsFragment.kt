@@ -48,6 +48,10 @@ class AlbumsFragment : Fragment() {
         init()
         listenerView()
 
+        binding.cvBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
 
         binding.svAlbum.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -107,6 +111,7 @@ class AlbumsFragment : Fragment() {
                 val albumName = data.id
 
                 val bundle = bundleOf(
+                     "id" to data.id,
                     "name" to  artistsList.filter { it.albums.contains(data) }.map { it.name }.toString(),
                     "image" to artistsList.filter { it.albums.contains(data) }.map { it.image }.toString(),
                     "albumName" to data.name,
@@ -117,13 +122,9 @@ class AlbumsFragment : Fragment() {
                     R.id.action_albumsFragment_to_albumViewFragment,
                     bundle
                 )
-                Log.d(
-                    "user666",
-                    "${artistsList.filter { it.albums.contains(data) }.map { it.name }}"
-                )
             }
 
         })
     }
-
 }
+

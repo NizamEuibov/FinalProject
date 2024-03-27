@@ -1,183 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
-    tools:context=".ui.albumsfragment.fragment.AlbumControlFragment"
-    >
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/background"
+        tools:context=".ui.albumsfragment.fragment.AlbumControlFragment">
 
 
-    <ImageView
-        android:id="@+id/ivAlbumControl"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="21dp"
-        android:layout_marginHorizontal="132dp"
-        android:contentDescription="@string/todo"
-        />
+        <ImageView
+            android:id="@+id/ivAlbumControl"
+            android:layout_width="165dp"
+            android:layout_height="165dp"
+            android:layout_marginHorizontal="132dp"
+            android:layout_marginTop="21dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvAlbumName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="@string/tvsearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivAlbumControl"
-        app:layout_constraintBottom_toTopOf="@+id/tvArtistsName"
-        android:layout_marginTop="50dp"
-        />
+        <TextView
+            android:id="@+id/tvAlbumName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/tvsearch"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvArtistsName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAlbumControl" />
 
-    <TextView
-        android:id="@+id/tvArtistsName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/bbColor"
-        android:textSize="14sp"
-        android:text="@string/tvsearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumName"
-        android:layout_marginTop="15dp"
-        />
+        <TextView
+            android:id="@+id/tvArtistsName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/tvsearch"
+            android:textColor="@color/bbColor"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumName" />
 
 
-    <TextView
-        android:paddingStart="45dp"
-        android:id="@+id/tvAlbumControlLike"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/tvlike"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvArtistsName"
-        app:layout_constraintBottom_toTopOf="@id/tvAlbumControlArtist"
-        app:drawableStartCompat="@drawable/ic_heart"
-        android:drawablePadding="15dp"
-        tools:ignore="RtlSymmetry"
-        android:layout_marginTop="35dp"
-        />
+        <TextView
+            android:id="@+id/tvAlbumControlLike"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:drawablePadding="15dp"
+            android:paddingStart="45dp"
+            android:text="@string/tvlike"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_heart"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlArtist"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvArtistsName"
+            tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:paddingStart="45dp"
-        android:id="@+id/tvAlbumControlArtist"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/tvview_artist"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumControlLike"
-        app:layout_constraintBottom_toTopOf="@id/tvAlbumControlShare"
-        app:drawableStartCompat="@drawable/ic_view_artists"
-        android:drawablePadding="15dp"
-        tools:ignore="RtlSymmetry"
-        android:layout_marginTop="23dp"/>
-
+        <TextView
+            android:id="@+id/tvAlbumControlArtist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:drawablePadding="15dp"
+            android:paddingStart="45dp"
+            android:text="@string/tvview_artist"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_view_artists"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlShare"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumControlLike"
+            tools:ignore="RtlSymmetry" />
 
 
-    <TextView
-        android:paddingStart="45dp"
-        android:id="@+id/tvAlbumControlShare"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/tvShare"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumControlArtist"
-        app:layout_constraintBottom_toTopOf="@id/tvAlbumControlLikeAll"
-        app:drawableStartCompat="@drawable/ic_share"
-        android:drawablePadding="15dp"
-        tools:ignore="RtlSymmetry"
-        android:layout_marginTop="23dp"/>
+        <TextView
+            android:id="@+id/tvAlbumControlShare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:drawablePadding="15dp"
+            android:paddingStart="45dp"
+            android:text="@string/tvShare"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_share"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlLikeAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumControlArtist"
+            tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:paddingStart="45dp"
-        android:id="@+id/tvAlbumControlLikeAll"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/tvlike_all"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumControlShare"
-        app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAdd"
-        app:drawableStartCompat="@drawable/ic_heart"
-        android:drawablePadding="15dp"
-        tools:ignore="RtlSymmetry"
-        android:layout_marginTop="23dp"/>
+        <TextView
+            android:id="@+id/tvAlbumControlLikeAll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:drawablePadding="15dp"
+            android:paddingStart="45dp"
+            android:text="@string/tvlike_all"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_heart"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAdd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumControlShare"
+            tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:paddingStart="45dp"
-        android:id="@+id/tvAlbumControlAdd"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/tvadd"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumControlLikeAll"
-        app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAddTo"
-        app:drawableStartCompat="@drawable/ic_add"
-        android:drawablePadding="15dp"
-        tools:ignore="RtlSymmetry"
-        android:layout_marginTop="23dp"/>
+        <TextView
+            android:id="@+id/tvAlbumControlAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:drawablePadding="15dp"
+            android:paddingStart="45dp"
+            android:text="@string/tvadd"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_add"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAddTo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumControlLikeAll"
+            tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:paddingStart="45dp"
-        android:id="@+id/tvAlbumControlAddTo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/tvadd_to"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumControlAdd"
-        app:layout_constraintBottom_toTopOf="@id/tvAlbumControlGo"
-        app:drawableStartCompat="@drawable/ic_add_to"
-        android:drawablePadding="15dp"
-        tools:ignore="RtlSymmetry"
-        android:layout_marginTop="23dp"/>
+        <TextView
+            android:id="@+id/tvAlbumControlAddTo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:drawablePadding="15dp"
+            android:paddingStart="45dp"
+            android:text="@string/tvadd_to"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_add_to"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlGo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumControlAdd"
+            tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:paddingStart="45dp"
-        android:id="@+id/tvAlbumControlGo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/tv_go"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumControlAddTo"
-        app:drawableStartCompat="@drawable/ic_go"
-        android:drawablePadding="15dp"
-        tools:ignore="RtlSymmetry"
-        android:layout_marginTop="23dp"/>
-
-
-    <TextView
-        android:id="@+id/tbClose"
-        android:layout_width="52dp"
-        android:layout_height="29dp"
-        android:textSize="16sp"
-        android:text="@string/tbClose"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="15dp"
-        />
+        <TextView
+            android:id="@+id/tvAlbumControlGo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:drawablePadding="15dp"
+            android:paddingStart="45dp"
+            android:text="@string/tv_go"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_go"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumControlAddTo"
+            tools:ignore="RtlSymmetry" />
 
 
+        <TextView
+            android:id="@+id/tbClose"
+            android:layout_width="52dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/tbClose"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlbumControlGo" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
