@@ -17,6 +17,7 @@ class TrackViewModel @Inject constructor( private val repoTracks: RepoTracks):Vi
 
     init {
         viewModelScope.launch {
+            println("Miri ${repoTracks.getTracks()}")
         _trackList.value = repoTracks.getTracks()
     }
     }

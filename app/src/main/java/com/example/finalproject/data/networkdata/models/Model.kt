@@ -29,7 +29,6 @@ import com.google.gson.annotations.SerializedName
          val image: String? = null
      ):DataTypeModel()
 
-
      data class Tracks(
          @SerializedName("album_id")
          val albumId:Int?=null,
@@ -40,7 +39,7 @@ import com.google.gson.annotations.SerializedName
          @SerializedName("image")
          val image:String?=null,
          @SerializedName("audio")
-         val track:String?=null,
+         val audio:String?=null,
          @SerializedName("album_name")
          val albumName:String?=null
      )

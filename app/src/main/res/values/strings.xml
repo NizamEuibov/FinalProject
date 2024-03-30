@@ -57,6 +57,10 @@
     <string name="track_twitter">Twitter</string>
     <string name="track_message">Message</string>
     <string name="track_more">More</string>
+    <string name="tv_view_album">View album</string>
+    <string name="tv_view_artist">View artist</string>
+    <string name="tv_song_credits">Song credits</string>
+    <string name="tv_sleep_timer">Sleep timer</string>
 
 </resources>
 

@@ -1,27 +1,47 @@
 package com.example.finalproject.ui.albumsfragment.fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentAlbumControlBinding
 import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
+import com.example.finalproject.ui.track.fragment.TrackShareFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AlbumControlFragment : Fragment() {
+class AlbumControlFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAlbumControlBinding
     private val viewModel: AlbumViewModel by viewModels()
     private var id: Int? = null
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
+        dialog.setOnShowListener { dialog ->
+            val d = dialog as BottomSheetDialog
+            val bottomSheet =
+                d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
+            BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        return dialog
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
-    }
+
+       }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +55,18 @@ class AlbumControlFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         albumInformation()
+
         binding.tbClose.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            dismiss()
+        }
+        binding.tvAlbumControlShare.setOnClickListener {
+            val bundle= bundleOf(
+                "idAlbum" to id
+            )
+           val trackControlFragment =TrackShareFragment().apply {
+               arguments=bundle
+           }
+            trackControlFragment.show(childFragmentManager,"")
         }
     }
 
@@ -46,7 +76,7 @@ class AlbumControlFragment : Fragment() {
             if (it != null) {
                 val albumImage =
                     it.map { it.albums.filter { it.id == id } }.map { it.map { it.image } }
-                        .flatten()
+                        .flatten().toString().trim('[',']')
                 val artistName =
                     it.filter { it.albums.map { it.id }.contains(id) }.map { it.name }.toString()
                 val albumName =
@@ -55,8 +85,12 @@ class AlbumControlFragment : Fragment() {
                 with(binding) {
                     tvAlbumName.text = albumName.toString().trim('[', ']')
                     tvArtistsName.text = artistName.trim('[', ']')
-                    Glide.with(requireContext()).load(albumImage.toString())
-                        .into(ivAlbumControl)
+                    Glide.with(requireContext()).load(albumImage).placeholder(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_exit_background
+                        )
+                    ).into(ivAlbumControl)
                 }
 
             }

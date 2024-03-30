@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:motion="urn:oasis:names:tc:xliff:document:1.2">
+   >
 
     <ConstraintSet android:id="@+id/start">
 

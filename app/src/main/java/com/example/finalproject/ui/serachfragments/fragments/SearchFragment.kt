@@ -33,9 +33,12 @@ class SearchFragment : Fragment() {
 
         adapter.setOnClickListener(object :SearchAdapter.Listener{
             override fun onClickListener(data: CardListModel) {
-                findNavController().navigate(R.id.action_searchFragment_to_searchAllFragment)
-            }
+                when (data.text) {
+                    "Albums" ->
+                    findNavController().navigate(R.id.action_searchAllFragment_to_albumsFragment)
+                }
 
+            }
         })
 
 

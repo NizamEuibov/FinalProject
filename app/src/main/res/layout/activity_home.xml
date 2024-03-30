@@ -172,18 +172,18 @@
             android:contentDescription="@string/todo"
             />
 
-        <ImageButton
-            android:visibility="gone"
-            android:id="@+id/ibNext"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_next"
-            android:background="@color/background"
-            app:layout_constraintStart_toStartOf="@id/constraintMotion"
-            app:layout_constraintEnd_toEndOf="@id/constraintMotion"
-            app:layout_constraintTop_toTopOf="@id/constraintMotion"
-            android:contentDescription="@string/todo"
-            />
+    <ImageButton
+        android:id="@+id/ibNext"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_next"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ibPrevious"
+        app:layout_constraintEnd_toEndOf="@id/constraintMotion"
+        app:layout_constraintStart_toStartOf="@id/constraintMotion"
+        app:layout_constraintTop_toTopOf="@id/constraintMotion" />
 
 
         <ImageButton

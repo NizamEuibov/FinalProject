@@ -24,7 +24,7 @@ class SearchAllFragment : Fragment() {
     private lateinit var adapter: SearchAllAdapter
     private var listArtists: List<DataTypeModel> = emptyList()
     private val viewModel: SearchAllViewModel by viewModels()
-    private var id:Int?=null
+    private var id: Int? = null
 
 
     override fun onCreateView(
@@ -61,23 +61,36 @@ class SearchAllFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        adapter.setOnClicikListener(object :SearchAllAdapter.Listener{
+        adapter.setOnClicikListener(object : SearchAllAdapter.Listener {
             override fun onClickListener(data: DataTypeModel) {
-                when(data){
-                    is DataTypeModel.NameAndImage ->{
-                        val bundle= bundleOf(
-                            "id" to data.id)
-                        findNavController().navigate(R.id.action_searchAllFragment_to_albumsFragment, bundle)}
+                when (data) {
+                    is DataTypeModel.NameAndImage -> {
+                        val bundle = bundleOf(
+                            "id" to data.id
+                        )
+                        findNavController().navigate(
+                            R.id.action_searchAllFragment_to_albumsFragment,
+                            bundle
+                        )
+                    }
 
-                        else -> {
+                    is DataTypeModel.AlbumList -> {
+                        val bundle = bundleOf(
+                            "albumId" to data.id,
+                        )
+                        findNavController().navigate(
+                            R.id.action_searchAllFragment_to_albumViewFragment,
+                            bundle
+                        )
+                    }
+
+                    else -> {
                         error("Invalid")
                     }
                 }
             }
 
         })
-
-
 
 
     }
@@ -96,8 +109,6 @@ class SearchAllFragment : Fragment() {
         }
 
 
-
-
     }
 
 
@@ -106,14 +117,16 @@ class SearchAllFragment : Fragment() {
             when (item) {
                 is DataTypeModel.NameAndImage -> item.name.lowercase().contains(query)
                 is DataTypeModel.AlbumList -> item.name?.lowercase()?.contains(query) == true
-                else -> {false}
+                else -> {
+                    false
+                }
             }
         }
         if (searchList.isEmpty()) {
-            binding.vSearchBackground.visibility=View.VISIBLE
+            binding.vSearchBackground.visibility = View.VISIBLE
             Toast.makeText(context, "No found data", Toast.LENGTH_SHORT).show()
         } else {
-            binding.vSearchBackground.visibility=View.INVISIBLE
+            binding.vSearchBackground.visibility = View.INVISIBLE
             adapter.addList(searchList)
         }
 

@@ -1,5 +1,6 @@
 package com.example.finalproject.ui.albumsfragment.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,11 @@ class AlbumViewAdapter  :
             binding.ibMusicListEnd.setOnClickListener {
                 listener?.onClickListener(data)
             }
+
+            itemView.setOnClickListener {
+                listener?.onClickAudioListener(data)
+                Log.d("Audio","$data")
+            }
         }
 
     }
@@ -54,5 +60,6 @@ class AlbumViewAdapter  :
 
     interface Listener{
         fun onClickListener(data:DataTypeModel.Tracks)
+        fun onClickAudioListener(data:DataTypeModel.Tracks)
     }
 }
