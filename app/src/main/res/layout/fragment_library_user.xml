@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    tools:context=".ui.libraryfragment.fragment.LibraryUserFragment">
+
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/background"
+        android:contentDescription="@string/todo"
+        android:layout_margin="15dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/ibProperty"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:src="@drawable/ic_3point"
+       app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/background"
+        android:contentDescription="@string/todo"
+        android:layout_margin="15dp"
+        />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civUser"
+        android:layout_width="122dp"
+        android:layout_height="122dp"
+        android:src="@mipmap/ic_exit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="153dp"
+        />
+
+    <TextView
+        android:id="@+id/bEdit"
+        android:layout_width="105dp"
+        android:layout_height="31dp"
+        android:background="@drawable/tb_shape"
+        android:text="@string/edit_profile"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:paddingTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/civUser"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="28"
+        app:layout_constraintStart_toStartOf="@id/tvPlayLists"
+        app:layout_constraintTop_toBottomOf="@id/bEdit"
+        app:layout_constraintEnd_toEndOf="@id/tvPlayLists"
+        android:layout_marginTop="27dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvPlayLists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bbColor"
+        android:text="@string/playlists"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCount"
+        app:layout_constraintEnd_toStartOf="@+id/tvFollowers"
+        />
+
+
+    <TextView
+        android:id="@+id/tvCount1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="58"
+        app:layout_constraintStart_toStartOf="@id/tvFollowers"
+        app:layout_constraintTop_toBottomOf="@id/bEdit"
+        app:layout_constraintEnd_toEndOf="@id/tvFollowers"
+        android:layout_marginTop="27dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bbColor"
+        android:text="@string/followers"
+        app:layout_constraintStart_toEndOf="@id/tvPlayLists"
+        app:layout_constraintTop_toBottomOf="@id/tvCount1"
+        app:layout_constraintEnd_toStartOf="@+id/tvFollowing"
+        />
+
+
+    <TextView
+        android:id="@+id/tvCount2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="43"
+        app:layout_constraintStart_toStartOf="@id/tvFollowing"
+        app:layout_constraintTop_toBottomOf="@id/bEdit"
+        app:layout_constraintEnd_toEndOf="@id/tvFollowing"
+        android:layout_marginTop="27dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bbColor"
+        android:text="@string/following"
+        app:layout_constraintStart_toEndOf="@id/tvFollowers"
+        app:layout_constraintTop_toBottomOf="@id/tvCount2"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    
+    <TextView
+        android:id="@+id/tvUserLibrary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:text="@string/playlists1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPlayLists"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/ivShazam"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/image_user_library"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUserLibrary"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/todo"
+        />
+
+    <TextView
+        android:id="@+id/tvShazam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivShazam"
+        app:layout_constraintTop_toTopOf="@id/ivShazam"
+        android:layout_marginTop="7dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/shazam"
+        android:layout_marginStart="7dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvShazamCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivShazam"
+        app:layout_constraintTop_toBottomOf="@id/tvShazam"
+        android:textColor="@color/bbColor"
+        android:textStyle="bold"
+        android:text="@string/_7_likes"
+        android:layout_marginStart="7dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/ibShazamNext"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivShazam"
+        app:layout_constraintBottom_toBottomOf="@id/ivShazam"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/ivRoadTrip"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/image_user_libaray1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivShazam"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/todo"
+        />
+
+    <TextView
+        android:id="@+id/tvRoadTrip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivRoadTrip"
+        app:layout_constraintTop_toTopOf="@id/ivRoadTrip"
+        android:layout_marginTop="7dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/roadTrip"
+        android:layout_marginStart="7dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvRoadTripCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivRoadTrip"
+        app:layout_constraintTop_toBottomOf="@id/tvRoadTrip"
+        android:textColor="@color/bbColor"
+        android:textStyle="bold"
+        android:text="@string/_7_likes"
+        android:layout_marginStart="7dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/ibRoadTripNext"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivRoadTrip"
+        app:layout_constraintBottom_toBottomOf="@id/ivRoadTrip"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/ivStudy"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/image_user_libaray2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivRoadTrip"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        />
+
+    <TextView
+        android:id="@+id/tvStudy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivStudy"
+        app:layout_constraintTop_toTopOf="@id/ivStudy"
+        android:layout_marginTop="7dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/study"
+        android:layout_marginStart="7dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvStudyCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivStudy"
+        app:layout_constraintTop_toBottomOf="@id/tvStudy"
+        android:textColor="@color/bbColor"
+        android:textStyle="bold"
+        android:text="@string/_7_likes"
+        android:layout_marginStart="7dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/ibStudyNext"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivStudy"
+        app:layout_constraintBottom_toBottomOf="@id/ivStudy"
+        android:contentDescription="@string/todo"
+        />
+
+
+    <TextView
+        android:id="@+id/tvSeePlayList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/see_all_playlists"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivStudy"
+        android:textSize="15sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibSeeNext"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSeePlayList"
+        app:layout_constraintBottom_toBottomOf="@id/tvSeePlayList"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -74,10 +74,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
         binding.tvAlbumControlAlbum.setOnClickListener {
             val bundle = bundleOf("albumId" to albumId)
             dismiss()
-            findNavController().navigate(
-                R.id.action_trackControlFragment_to_albumViewFragment,
-                bundle
-            )
+            findNavController().popBackStack(R.id.albumViewFragment,true)
         }
 
 

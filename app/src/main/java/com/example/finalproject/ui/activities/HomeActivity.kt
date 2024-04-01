@@ -3,7 +3,7 @@ package com.example.finalproject.ui.activities
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -12,15 +12,14 @@ import com.example.finalproject.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() ,AudioListener {
+class HomeActivity : AppCompatActivity(){
     private lateinit var binding: ActivityHomeBinding
     private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        musicCheck()
-
 
         val bottomNav = binding.bnvHome
         val navHost =
@@ -43,43 +42,40 @@ class HomeActivity : AppCompatActivity() ,AudioListener {
                     true
                 }
 
-                R.id.bottom_library -> {
+                else-> {
                     navController.navigate(R.id.yourLibraryFragment)
                     true
                 }
 
-                else -> false
+
             }
         }
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.albumControlFragment) {
-                binding.bnvHome.visibility = View.INVISIBLE
-            } else bottomNav.visibility = View.VISIBLE
-
 
         }
-    }
 
 
-    private fun musicCheck() {
+    fun musicCheck(audioIdPair: Pair<String, Int>) {
+        Log.d("Miri", audioIdPair.toString())
+        audioIdPair.first.let {
+            Log.d("Audio", it)
         val mediaPlayer = MediaPlayer()
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-        mediaPlayer.setDataSource("https://prod-1.storage.jamendo.com/?trackid=241&format=mp31&from=w3d4v2X9TLHG%2BTVkKZe%2FTw%3D%3D%7CTpCSTgyZebQhLbYNer928g%3D%3D")
+        audioIdPair.first.let {mediaPlayer.setDataSource(it)  }
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener{
             mediaPlayer.start()
-        }
+        }}
+
         binding.ibMotion.setOnClickListener {
-            if (mediaPlayer.isPlaying)
-                mediaPlayer.stop()
+            if (mediaPlayer?.isPlaying == true)
+                mediaPlayer?.stop()
             else
-                mediaPlayer.start()
+                mediaPlayer?.start()
         }
 
 
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -87,17 +83,10 @@ class HomeActivity : AppCompatActivity() ,AudioListener {
         mediaPlayer = null
     }
 
-    override fun sentAudioLink(audio: String, id: Int) {
 
-    }
 
 
 }
-interface AudioListener {
-    fun sentAudioLink(audio: String, id: Int)
-}
-
-
 
 
 

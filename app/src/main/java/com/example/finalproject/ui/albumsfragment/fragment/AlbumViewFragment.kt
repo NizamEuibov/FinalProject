@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.albumsfragment.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentAlbumViewBinding
-import com.example.finalproject.ui.activities.AudioListener
 import com.example.finalproject.ui.albumsfragment.adapter.AlbumViewAdapter
 import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
 import com.example.finalproject.ui.albumsfragment.viewmodel.TrackViewModel
@@ -29,19 +28,12 @@ class AlbumViewFragment : Fragment() {
     private var albumImage: String? = null
     private var id: Int? = null
     private var adapter = AlbumViewAdapter()
-    private val viewModel: TrackViewModel by viewModels()
+    private val viewModel: TrackViewModel by activityViewModels()
     private var albumId: Int? = null
     private val albumViewModel: AlbumViewModel by viewModels()
     private var tracksList: List<DataTypeModel.Tracks> = emptyList()
-    private var listener: AudioListener? = null
+    var audio:String?=null
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is AudioListener) {
-            listener = context
-        } else error("")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +60,6 @@ class AlbumViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.rvAlbumView.adapter = adapter
         binding.rvAlbumView.layoutManager = LinearLayoutManager(context)
         if (id != 0) {
@@ -125,7 +116,8 @@ class AlbumViewFragment : Fragment() {
 
         adapter.setOnClickListener(object : AlbumViewAdapter.Listener {
             override fun onClickListener(data: DataTypeModel.Tracks) {
-                val audio = data.audio
+                Log.d("Data","${data.audio}")
+                audio = data.audio
 
                 val bundle = bundleOf(
                     "id" to data.id,
@@ -188,24 +180,14 @@ class AlbumViewFragment : Fragment() {
                             arguments = bundle
                         }
                         trackControlFragment.show(childFragmentManager, "")
-
                     }
 
                     override fun onClickAudioListener(data: DataTypeModel.Tracks) {
-                        val audio = data.audio
-                        val id = data.id
-                        if (audio != null) {
-                            if (id != null) {
-                                listener?.sentAudioLink(audio, id)
-                                Log.d("Audio", "$data")
-                            }
-                        }
-                    }
 
+                    }
                 })
             }
         }
     }
+
 }
-
-

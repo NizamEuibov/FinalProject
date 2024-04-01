@@ -62,4 +62,6 @@ class AlbumViewAdapter  :
         fun onClickListener(data:DataTypeModel.Tracks)
         fun onClickAudioListener(data:DataTypeModel.Tracks)
     }
+
+
 }

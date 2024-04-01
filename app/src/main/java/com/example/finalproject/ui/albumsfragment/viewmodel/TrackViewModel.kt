@@ -13,7 +13,7 @@ import javax.inject.Inject
 class TrackViewModel @Inject constructor(private val repoTracks: RepoTracks) :ViewModel(){
     private val _tracksList=MutableLiveData<List<DataTypeModel.NameAndImage>?>()
     val trackList:LiveData<List<DataTypeModel.NameAndImage>?> =_tracksList
-
+    var audioPair: MutableLiveData<Pair<String, Int>> = MutableLiveData()
     init {
         viewModelScope.launch {
            _tracksList.value= repoTracks.getTracks()

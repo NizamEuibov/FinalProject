@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -85,9 +86,10 @@ class GenderFragment : Fragment() {
 
     }
 
-    private fun autoComplete(){
+    private fun autoComplete() {
         val list = arrayOf("man", "woman", "none")
 
+        binding?.autoComplete?.setDropDownBackgroundTint(ContextCompat.getColor(requireContext(),R.color.bbColor))
         binding?.autoComplete?.setAdapter(
             ArrayAdapter(
                 requireContext(),

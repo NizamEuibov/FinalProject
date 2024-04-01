@@ -1,5 +1,6 @@
 package com.example.finalproject.ui.artistsfragment.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalproject.R
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentArtistsBinding
+import com.example.finalproject.ui.activities.HomeActivity
 import com.example.finalproject.ui.artistsfragment.adapters.ArtistsAdapter
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,7 +89,9 @@ class ArtistsFragment : Fragment() {
                         val isSelected=selectedItems.map { it.id }
                         val bundle= bundleOf("selected" to isSelected)
 
-                        findNavController().navigate(R.id.action_artistsFragment_to_homeFragment,bundle)
+                        //findNavController().navigate(R.id.action_artistsFragment_to_homeFragment,bundle)
+                        val navigateIntent = Intent(requireActivity(),HomeActivity::class.java)
+                        startActivity(navigateIntent,bundle)
                     }
                 }
             }

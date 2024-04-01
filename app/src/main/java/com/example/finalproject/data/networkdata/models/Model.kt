@@ -42,5 +42,5 @@ import com.google.gson.annotations.SerializedName
          val audio:String?=null,
          @SerializedName("album_name")
          val albumName:String?=null
-     )
+     ):DataTypeModel()
  }

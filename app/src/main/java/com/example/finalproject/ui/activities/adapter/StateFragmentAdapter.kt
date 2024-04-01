@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.finalproject.ui.homefragment.fragment.HomeFragment
-import com.example.finalproject.ui.libraryfragment.YourLibraryFragment
+import com.example.finalproject.ui.libraryfragment.fragment.YourLibraryFragment
 import com.example.finalproject.ui.serachfragments.fragments.SearchFragment
 
 class StateFragmentAdapter (fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    tools:context=".ui.libraryfragment.fragment.LibrarySettingFragment">
+    
+   <LinearLayout
+       android:id="@+id/llSettings"
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:background="#191919"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       android:orientation="horizontal"
+       android:padding="15dp"
+       >
+
+       <ImageButton
+           android:id="@+id/ibBackSettings"
+           android:layout_width="25dp"
+           android:layout_height="25dp"
+           android:src="@drawable/ic_back"
+           android:background="#191919"
+           android:layout_marginStart="15dp"
+           android:contentDescription="@string/todo"
+           />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:textSize="16sp"
+           android:textStyle="bold"
+           android:textColor="@color/white"
+           android:text="@string/setting_settings"
+           android:layout_marginHorizontal="130dp"
+           />
+   </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civSettings"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llSettings"
+        android:src="@drawable/ic_fashion"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        />
+    
+    <TextView
+        android:id="@+id/tvSettingName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/civSettings"
+        app:layout_constraintTop_toTopOf="@id/civSettings"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/todo"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <TextView
+        android:id="@+id/tvSettingProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/civSettings"
+        app:layout_constraintTop_toBottomOf="@id/tvSettingName"
+        android:textColor="@color/bbColor"
+        android:text="@string/settings_view_profile"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibSettingNext"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_set_next"
+        android:background="@color/background"
+        android:contentDescription="@string/todo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/civSettings"
+        app:layout_constraintBottom_toBottomOf="@id/civSettings"
+        android:layout_marginEnd="30dp"
+        />
+
+    <TextView
+        android:id="@+id/tvAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="Account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/civSettings"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibAccount"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvAccount"
+        app:layout_constraintBottom_toBottomOf="@id/tvAccount"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvDataSaver"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/data_saver"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAccount"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibDataSaver"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDataSaver"
+        app:layout_constraintBottom_toBottomOf="@id/tvDataSaver"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvLanguages"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/languages"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDataSaver"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibLanguages"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvLanguages"
+        app:layout_constraintBottom_toBottomOf="@id/tvLanguages"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvPlayback"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/playback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLanguages"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibPlayback"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvPlayback"
+        app:layout_constraintBottom_toBottomOf="@id/tvPlayback"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/tvExplicitContent"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/explicit_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPlayback"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibExplicitContent"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvExplicitContent"
+        app:layout_constraintBottom_toBottomOf="@id/tvExplicitContent"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/tvDevices"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/devices"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvExplicitContent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibDevices"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDevices"
+        app:layout_constraintBottom_toBottomOf="@id/tvDevices"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/tvCar"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/car"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDevices"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibCar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvCar"
+        app:layout_constraintBottom_toBottomOf="@id/tvCar"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvSocial"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/social"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCar"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibSocial"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSocial"
+        app:layout_constraintBottom_toBottomOf="@id/tvSocial"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/tvVoiceAssistant"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/voice_assistant_amp_apps"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSocial"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibVoiceAssistant"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvVoiceAssistant"
+        app:layout_constraintBottom_toBottomOf="@id/tvVoiceAssistant"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tvAudioQuality"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/audio_quality"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvVoiceAssistant"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibAudioQuality"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvAudioQuality"
+        app:layout_constraintBottom_toBottomOf="@id/tvAudioQuality"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+    <TextView
+        android:id="@+id/tvStorage"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/storage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAudioQuality"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/ibStorage"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_set_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvStorage"
+        app:layout_constraintBottom_toBottomOf="@id/tvStorage"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/todo"
+        />
+
+
+
+ 
+
+</androidx.constraintlayout.widget.ConstraintLayout>

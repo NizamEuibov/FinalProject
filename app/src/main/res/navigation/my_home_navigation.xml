@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/yourLibraryFragment"
-        android:name="com.example.finalproject.ui.libraryfragment.YourLibraryFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.fragment.YourLibraryFragment"
         android:label="fragment_your_library"
         tools:layout="@layout/fragment_your_library" />
     <dialog

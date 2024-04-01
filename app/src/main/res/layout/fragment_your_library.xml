@@ -1,14 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.libraryfragment.YourLibraryFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    tools:context=".ui.libraryfragment.fragment.YourLibraryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civUserImage"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_fashion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvLibrary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="@string/tv_your_library"
+        app:layout_constraintTop_toTopOf="@id/civUserImage"
+        app:layout_constraintStart_toEndOf="@id/civUserImage"
+        android:layout_marginStart="7dp" />
 
-</FrameLayout>
+
+    <ImageButton
+        android:id="@+id/ibLibraryAdd"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvLibrary"
+        android:background="@color/background"
+        android:src="@drawable/ic_plus"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/todo" />
+
+    <LinearLayout
+        android:id="@+id/llLibrary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLibrary"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bLibraryArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:text="@string/tab_artist"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:backgroundTint="@color/background"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/bbColor"
+            app:cornerRadius="45dp"
+            android:layout_marginEnd="9dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bLibraryAlbum"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:text="@string/tab_album"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:backgroundTint="@color/background"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/bbColor"
+            app:cornerRadius="45dp"
+            android:layout_marginEnd="9dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bLibraryPlaylists"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:text="@string/tab_playlists"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:backgroundTint="@color/background"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/bbColor"
+            app:cornerRadius="45dp"
+            android:layout_marginEnd="9dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bLibraryPodcasts"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:text="@string/tab_podcasts"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/background"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/bbColor"
+            app:cornerRadius="45dp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvRecentlyPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:text="@string/library_recently_played"
+        app:drawableStartCompat="@drawable/ic_recently"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llLibrary"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="29dp"
+        android:drawablePadding="8dp"/>
+
+    <ImageButton
+        android:id="@+id/ibLibrary"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_library_component"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llLibrary"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/todo"
+        />
+<ImageView
+    android:id="@+id/ivLiked"
+    android:layout_width="67dp"
+    android:layout_height="67dp"
+    android:src="@drawable/iv_liked"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tvRecentlyPlay"
+    app:layout_constraintBottom_toTopOf="@id/rvLibrary"
+    android:layout_marginTop="8dp"
+    android:contentDescription="@string/todo"
+    android:layout_marginStart="15dp"
+    />
+    
+    
+    <ImageView
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:src="@drawable/ic_liked"
+        app:layout_constraintStart_toStartOf="@id/ivLiked"
+        app:layout_constraintEnd_toEndOf="@id/ivLiked"
+        app:layout_constraintTop_toTopOf="@id/ivLiked"
+        app:layout_constraintBottom_toBottomOf="@id/ivLiked"
+        android:contentDescription="@string/todo"/>
+
+    <TextView
+        android:id="@+id/tvSongCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/library_liked_songs"
+        app:layout_constraintStart_toEndOf="@id/ivLiked"
+        app:layout_constraintTop_toTopOf="@id/ivLiked"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
+  
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLibrary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLiked"
+        android:layout_marginTop="8dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
