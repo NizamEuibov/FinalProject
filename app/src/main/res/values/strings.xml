@@ -92,6 +92,8 @@
     <string name="see_all_playlists">See all playlists</string>
     <string name="study">Study</string>
     <string name="roadTrip">Roadtrip</string>
+    <string name="artists"> You can choose artists</string>
+    <string name="album_size">Album size : </string>
 
 </resources>
 

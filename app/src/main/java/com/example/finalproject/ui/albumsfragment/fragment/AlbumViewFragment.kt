@@ -100,6 +100,7 @@ class AlbumViewFragment : Fragment() {
 
 
         viewModel.trackList.observe(viewLifecycleOwner) { it ->
+            Log.d("IT12","$it")
             if (it != null)
                 tracksList = it.map { it.tracks }.flatten()
 

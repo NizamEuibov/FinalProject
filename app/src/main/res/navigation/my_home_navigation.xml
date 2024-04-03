@@ -55,7 +55,17 @@
         android:id="@+id/yourLibraryFragment"
         android:name="com.example.finalproject.ui.libraryfragment.fragment.YourLibraryFragment"
         android:label="fragment_your_library"
-        tools:layout="@layout/fragment_your_library" />
+        tools:layout="@layout/fragment_your_library" >
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_albumViewFragment"
+            app:destination="@id/albumViewFragment" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_librarySettingFragment"
+            app:destination="@id/librarySettingFragment" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+    </fragment>
     <dialog
         android:id="@+id/trackShareFragment"
         android:name="com.example.finalproject.ui.track.fragment.TrackShareFragment"
@@ -86,4 +96,18 @@
             android:id="@+id/action_albumViewFragment_to_trackControlFragment"
             app:destination="@id/trackControlFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/librarySettingFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.fragment.LibrarySettingFragment"
+        android:label="fragment_library_setting"
+        tools:layout="@layout/fragment_library_setting" >
+        <action
+            android:id="@+id/action_librarySettingFragment_to_libraryUserFragment"
+            app:destination="@id/libraryUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/libraryUserFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.fragment.LibraryUserFragment"
+        android:label="fragment_library_user"
+        tools:layout="@layout/fragment_library_user" />
 </navigation>

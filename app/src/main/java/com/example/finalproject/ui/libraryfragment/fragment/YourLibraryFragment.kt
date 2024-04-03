@@ -1,12 +1,17 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalproject.R
+import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentYourLibraryBinding
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
 import com.example.finalproject.ui.libraryfragment.adapters.AlbumAdapter
@@ -21,7 +26,7 @@ class YourLibraryFragment : Fragment() {
     private val viewModel: ArtistsViewModel by viewModels()
     private val trackViewModel: TrackViewModel by viewModels()
     private lateinit var adapter: ArtistAdapter
-    private lateinit var albumAdapter:AlbumAdapter
+    private lateinit var albumAdapter: AlbumAdapter
     private lateinit var songAdapter: SongAdapter
 
     override fun onCreateView(
@@ -45,6 +50,8 @@ class YourLibraryFragment : Fragment() {
         binding.bLibraryPlaylists.setOnClickListener {
             librarySong()
         }
+
+
     }
 
     private fun libraryArtist() {
@@ -56,6 +63,17 @@ class YourLibraryFragment : Fragment() {
                 adapter.addList(it)
             }
         }
+        adapter.setOnClickListener(object : ArtistAdapter.Listener {
+            override fun clickListener(data: DataTypeModel.NameAndImage) {
+                val bundle = bundleOf(
+                    "id" to data.id
+                )
+                findNavController().navigate(
+                    R.id.action_yourLibraryFragment_to_albumsFragment,
+                    bundle
+                )
+            }
+        })
     }
 
     private fun libraryAlbum() {
@@ -65,9 +83,34 @@ class YourLibraryFragment : Fragment() {
         viewModel.artistsLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 albumAdapter.addList(it.map { it.albums }.flatten())
+
+
+
+                albumAdapter.setOnClickListener(object : AlbumAdapter.Listener {
+                    override fun clickListener(data: DataTypeModel.AlbumList) {
+                        val bundle = bundleOf(
+                            "id" to data.id,
+                            "name" to it.filter { it.albums.map { it.id }.contains(data.id) }
+                                .map { it.name },
+                            "image" to it.filter { it.albums.map { it.id }.contains(data.id) }
+                                .map { it.image },
+                            "albumName" to data.name,
+                            "albumImage" to data.image
+                        )
+                        findNavController().navigate(
+                            R.id.action_yourLibraryFragment_to_albumViewFragment,
+                            bundle
+                        )
+                        Log.d(
+                            "ArtistName", "${
+                                it.filter { it.albums.map { it.id }.contains(data.id) }
+                                    .map { it.name }
+                            }"
+                        )
+                    }
+                })
             }
         }
-
     }
 
     private fun librarySong() {
@@ -81,5 +124,4 @@ class YourLibraryFragment : Fragment() {
             }
         }
     }
-
 }
