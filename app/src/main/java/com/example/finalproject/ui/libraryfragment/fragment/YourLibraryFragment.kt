@@ -1,7 +1,6 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,6 +50,9 @@ class YourLibraryFragment : Fragment() {
             librarySong()
         }
 
+        binding.civUserImage.setOnClickListener {
+            findNavController().navigate(R.id.action_yourLibraryFragment_to_librarySettingFragment)
+        }
 
     }
 
@@ -89,23 +91,11 @@ class YourLibraryFragment : Fragment() {
                 albumAdapter.setOnClickListener(object : AlbumAdapter.Listener {
                     override fun clickListener(data: DataTypeModel.AlbumList) {
                         val bundle = bundleOf(
-                            "id" to data.id,
-                            "name" to it.filter { it.albums.map { it.id }.contains(data.id) }
-                                .map { it.name },
-                            "image" to it.filter { it.albums.map { it.id }.contains(data.id) }
-                                .map { it.image },
-                            "albumName" to data.name,
-                            "albumImage" to data.image
+                            "albumId" to data.id
                         )
                         findNavController().navigate(
                             R.id.action_yourLibraryFragment_to_albumViewFragment,
                             bundle
-                        )
-                        Log.d(
-                            "ArtistName", "${
-                                it.filter { it.albums.map { it.id }.contains(data.id) }
-                                    .map { it.name }
-                            }"
                         )
                     }
                 })
