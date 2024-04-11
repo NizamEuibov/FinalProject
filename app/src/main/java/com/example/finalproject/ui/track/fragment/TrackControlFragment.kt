@@ -12,7 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.data.localdatabase.TrackEntity
+import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentTrackControlBinding
+import com.example.finalproject.ui.track.viewmodel.SendTrackToRepo
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -23,9 +26,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class TrackControlFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentTrackControlBinding
     private val viewModel: TrackViewModel by viewModels()
+    private val sendTrackToRepo: SendTrackToRepo by viewModels()
+    private var trackList: List<DataTypeModel.Tracks> = emptyList()
     private var id: Int? = null
     private var artistName: String? = null
     private var albumId: Int? = null
+    private var artistId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,18 +79,30 @@ class TrackControlFragment : BottomSheetDialogFragment() {
 
         binding.tvAlbumControlAlbum.setOnClickListener {
             val bundle = bundleOf("albumId" to albumId)
+            findNavController().navigate(R.id.albumViewFragment, bundle)
             dismiss()
-            findNavController().popBackStack(R.id.albumViewFragment,true)
         }
-
-
+        binding.tvAlbumControlArtist.setOnClickListener {
+            val bundle = bundleOf(
+                "id" to artistId
+            )
+            findNavController().navigate(R.id.artistViewFragment, bundle)
+            dismiss()
+        }
         trackImage()
+
+        binding.tvAlbumControlLike.setOnClickListener {
+            sendTrack()
+        }
     }
 
     private fun trackImage() {
         viewModel.trackList.observe(viewLifecycleOwner) { it ->
             if (it != null) {
-                // Retrieve track image, name, and artist name
+                trackList = it.map { it.tracks.filter { it.id==id }}.flatten()
+                artistId =
+                    it.filter { it.tracks.map { it.id }.contains(id) }.map { it.id }.toString()
+                        .trim('[', ']').toInt()
                 val trackImage =
                     it.map { it.tracks.filter { it.id == id } }.map { it.map { it.image } }
                         .flatten().toString().trim('[', ']')
@@ -102,5 +120,13 @@ class TrackControlFragment : BottomSheetDialogFragment() {
                 Log.d("user5552", "$trackName $artistName $trackImage")
             }
         }
+    }
+
+    private fun sendTrack() {
+        val id = trackList.map { it.id }.toString().trim('[',']').toInt()
+        val name = trackList.map { it.name }.toString()
+        val audio = trackList.map { it.audio }.toString()
+        val track = TrackEntity(id, name, audio)
+        sendTrackToRepo.sendTrackToRepo(track)
     }
 }

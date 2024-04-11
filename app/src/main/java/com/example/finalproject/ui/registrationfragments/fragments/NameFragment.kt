@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,14 +18,13 @@ import com.example.finalproject.ui.extension.Button.enable
 import com.example.finalproject.ui.registrationfragments.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+//I have some problem for navigation
 @AndroidEntryPoint
 class NameFragment : Fragment() {
     private val viewModel by viewModels<RegistrationViewModel>()
     private lateinit var binding: FragmentNameBinding
     private lateinit var email: String
-
     private lateinit var password: String
-
     private lateinit var gender: String
 
 
@@ -58,19 +58,18 @@ class NameFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                if (checkName(s.toString())) {
+                if (s?.isNotEmpty() == true) {
                     binding.buttonAccount.enable()
                 } else {
                     binding.buttonAccount.disable()
                 }
             }
 
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
         })
-//problem var kecidlerle bagli
 
     }
 
@@ -81,6 +80,9 @@ class NameFragment : Fragment() {
             val user = RegistrationEntity(0, email, password, gender, name)
             viewModel.sendDataToRepository(user)
             findNavController().navigate(R.id.action_nameFragment_to_artistsFragment)
+        }
+        else{
+            Toast.makeText(context,"Accept policy",Toast.LENGTH_SHORT).show()
         }
 
 

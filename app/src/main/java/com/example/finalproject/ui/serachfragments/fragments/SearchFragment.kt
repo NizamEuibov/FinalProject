@@ -35,7 +35,9 @@ class SearchFragment : Fragment() {
             override fun onClickListener(data: CardListModel) {
                 when (data.text) {
                     "Albums" ->
-                    findNavController().navigate(R.id.action_searchAllFragment_to_albumsFragment)
+                    findNavController().navigate(R.id.action_searchFragment_to_albumsFragment)
+                    "Artist" ->
+                        findNavController().navigate(R.id.action_searchFragment_to_artistViewFragment)
                 }
 
             }
@@ -57,7 +59,7 @@ class SearchFragment : Fragment() {
     private val cardList= listOf(
         CardListModel("Music"),
         CardListModel("Albums"),
-        CardListModel("Pop"),
+        CardListModel("Artist"),
         CardListModel("Comedy"),
         CardListModel("Podcasts"),
         CardListModel("Charts"),

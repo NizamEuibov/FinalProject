@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.finalproject.ui.homefragment.fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/albumsFragment"
         android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumsFragment"
@@ -28,6 +32,9 @@
         <action
             android:id="@+id/action_albumControlFragment_to_trackShareFragment"
             app:destination="@id/trackShareFragment" />
+        <action
+            android:id="@+id/action_albumControlFragment_to_artistViewFragment"
+            app:destination="@id/artistViewFragment" />
     </dialog>
     <fragment
         android:id="@+id/searchFragment"
@@ -37,6 +44,13 @@
         <action
             android:id="@+id/action_searchFragment_to_searchAllFragment"
             app:destination="@id/searchAllFragment" />
+
+        <action
+            android:id="@+id/action_searchFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_artistViewFragment"
+            app:destination="@id/artistViewFragment" />
 
     </fragment>
     <fragment
@@ -81,6 +95,9 @@
         <action
             android:id="@+id/action_trackControlFragment_to_albumViewFragment"
             app:destination="@id/albumViewFragment" />
+        <action
+            android:id="@+id/action_trackControlFragment_to_artistViewFragment"
+            app:destination="@id/artistViewFragment" />
     </dialog>
 
 
@@ -110,4 +127,13 @@
         android:name="com.example.finalproject.ui.libraryfragment.fragment.LibraryUserFragment"
         android:label="fragment_library_user"
         tools:layout="@layout/fragment_library_user" />
+    <fragment
+        android:id="@+id/artistViewFragment"
+        android:name="com.example.finalproject.ui.artistsfragment.fragment.ArtistViewFragment"
+        android:label="ArtistViewFragment" >
+
+        <action
+            android:id="@+id/action_artistViewFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+    </fragment>
 </navigation>

@@ -84,7 +84,6 @@
             android:layout_height="51dp"
             android:background="@drawable/edittextcorner"
             android:textColor="@color/white"
-            android:inputType="none"
             tools:ignore="LabelFor"
 
             />

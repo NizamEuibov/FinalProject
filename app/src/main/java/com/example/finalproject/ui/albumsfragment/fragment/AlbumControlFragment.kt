@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentAlbumControlBinding
@@ -24,6 +25,7 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAlbumControlBinding
     private val viewModel: AlbumViewModel by viewModels()
     private var id: Int? = null
+    private var artistId:Int?=null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
@@ -68,12 +70,20 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
            }
             trackControlFragment.show(childFragmentManager,"")
         }
+        binding.tvAlbumControlArtist.setOnClickListener {
+            val bundle= bundleOf(
+                "id" to artistId
+            )
+            findNavController().navigate(R.id.artistViewFragment,bundle)
+            dismiss()
+        }
     }
 
 
     private fun albumInformation() {
         viewModel.albumsList.observe(viewLifecycleOwner) {
             if (it != null) {
+                artistId=it.filter { it.albums.map { it.id }.contains(id) }.map { it.id }.toString().trim('[',']').toInt()
                 val albumImage =
                     it.map { it.albums.filter { it.id == id } }.map { it.map { it.image } }
                         .flatten().toString().trim('[',']')

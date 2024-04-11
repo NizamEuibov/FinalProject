@@ -6,4 +6,5 @@ import androidx.room.RoomDatabase
 @Database(entities = [RegistrationEntity::class], version = 1)
 abstract class RegistrationDatabase : RoomDatabase() {
     abstract fun registrationDao(): RegistrationDao
+
 }

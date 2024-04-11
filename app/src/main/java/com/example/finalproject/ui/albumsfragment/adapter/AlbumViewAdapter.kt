@@ -13,7 +13,6 @@ class AlbumViewAdapter  :
     private lateinit var binding: MusicViewListBinding
     private val dataList = mutableListOf<DataTypeModel.Tracks>()
     private var listener:Listener?=null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumsViewHolder {
         binding = MusicViewListBinding.inflate(
             LayoutInflater.from(parent.context), parent, false

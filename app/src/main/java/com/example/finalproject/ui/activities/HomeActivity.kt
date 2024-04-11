@@ -1,25 +1,31 @@
 package com.example.finalproject.ui.activities
 
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityHomeBinding
+import com.example.finalproject.ui.activities.oject.SharedViewModel
+import com.example.finalproject.ui.homefragment.fragment.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity(){
+class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private var mediaPlayer: MediaPlayer? = null
+    private var selectedArtist:ArrayList<Int>?=null
+    private val sharedViewModel:SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sendId()
 
         val bottomNav = binding.bnvHome
         val navHost =
@@ -42,7 +48,7 @@ class HomeActivity : AppCompatActivity(){
                     true
                 }
 
-                else-> {
+                else -> {
                     navController.navigate(R.id.yourLibraryFragment)
                     true
                 }
@@ -52,42 +58,25 @@ class HomeActivity : AppCompatActivity(){
         }
 
 
-        }
-
-
-    fun musicCheck(audioIdPair: Pair<String, Int>) {
-        Log.d("Miri", audioIdPair.toString())
-        audioIdPair.first.let {
-            Log.d("Audio", it)
-        val mediaPlayer = MediaPlayer()
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-        audioIdPair.first.let {mediaPlayer.setDataSource(it)  }
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener{
-            mediaPlayer.start()
-        }}
-
-        binding.ibMotion.setOnClickListener {
-            if (mediaPlayer?.isPlaying == true)
-                mediaPlayer?.stop()
-            else
-                mediaPlayer?.start()
-        }
-
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer?.release()
-        mediaPlayer = null
     }
 
 
+    private fun musicCheck() {
+       sharedViewModel.data.observe(this) {
+           Log.d("Audio1", "$it")
+       }
 
+    }
+    private fun sendId() {
+        selectedArtist = intent.getIntegerArrayListExtra("selected")
+        Log.d("Selected", "$selectedArtist")
 
+        val bundle = Bundle()
+        bundle.putIntegerArrayList("id", selectedArtist)
+        val homeFragment=HomeFragment()
+        homeFragment.arguments=bundle
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.homeFragmentContainer,homeFragment)
+            .commit()
+    }
 }
-
-
-
-

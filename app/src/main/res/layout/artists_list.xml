@@ -5,7 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/background"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:layout_margin="5dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civArtist"

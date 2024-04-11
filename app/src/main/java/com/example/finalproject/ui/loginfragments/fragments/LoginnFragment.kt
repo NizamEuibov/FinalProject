@@ -1,5 +1,6 @@
 package com.example.finalproject.ui.loginfragments.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,9 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentLoginBinding
+import com.example.finalproject.ui.activities.HomeActivity
 import com.example.finalproject.ui.extension.Button.enable
 import com.example.finalproject.ui.loginfragments.model.LoginModel
 import com.example.finalproject.ui.loginfragments.viewmodel.LogInViewModel
@@ -56,7 +56,6 @@ class LoginnFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
             }
 
         })
@@ -74,7 +73,9 @@ class LoginnFragment : Fragment() {
 
 
         if (viewModel.checkData(data) == true) {
-            findNavController().navigate(R.id.action_loginnFragment_to_homeFragment)
+//            findNavController().navigate(R.id.action_loginnFragment_to_homeFragment)
+            val navigateIntent = Intent(requireContext(), HomeActivity::class.java)
+            startActivity(navigateIntent)
         } else {
             Toast.makeText(
                 requireContext(),

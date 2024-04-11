@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(private val repositoryLogIn: RepositoryLogIn) : ViewModel() {
-    private val loginList = MutableLiveData<List<LoginModel>>()
+    private val loginList = MutableLiveData<List<LoginModel>?>()
 
 
     init {

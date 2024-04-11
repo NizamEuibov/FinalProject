@@ -44,8 +44,10 @@ class AlbumsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        init()
+       if(id !=0){
+        init()}
+        else
+       {albumList()}
         listenerView()
 
         binding.cvBack.setOnClickListener {
@@ -125,6 +127,16 @@ class AlbumsFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun albumList(){
+        adapter = AlbumsAdapter(requireContext())
+        binding.rvAlbum.adapter = adapter
+        binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
+        viewModel.albumsList.observe(viewLifecycleOwner){
+            val albumList=it.map { it.albums }.flatten()
+            adapter.addImage(albumList)
+        }
     }
 }
 

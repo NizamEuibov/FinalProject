@@ -3,6 +3,7 @@ package com.example.finalproject.ui.registrationfragments.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GenderFragment : Fragment() {
     private var binding: FragmentGenderBinding? = null
+   private val list = arrayOf("man", "woman", "none")
 
     private val email: String? by lazy {
         arguments?.getString("email")
@@ -62,6 +64,7 @@ class GenderFragment : Fragment() {
                     binding?.buttonNext?.enable()
                 } else {
                     binding?.buttonNext?.disable()
+                    binding?.etRegistration?.error="Enter gender"
                 }
             }
 
@@ -73,21 +76,18 @@ class GenderFragment : Fragment() {
 
     private fun sendGender() {
         val gender = binding?.autoComplete?.text.toString()
-
-        if (checkText(gender)) {
+            if (list.contains(gender)){
             val bundle = bundleOf(
                 "email" to email, "password" to password, "gender" to gender
             )
-
             findNavController().navigate(R.id.action_genderFragment_to_nameFragment, bundle)
-        } else {
-            Toast.makeText(context, "Enter gender", Toast.LENGTH_LONG).show()
+        Log.d("Gender",gender)}
+        else{
+            Toast.makeText(context,"Incorrect gender",Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun autoComplete() {
-        val list = arrayOf("man", "woman", "none")
 
         binding?.autoComplete?.setDropDownBackgroundTint(ContextCompat.getColor(requireContext(),R.color.bbColor))
         binding?.autoComplete?.setAdapter(
@@ -99,10 +99,6 @@ class GenderFragment : Fragment() {
         )
     }
 
-    private fun checkText(text:String): Boolean {
-        val gender= binding?.autoComplete?.text.toString()
-        return gender.isNotEmpty()
 
-    }
 
 }

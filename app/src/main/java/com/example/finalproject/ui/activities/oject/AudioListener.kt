@@ -1,17 +1,26 @@
 package com.example.finalproject.ui.activities.oject
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.finalproject.data.networkdata.models.DataTypeModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MyViewModel @Inject constructor(): ViewModel() {
-    private val _data = MutableLiveData<String>()
-    val data: LiveData<String> get() = _data
+class SharedViewModel @Inject constructor(): ViewModel() {
 
-    fun setData(newData: String) {
-        _data.value = newData
-    }
+     private val _data = MutableLiveData<DataTypeModel>()
+     val data: LiveData<DataTypeModel> = _data
+
+     fun setData(data: DataTypeModel.Tracks) {
+          _data.value = data
+          Log.d("Tracks1","$data")
+     }
 }
+
+data class AudioData(
+     val audio:String?=null,
+     val id:Int?=null
+)

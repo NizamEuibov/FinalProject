@@ -1,5 +1,6 @@
 package com.example.finalproject.ui.homefragment.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,10 +20,15 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: ParentAdapter
     private val viewModel: HomeViewModel by viewModels()
     private var selected: List<Int>? = null
+    private val PREF_NAME ="SharedPre"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        selected = arguments?.getIntegerArrayList("selected")
+        selected = arguments?.getIntegerArrayList("id")
+        Log.d("Selected", "$selected")
+//        selectedList(selected)
+//        selected=savedList()
     }
 
     override fun onCreateView(
@@ -50,19 +56,20 @@ class HomeFragment : Fragment() {
             if (it != null) {
                 val matchItems = it.filter { selected?.contains(it.id) == true }
                 adapter.addList(matchItems)
-
             }
-
         }
     }
 
-
-
-
+    private fun selectedList(selectedList:List<Int>?){
+        val sharedPreferences =requireContext().getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
+        val editor=sharedPreferences.edit()
+        editor.putStringSet("selected_List",selectedList?.map { it.toString()}?.toSet())
+        editor.apply()
+    }
+private fun savedList():List<Int>?{
+    val sharedPreferences=requireContext().getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
+    val selectedSet=sharedPreferences.getStringSet("selected_list",null)
+    return selectedSet?.map { it.toInt() }
 }
 
-
-
-
-
-
+}

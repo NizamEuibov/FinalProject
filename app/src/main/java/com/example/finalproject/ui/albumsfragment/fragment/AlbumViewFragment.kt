@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentAlbumViewBinding
+import com.example.finalproject.ui.activities.oject.SharedViewModel
 import com.example.finalproject.ui.albumsfragment.adapter.AlbumViewAdapter
 import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
 import com.example.finalproject.ui.albumsfragment.viewmodel.TrackViewModel
@@ -32,8 +33,7 @@ class AlbumViewFragment : Fragment() {
     private var albumId: Int? = null
     private val albumViewModel: AlbumViewModel by viewModels()
     private var tracksList: List<DataTypeModel.Tracks> = emptyList()
-    var audio:String?=null
-
+    private val sharedViewModel:SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +84,7 @@ class AlbumViewFragment : Fragment() {
             albumControlFragment.show(childFragmentManager, "")
         }
 
+
     }
 
     private fun albumView() {
@@ -100,7 +101,7 @@ class AlbumViewFragment : Fragment() {
 
 
         viewModel.trackList.observe(viewLifecycleOwner) { it ->
-            Log.d("IT12","$it")
+            Log.d("IT12", "$it")
             if (it != null)
                 tracksList = it.map { it.tracks }.flatten()
 
@@ -117,8 +118,8 @@ class AlbumViewFragment : Fragment() {
 
         adapter.setOnClickListener(object : AlbumViewAdapter.Listener {
             override fun onClickListener(data: DataTypeModel.Tracks) {
-                Log.d("Data","${data.audio}")
-                audio = data.audio
+                Log.d("Data", "${data.audio}")
+
 
                 val bundle = bundleOf(
                     "id" to data.id,
@@ -134,6 +135,8 @@ class AlbumViewFragment : Fragment() {
             }
 
             override fun onClickAudioListener(data: DataTypeModel.Tracks) {
+                sharedViewModel.setData(data)
+                Log.d("Data1", "$data")
 
             }
 
@@ -190,5 +193,7 @@ class AlbumViewFragment : Fragment() {
             }
         }
     }
+
+
 
 }

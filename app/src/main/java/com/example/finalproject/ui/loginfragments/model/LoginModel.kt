@@ -1,6 +1,6 @@
 package com.example.finalproject.ui.loginfragments.model
 
 data class LoginModel(
-    val email:String,
-    val password:String
+    val email:String?=null,
+    val password:String?=null
 )
