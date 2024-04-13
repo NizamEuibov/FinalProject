@@ -126,7 +126,11 @@
         android:id="@+id/libraryUserFragment"
         android:name="com.example.finalproject.ui.libraryfragment.fragment.LibraryUserFragment"
         android:label="fragment_library_user"
-        tools:layout="@layout/fragment_library_user" />
+        tools:layout="@layout/fragment_library_user" >
+        <action
+            android:id="@+id/action_libraryUserFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/artistViewFragment"
         android:name="com.example.finalproject.ui.artistsfragment.fragment.ArtistViewFragment"
@@ -136,4 +140,9 @@
             android:id="@+id/action_artistViewFragment_to_albumsFragment"
             app:destination="@id/albumsFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.fragment.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

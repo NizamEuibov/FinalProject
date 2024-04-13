@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentLibraryUserBinding
 
 
@@ -22,6 +24,9 @@ class LibraryUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.ibBack.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+        binding.bEdit.setOnClickListener {
+            findNavController().navigate(R.id.action_libraryUserFragment_to_editProfileFragment)
         }
     }
 

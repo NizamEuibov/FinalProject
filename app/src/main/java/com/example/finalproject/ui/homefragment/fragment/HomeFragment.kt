@@ -27,8 +27,8 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         selected = arguments?.getIntegerArrayList("id")
         Log.d("Selected", "$selected")
-//        selectedList(selected)
-//        selected=savedList()
+        selectedList(selected)
+        selected=savedList()
     }
 
     override fun onCreateView(
@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        Log.d("select", "${savedList()}")
 
     }
 
@@ -60,16 +61,18 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun selectedList(selectedList:List<Int>?){
-        val sharedPreferences =requireContext().getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
-        val editor=sharedPreferences.edit()
-        editor.putStringSet("selected_List",selectedList?.map { it.toString()}?.toSet())
+    private fun selectedList(selectedList: List<Int>?) {
+        val sharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putStringSet("selected_list", selectedList?.map { it.toString() }?.toSet())
         editor.apply()
     }
-private fun savedList():List<Int>?{
-    val sharedPreferences=requireContext().getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
-    val selectedSet=sharedPreferences.getStringSet("selected_list",null)
-    return selectedSet?.map { it.toInt() }
-}
+
+    private fun savedList(): List<Int>? {
+        val sharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val selectedSet = sharedPreferences.getStringSet("selected_list", null)
+        return selectedSet?.map { it.toInt() }
+    }
+
 
 }

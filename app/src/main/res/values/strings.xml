@@ -95,6 +95,9 @@
     <string name="artists"> You can choose artists</string>
     <string name="album_size">Album size : </string>
     <string name="hide">Hide</string>
+    <string name="name">name :</string>
+    <string name="edit">Edit Profile</string>
+    <string name="save">Save</string>
 
 </resources>
 

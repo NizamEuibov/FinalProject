@@ -86,8 +86,6 @@ class ArtistsFragment : Fragment() {
 
                     binding.artistsButton.setOnClickListener {
                         val isSelected=selectedItems.map { it.id }
-
-
                         //findNavController().navigate(R.id.action_artistsFragment_to_homeFragment,bundle)
                         val navigateIntent = Intent(requireActivity(),HomeActivity::class.java)
                         navigateIntent.putExtra("selected", ArrayList(isSelected))
