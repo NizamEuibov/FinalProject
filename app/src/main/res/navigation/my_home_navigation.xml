@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_yourLibraryFragment_to_albumsFragment"
             app:destination="@id/albumsFragment" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_playTrackFragment"
+            app:destination="@id/playTrackFragment" />
     </fragment>
     <dialog
         android:id="@+id/trackShareFragment"
@@ -112,6 +115,9 @@
         <action
             android:id="@+id/action_albumViewFragment_to_trackControlFragment"
             app:destination="@id/trackControlFragment" />
+        <action
+            android:id="@+id/action_albumViewFragment_to_playTrackFragment"
+            app:destination="@id/playTrackFragment" />
     </fragment>
     <fragment
         android:id="@+id/librarySettingFragment"
@@ -145,4 +151,16 @@
         android:name="com.example.finalproject.ui.libraryfragment.fragment.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <dialog
+        android:id="@+id/playTrackFragment"
+        android:name="com.example.finalproject.ui.track.fragment.PlayTrackFragment"
+        android:label="fragment_play_track"
+        tools:layout="@layout/fragment_play_track" >
+        <action
+            android:id="@+id/action_playTrackFragment_to_trackShareFragment"
+            app:destination="@id/trackShareFragment" />
+        <action
+            android:id="@+id/action_playTrackFragment_to_trackControlFragment"
+            app:destination="@id/trackControlFragment" />
+    </dialog>
 </navigation>
