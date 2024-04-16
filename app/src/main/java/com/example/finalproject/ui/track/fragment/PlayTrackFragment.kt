@@ -25,17 +25,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class PlayTrackFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentPlayTrackBinding
     private var id: Int? = null
+    private var albumName: String? = null
     private val viewModel: TrackViewModel by viewModels()
-    private lateinit var artistName: String
-    private lateinit var albumName: String
-    private lateinit var trackName: String
-    private lateinit var image: String
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer() }
+    private var index: Int? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
+        albumName = arguments?.getString("albumName")
         Log.d("IDid", "$id")
     }
 
@@ -63,8 +62,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTexts()
-        playMusic()
+        id?.let { setTexts(it) }
         binding.ib3Point.setOnClickListener {
             val bundle = bundleOf(
                 "id" to id
@@ -89,18 +87,22 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         }
 
         binding.ibPlay.setOnClickListener {
-            mediaPlayer.start()
-            binding.ibPause.visibility=View.VISIBLE
-            binding.ibPlay.visibility=View.INVISIBLE
+            id?.let { it1 -> playMusic(it1) }
+            binding.ibPause.visibility = View.VISIBLE
+            binding.ibPlay.visibility = View.INVISIBLE
+        }
+        binding.ibNext.setOnClickListener {
+            nextMusic()
         }
 
     }
 
 
-    private fun setTexts() {
+    private fun setTexts(id: Int) {
+        Log.d("IDid", "$id")
         viewModel.trackList.observe(viewLifecycleOwner) { list ->
             if (list != null) {
-                artistName =
+                val artistName =
                     list.filter { tracks ->
                         tracks.tracks.map { tracksId ->
                             tracksId.id
@@ -111,7 +113,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                         .trim('[', ']')
 
 
-                albumName =
+                val albumName =
                     list.map { tracks ->
                         tracks.tracks.filter { tracksId ->
                             tracksId.id == id
@@ -122,23 +124,24 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                         .flatten().toString().trim('[', ']')
 
 
-                trackName =
+                val trackName =
                     list.map { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
-                        .map { tracks -> tracks.map { albumName -> albumName.albumName } }
+                        .map { tracks -> tracks.map { albumName -> albumName.name } }
                         .flatten().toString().trim('[', ']')
 
 
-                image =
+                val image =
                     list.map { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
                         .map { tracks -> tracks.map { image -> image.image } }
                         .flatten().toString().trim('[', ']')
 
+                val trackList =
+                    list.filter { album -> album.tracks.map { it.albumName }.contains(albumName) }
+                        .map { it.tracks.map { id -> id.id } }.flatten()
 
 
 
-
-
-
+                index = trackList.indexOf(id)
                 with(binding) {
                     Glide.with(requireContext()).load(image).into(ivTracks)
                     tvArtistName.text = artistName
@@ -149,7 +152,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun playMusic() {
+    private fun playMusic(id: Int) {
         viewModel.trackList.observe(viewLifecycleOwner) { list ->
             val audio =
                 list?.flatMap { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
@@ -166,13 +169,42 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun pauseMusic(){
-        if (mediaPlayer.isPlaying){
+    private fun pauseMusic() {
+        if (mediaPlayer.isPlaying) {
             mediaPlayer.stop()
-            binding.ibPause.visibility=View.INVISIBLE
-            binding.ibPlay.visibility=View.VISIBLE
+            binding.ibPause.visibility = View.INVISIBLE
+            binding.ibPlay.visibility = View.VISIBLE
         }
     }
 
 
+    private fun nextMusic() {
+        viewModel.trackList.observe(viewLifecycleOwner) { list ->
+            if (list != null) {
+                val trackList =
+                    list.filter { album -> album.tracks.map { it.albumName }.contains(albumName) }
+                        .map { it.tracks.map { id -> id.id } }.flatten()
+
+                Log.d("trackList","$trackList")
+            }
+        }
+    }
+
+
+    private fun previousMusic() {
+
+    }
+
+    private fun seekBarConnect() {
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
+    }
 }
+
+
+

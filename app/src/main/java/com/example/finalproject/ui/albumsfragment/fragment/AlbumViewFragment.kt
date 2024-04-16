@@ -138,7 +138,8 @@ class AlbumViewFragment : Fragment() {
 
             override fun onClickAudioListener(data: DataTypeModel.Tracks) {
                val bundle = bundleOf(
-                   "id" to data.id
+                   "id" to data.id,
+                   "albumName" to data.albumName
                )
                 findNavController().navigate(R.id.action_albumViewFragment_to_playTrackFragment, bundle)
             }

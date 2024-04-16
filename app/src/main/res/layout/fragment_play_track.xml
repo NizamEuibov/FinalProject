@@ -1,248 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="20dp"
     android:paddingHorizontal="22dp"
+    android:paddingTop="20dp"
     tools:context=".ui.track.fragment.PlayTrackFragment">
 
     <ImageButton
         android:id="@+id/ibCancel"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:contentDescription="@string/todo"
         android:src="@drawable/ic_cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/todo"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/tvAlbumName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/todo"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:text="@string/todo"
-        app:layout_constraintStart_toEndOf="@id/ibCancel"
-        app:layout_constraintEnd_toStartOf="@id/ib3Point"
         app:layout_constraintBottom_toBottomOf="@id/ibCancel"
-        />
-
+        app:layout_constraintEnd_toStartOf="@id/ib3Point"
+        app:layout_constraintStart_toEndOf="@id/ibCancel" />
 
 
     <ImageButton
         android:id="@+id/ib3Point"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_3point"
         android:backgroundTint="@color/background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/ibCancel"
         android:contentDescription="@string/todo"
-        />
-
+        android:src="@drawable/ic_3point"
+        app:layout_constraintBottom_toBottomOf="@id/ibCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
         android:id="@+id/ivTracks"
         android:layout_width="300dp"
         android:layout_height="280dp"
-        android:src="@mipmap/ic_exit"
         android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAlbumName"
         android:contentDescription="@string/todo"
-        />
-
+        android:src="@mipmap/ic_exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAlbumName" />
 
 
     <TextView
         android:id="@+id/tvTrackName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        android:text="@string/tab_artist"
         android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivTracks"
+        android:text="@string/tab_artist"
+        android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivTracks" />
 
     <TextView
         android:id="@+id/tvArtistName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="@color/bbColor"
-        android:text="@string/todo"
         android:layout_marginTop="5dp"
+        android:text="@string/todo"
+        android:textColor="@color/bbColor"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/tvTrackName"
-        app:layout_constraintTop_toBottomOf="@id/tvTrackName"
-        />
-   
-    
+        app:layout_constraintTop_toBottomOf="@id/tvTrackName" />
+
+
     <SeekBar
         android:id="@+id/skbTrack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:max="100"
         android:progress="0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvArtistName"
-        android:layout_marginTop="10dp"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvArtistName" />
 
     <ImageButton
         android:id="@+id/ibShuffle"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_shuffle"
-        android:background="@color/background"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/skbTrack"
-        app:layout_constraintEnd_toStartOf="@id/ibPrevious"
+        android:background="@color/background"
         android:contentDescription="@string/todo"
-        />
+        android:src="@drawable/ic_shuffle"
+        app:layout_constraintEnd_toStartOf="@id/ibPrevious"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/skbTrack" />
 
 
     <ImageButton
         android:id="@+id/ibPrevious"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_previous"
-        android:background="@color/background"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
-        app:layout_constraintStart_toEndOf="@id/ibShuffle"
-        app:layout_constraintTop_toBottomOf="@id/skbTrack"
-        app:layout_constraintEnd_toStartOf="@id/ibPlay"
+        android:background="@color/background"
         android:contentDescription="@string/todo"
-        />
-
-
+        android:src="@drawable/ic_previous"
+        app:layout_constraintEnd_toStartOf="@id/ibPlay"
+        app:layout_constraintStart_toEndOf="@id/ibShuffle"
+        app:layout_constraintTop_toBottomOf="@id/skbTrack" />
 
 
     <ImageButton
-        android:visibility="invisible"
         android:id="@+id/ibPlay"
         android:layout_width="67dp"
         android:layout_height="67dp"
-        android:src="@drawable/ic_play"
-        android:background="@drawable/round_ic"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
-        app:layout_constraintStart_toEndOf="@id/ibPrevious"
-        app:layout_constraintTop_toBottomOf="@id/skbTrack"
-        app:layout_constraintEnd_toStartOf="@id/ibNext"
+        android:background="@drawable/round_ic"
         android:contentDescription="@string/todo"
         android:paddingStart="7dp"
+        android:src="@drawable/ic_play"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@id/ibNext"
+        app:layout_constraintStart_toEndOf="@id/ibPrevious"
+        app:layout_constraintTop_toBottomOf="@id/skbTrack"
         tools:ignore="RtlSymmetry" />
-
-
 
 
     <ImageButton
         android:id="@+id/ibPause"
         android:layout_width="67dp"
         android:layout_height="67dp"
-        android:src="@drawable/ic_pause"
         android:background="@drawable/round_ic"
-        app:layout_constraintStart_toStartOf="@id/ibPlay"
-        app:layout_constraintTop_toTopOf="@id/ibPlay"
-        app:layout_constraintEnd_toEndOf="@id/ibPlay"
-        app:layout_constraintBottom_toBottomOf="@id/ibPlay"
         android:contentDescription="@string/todo"
-        />
-
-
+        android:src="@drawable/ic_pause"
+        app:layout_constraintBottom_toBottomOf="@id/ibPlay"
+        app:layout_constraintEnd_toEndOf="@id/ibPlay"
+        app:layout_constraintStart_toStartOf="@id/ibPlay"
+        app:layout_constraintTop_toTopOf="@id/ibPlay" />
 
 
     <ImageButton
         android:id="@+id/ibNext"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:src="@drawable/ic_next"
-        android:background="@color/background"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
-        app:layout_constraintStart_toEndOf="@id/ibPlay"
-        app:layout_constraintTop_toBottomOf="@id/skbTrack"
-        app:layout_constraintEnd_toStartOf="@id/ibRepeat"
+        android:background="@color/background"
         android:contentDescription="@string/todo"
-        />
-
+        android:src="@drawable/ic_next"
+        app:layout_constraintEnd_toStartOf="@id/ibRepeat"
+        app:layout_constraintStart_toEndOf="@id/ibPlay"
+        app:layout_constraintTop_toBottomOf="@id/skbTrack" />
 
 
     <ImageButton
         android:id="@+id/ibRepeat"
         android:layout_width="29dp"
         android:layout_height="29dp"
-        android:src="@drawable/ic_repeat"
-        android:background="@color/background"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toEndOf="@id/ibNext"
-        app:layout_constraintTop_toBottomOf="@id/skbTrack"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/background"
         android:contentDescription="@string/todo"
-        />
+        android:src="@drawable/ic_repeat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ibNext"
+        app:layout_constraintTop_toBottomOf="@id/skbTrack" />
 
     <TextView
         android:id="@+id/tvMotion2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/motion_beatspill"
-        android:drawablePadding="5dp"
-        android:textSize="12sp"
-        android:textColor="@color/grey"
-      app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ibShuffle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="45dp"
         android:layout_marginStart="40dp"
-       android:layout_marginBottom="90dp"
-        app:drawableStartCompat="@drawable/ic_blue" />
-
-
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="110dp"
+        android:drawablePadding="5dp"
+        android:text="@string/motion_beatspill"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ibShuffle" />
 
 
     <ImageButton
         android:id="@+id/ibPlayList"
         android:layout_width="18dp"
         android:layout_height="16dp"
-        android:src="@drawable/ic_playlist"
-        android:contentDescription="@string/todo"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="15dp"
         android:background="@color/background"
-       app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ibRepeat"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_playlist"
         app:layout_constraintBottom_toBottomOf="@id/tvMotion2"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ibRepeat" />
 
     <ImageButton
         android:id="@+id/ibShare"
         android:layout_width="15dp"
         android:layout_height="19dp"
-        android:src="@drawable/ic_share"
         android:layout_marginEnd="45dp"
-        app:layout_constraintEnd_toStartOf="@id/ibPlayList"
-        app:layout_constraintTop_toTopOf="@id/ibPlayList"
-        app:layout_constraintBottom_toBottomOf="@id/tvMotion2"
         android:background="@color/background"
         android:contentDescription="@string/todo"
-        />
-
-
+        android:src="@drawable/ic_share"
+        app:layout_constraintBottom_toBottomOf="@id/tvMotion2"
+        app:layout_constraintEnd_toStartOf="@id/ibPlayList"
+        app:layout_constraintTop_toTopOf="@id/ibPlayList" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
