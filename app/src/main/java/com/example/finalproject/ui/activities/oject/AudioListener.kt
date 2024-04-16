@@ -11,8 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel @Inject constructor(): ViewModel() {
 
-     private val _data = MutableLiveData<DataTypeModel>()
-     val data: LiveData<DataTypeModel> = _data
+     private val _data = MutableLiveData<DataTypeModel.Tracks>()
+     val data: LiveData<DataTypeModel.Tracks> = _data
 
      fun setData(data: DataTypeModel.Tracks) {
           _data.value = data

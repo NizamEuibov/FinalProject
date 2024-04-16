@@ -9,8 +9,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.finalproject.R
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentAlbumViewBinding
 import com.example.finalproject.ui.activities.oject.SharedViewModel
@@ -135,9 +137,10 @@ class AlbumViewFragment : Fragment() {
             }
 
             override fun onClickAudioListener(data: DataTypeModel.Tracks) {
-                sharedViewModel.setData(data)
-                Log.d("Data1", "$data")
-
+               val bundle = bundleOf(
+                   "id" to data.id
+               )
+                findNavController().navigate(R.id.action_albumViewFragment_to_playTrackFragment, bundle)
             }
 
 

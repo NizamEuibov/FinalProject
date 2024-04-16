@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -33,23 +34,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EditProfileFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentEditProfileBinding
-   val CAMERA_REQUEST_CODE = 1
-    private val someActivityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val requestCode = result.resultCode
-                handleActivityResult(requestCode, data)
-            }
-        }
+   private val CAMERA_REQUEST_CODE = 1
+    private lateinit var someActivityResultLauncher: ActivityResultLauncher<Intent>
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEditProfileBinding.inflate(layoutInflater, container, false)
-
         return binding.root
     }
 
@@ -72,6 +66,7 @@ class EditProfileFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        result()
 
         binding.ibChangeImage.setOnClickListener {
             alertDialog()
@@ -84,20 +79,15 @@ class EditProfileFragment : BottomSheetDialogFragment() {
     }
 
     private fun alertDialog() {
-        val alertDialog = AlertDialog.Builder(requireContext())
+        val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle("Change Profile Photo")
-        alertDialog.setPositiveButton("Choose Photo") { dialog, which ->
-            galleryCheck()
+      val alertDialogItems = arrayOf("Choose Photo" , "Take Photo" , "Remove Photo")
+        alertDialog.setItems(alertDialogItems){dialog , which ->
+             when(which){
+                 0 ->cameraPermissionCheck()
+                 1 -> galleryCheck()
+             }
         }
-
-        alertDialog.setNegativeButton("Take Photo") { dialog, _ ->
-            cameraPermissionCheck()
-
-        }
-        alertDialog.setNeutralButton("Remove Photo") { dialog, which ->
-
-        }
-
         val alert = alertDialog.create()
         alert.show()
     }
@@ -106,7 +96,7 @@ class EditProfileFragment : BottomSheetDialogFragment() {
 
 
     private fun cameraPermissionCheck() {
-        Dexter.withContext(context)
+        Dexter.withContext(requireContext())
             .withPermissions(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA
@@ -157,6 +147,13 @@ class EditProfileFragment : BottomSheetDialogFragment() {
                 transformations(CircleCropTransformation())
             }
         }
+        else{
+            binding.civEditProfile.load(data?.data){
+                crossfade(true)
+                crossfade(1000)
+                transformations(CircleCropTransformation())
+            }
+        }
     }
 
     private fun camera() {
@@ -165,7 +162,7 @@ class EditProfileFragment : BottomSheetDialogFragment() {
     }
 
     private fun galleryCheck() {
-       Dexter.withContext(context)
+       Dexter.withContext(requireContext())
            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
            .withListener(object :PermissionListener{
                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
@@ -188,7 +185,24 @@ class EditProfileFragment : BottomSheetDialogFragment() {
 
 
     private fun gallery(){
+        val intent =Intent(Intent.ACTION_PICK)
+        intent.type="image/*"
+      someActivityResultLauncher.launch(intent
+      )
 
+    }
+
+    private fun result(){
+        someActivityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val requestCode = result.resultCode
+                handleActivityResult(requestCode, data)
+            }
+
+        }
     }
 
 }

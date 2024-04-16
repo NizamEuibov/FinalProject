@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityHomeBinding
 import com.example.finalproject.ui.activities.oject.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -59,6 +61,9 @@ class HomeActivity : AppCompatActivity() {
 
             }
         }
+        lifecycleScope.launch {
+            check()
+        }
 
     }
 
@@ -68,6 +73,15 @@ class HomeActivity : AppCompatActivity() {
            Log.d("Audio1", "$it")
        }
 
+    }
+
+
+
+    private fun check(){
+        sharedViewModel.data.observe(this){
+            val audio =it
+            Log.d("Tracks11","$it")
+        }
     }
 
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="40dp"
+    android:paddingTop="20dp"
     android:paddingHorizontal="22dp"
     tools:context=".ui.track.fragment.PlayTrackFragment">
 
@@ -51,9 +51,9 @@
     <ImageView
         android:id="@+id/ivTracks"
         android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_height="280dp"
         android:src="@mipmap/ic_exit"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAlbumName"
@@ -69,7 +69,7 @@
         android:textSize="22sp"
         android:textColor="@color/white"
         android:text="@string/tab_artist"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivTracks"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,6 +133,7 @@
 
 
     <ImageButton
+        android:visibility="invisible"
         android:id="@+id/ibPlay"
         android:layout_width="67dp"
         android:layout_height="67dp"
@@ -151,7 +152,6 @@
 
 
     <ImageButton
-      android:visibility="invisible"
         android:id="@+id/ibPause"
         android:layout_width="67dp"
         android:layout_height="67dp"
@@ -206,8 +206,10 @@
         android:textColor="@color/grey"
       app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ibShuffle"
-        android:layout_marginTop="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="45dp"
         android:layout_marginStart="40dp"
+       android:layout_marginBottom="90dp"
         app:drawableStartCompat="@drawable/ic_blue" />
 
 
@@ -224,6 +226,7 @@
         android:background="@color/background"
        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ibRepeat"
+        app:layout_constraintBottom_toBottomOf="@id/tvMotion2"
         />
 
     <ImageButton
@@ -234,6 +237,7 @@
         android:layout_marginEnd="45dp"
         app:layout_constraintEnd_toStartOf="@id/ibPlayList"
         app:layout_constraintTop_toTopOf="@id/ibPlayList"
+        app:layout_constraintBottom_toBottomOf="@id/tvMotion2"
         android:background="@color/background"
         android:contentDescription="@string/todo"
         />
