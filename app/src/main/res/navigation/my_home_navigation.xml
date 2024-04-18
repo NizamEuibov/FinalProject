@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_yourLibraryFragment_to_playTrackFragment"
             app:destination="@id/playTrackFragment" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_likedSongsFragment"
+            app:destination="@id/likedSongsFragment" />
     </fragment>
     <dialog
         android:id="@+id/trackShareFragment"
@@ -163,4 +166,13 @@
             android:id="@+id/action_playTrackFragment_to_trackControlFragment"
             app:destination="@id/trackControlFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/likedSongsFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.fragment.LikedSongsFragment"
+        android:label="fragment_liked_songs"
+        tools:layout="@layout/fragment_liked_songs" >
+        <action
+            android:id="@+id/action_likedSongsFragment_to_playTrackFragment"
+            app:destination="@id/playTrackFragment" />
+    </fragment>
 </navigation>

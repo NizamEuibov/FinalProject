@@ -54,6 +54,10 @@ class YourLibraryFragment : Fragment() {
             findNavController().navigate(R.id.action_yourLibraryFragment_to_librarySettingFragment)
         }
 
+        binding.ivLiked.setOnClickListener {
+            findNavController().navigate(R.id.action_yourLibraryFragment_to_likedSongsFragment)
+        }
+
     }
 
     private fun libraryArtist() {

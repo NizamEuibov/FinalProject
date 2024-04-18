@@ -90,6 +90,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvArtistName" />
 
+
+    <TextView
+        android:id="@+id/tvEndDuration"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/skbTrack"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tvStartDuration"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/skbTrack"
+        app:layout_constraintEnd_toStartOf="@id/tvEndDuration" />
+
     <ImageButton
         android:id="@+id/ibShuffle"
         android:layout_width="24dp"
@@ -215,6 +233,5 @@
         app:layout_constraintBottom_toBottomOf="@id/tvMotion2"
         app:layout_constraintEnd_toStartOf="@id/ibPlayList"
         app:layout_constraintTop_toTopOf="@id/ibPlayList" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -99,7 +99,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
     private fun trackImage() {
         viewModel.trackList.observe(viewLifecycleOwner) { it ->
             if (it != null) {
-                trackList = it.map { it.tracks.filter { it.id==id }}.flatten()
+                trackList = it.map { it.tracks.filter { it.id == id } }.flatten()
                 artistId =
                     it.filter { it.tracks.map { it.id }.contains(id) }.map { it.id }.toString()
                         .trim('[', ']').toInt()
@@ -123,10 +123,11 @@ class TrackControlFragment : BottomSheetDialogFragment() {
     }
 
     private fun sendTrack() {
-        val id = trackList.map { it.id }.toString().trim('[',']').toInt()
+        val id = trackList.map { it.id }.toString().trim('[', ']').toInt()
         val name = trackList.map { it.name }.toString()
         val audio = trackList.map { it.audio }.toString()
-        val track = TrackEntity(id, name, audio)
+        val image = trackList.map { it.image }.toString()
+        val track = TrackEntity(0,id, name, image, audio)
         sendTrackToRepo.sendTrackToRepo(track)
     }
 }

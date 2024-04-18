@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.SeekBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,7 +30,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     private val viewModel: TrackViewModel by viewModels()
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer() }
     private var index: Int? = null
-    private var buttonIsEnabled: Boolean?=null
+    private var buttonIsEnabled = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,23 +96,40 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
         binding.ibPlay.setOnClickListener {
 //            id?.let { it1 -> playMusic(it1) }
-            mediaPlayer.start()
+            id?.let { it1 -> playMusic(it1) }
             binding.ibPause.visibility = View.VISIBLE
             binding.ibPlay.visibility = View.INVISIBLE
         }
         binding.ibNext.setOnClickListener {
-            binding.ibPause.visibility=View.VISIBLE
-            binding.ibPlay.visibility=View.INVISIBLE
+            binding.ibPause.visibility = View.VISIBLE
+            binding.ibPlay.visibility = View.INVISIBLE
             nextMusic()
         }
 
         binding.ibPrevious.setOnClickListener {
             Log.d("id121", "$index")
-            binding.ibPause.visibility=View.VISIBLE
-            binding.ibPlay.visibility=View.INVISIBLE
+            binding.ibPause.visibility = View.VISIBLE
+            binding.ibPlay.visibility = View.INVISIBLE
             previousMusic()
 
         }
+
+
+
+
+        binding.skbTrack.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    mediaPlayer.seekTo(progress)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+            }
+        })
     }
 
 
@@ -181,6 +199,9 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             mediaPlayer.prepareAsync()
             mediaPlayer.setOnPreparedListener {
                 it.start()
+                binding.skbTrack.max = mediaPlayer.duration
+               seekBarConnect()
+                displayMusicTime(0,mediaPlayer.duration)
             }
             mediaPlayer.setOnCompletionListener {
                 nextMusic()
@@ -238,8 +259,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                         setTexts(it)
                     }
 
-                }
-                else if (index ==0){
+                } else if (index == 0) {
                     trackList[0]?.let {
                         playMusic(it)
                         setTexts(it)
@@ -267,9 +287,36 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     }
 
     private fun seekBarConnect() {
+        val handler = android.os.Handler()
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                binding.skbTrack.progress = mediaPlayer.currentPosition
+                handler.postDelayed(this, 1000)
+            }
+        }, 1000)
 
     }
+    private fun displayMusicTime(currentPosition: Int, totalDuration: Int) {
+        val currentMinutes = currentPosition / 1000 / 60
+        val currentSeconds = (currentPosition / 1000) % 60
+        val totalMinutes = totalDuration / 1000 / 60
+        val totalSeconds = (totalDuration / 1000) % 60
 
+        val currentTimeString = String.format("%02d:%02d", currentMinutes, currentSeconds)
+        val totalTimeString = String.format("%02d:%02d", totalMinutes, totalSeconds)
+
+        binding.tvEndDuration.text = currentTimeString
+        binding.tvStartDuration.text = totalTimeString
+    }
+
+
+    private fun repeat() {
+        mediaPlayer.setOnCompletionListener {
+            index = index!! + 1
+            nextMusic()
+            buttonIsEnabled = true
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

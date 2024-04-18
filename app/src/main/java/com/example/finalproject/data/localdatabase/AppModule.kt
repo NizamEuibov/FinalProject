@@ -12,28 +12,25 @@ import dagger.hilt.components.SingletonComponent
 object AppModule {
 
 
+    @Provides
+    fun provideRoom(applicationContext: Application): RegistrationDatabase {
+        return Room.databaseBuilder(
+            applicationContext,
+            RegistrationDatabase::class.java,
+            "app-database"
+        ).addMigrations(MIGRATION_1_2)
+            .build()
+    }
 
-@Provides
-fun provideRoom(applicationContext: Application): RegistrationDatabase {
-    return Room.databaseBuilder(
-        applicationContext,
-        RegistrationDatabase::class.java,
-        "app-database"
-    ).addMigrations(MIGRATION_23_24)
-        .build()
-}
-
-@Provides
-fun provideRegistrationDao(registrationDatabase: RegistrationDatabase): RegistrationDao {
-    return registrationDatabase.registrationDao()
-}
+    @Provides
+    fun provideRegistrationDao(registrationDatabase: RegistrationDatabase): RegistrationDao {
+        return registrationDatabase.registrationDao()
+    }
 
     @Provides
     fun provideTrackDao(registrationDatabase: RegistrationDatabase): TrackDao {
         return registrationDatabase.trackDao()
     }
-
-
 
 
 }

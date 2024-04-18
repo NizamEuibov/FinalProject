@@ -98,6 +98,7 @@
     <string name="name">name :</string>
     <string name="edit">Edit Profile</string>
     <string name="save">Save</string>
+    <string name="liked_songs">Liked Songs</string>
 
 </resources>
 
