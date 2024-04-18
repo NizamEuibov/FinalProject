@@ -19,7 +19,7 @@ fun provideRoom(applicationContext: Application): RegistrationDatabase {
         applicationContext,
         RegistrationDatabase::class.java,
         "app-database"
-    )
+    ).addMigrations(MIGRATION_23_24)
         .build()
 }
 
@@ -28,7 +28,10 @@ fun provideRegistrationDao(registrationDatabase: RegistrationDatabase): Registra
     return registrationDatabase.registrationDao()
 }
 
-
+    @Provides
+    fun provideTrackDao(registrationDatabase: RegistrationDatabase): TrackDao {
+        return registrationDatabase.trackDao()
+    }
 
 
 

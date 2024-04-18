@@ -11,5 +11,5 @@ interface TrackDao {
     suspend fun upsertTrack(track: TrackEntity)
 
     @Query("SELECT * FROM track_table")
-    fun getTrack(): LiveData<List<TrackEntity>>
+    fun getTrack(): LiveData<List<TrackEntity>?>
 }

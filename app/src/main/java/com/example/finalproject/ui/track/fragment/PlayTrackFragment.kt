@@ -29,6 +29,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     private val viewModel: TrackViewModel by viewModels()
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer() }
     private var index: Int? = null
+    private var buttonIsEnabled: Boolean?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +37,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         id = arguments?.getInt("id")
         albumName = arguments?.getString("albumName")
         Log.d("IDid", "$id")
+        Log.d("id121", "$albumName")
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -63,6 +65,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         id?.let { setTexts(it) }
+        id?.let { playMusic(it) }
         binding.ib3Point.setOnClickListener {
             val bundle = bundleOf(
                 "id" to id
@@ -72,7 +75,10 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             )
 
         }
-        binding.ibCancel.setOnClickListener { dismiss() }
+        binding.ibCancel.setOnClickListener {
+            dismiss()
+        }
+
         binding.ibShare.setOnClickListener {
             val bundle = bundleOf(
                 "id" to id
@@ -82,19 +88,30 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                 bundle
             )
         }
+
         binding.ibPause.setOnClickListener {
             pauseMusic()
         }
 
         binding.ibPlay.setOnClickListener {
-            id?.let { it1 -> playMusic(it1) }
+//            id?.let { it1 -> playMusic(it1) }
+            mediaPlayer.start()
             binding.ibPause.visibility = View.VISIBLE
             binding.ibPlay.visibility = View.INVISIBLE
         }
         binding.ibNext.setOnClickListener {
+            binding.ibPause.visibility=View.VISIBLE
+            binding.ibPlay.visibility=View.INVISIBLE
             nextMusic()
         }
 
+        binding.ibPrevious.setOnClickListener {
+            Log.d("id121", "$index")
+            binding.ibPause.visibility=View.VISIBLE
+            binding.ibPlay.visibility=View.INVISIBLE
+            previousMusic()
+
+        }
     }
 
 
@@ -136,8 +153,8 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                         .flatten().toString().trim('[', ']')
 
                 val trackList =
-                    list.filter { album -> album.tracks.map { it.albumName }.contains(albumName) }
-                        .map { it.tracks.map { id -> id.id } }.flatten()
+                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
+                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
 
 
 
@@ -165,6 +182,9 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             mediaPlayer.setOnPreparedListener {
                 it.start()
             }
+            mediaPlayer.setOnCompletionListener {
+                nextMusic()
+            }
             Log.d("AUDIO1", audio.toString())
         }
     }
@@ -179,20 +199,71 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
 
     private fun nextMusic() {
+        mediaPlayer.stop()
         viewModel.trackList.observe(viewLifecycleOwner) { list ->
             if (list != null) {
                 val trackList =
-                    list.filter { album -> album.tracks.map { it.albumName }.contains(albumName) }
-                        .map { it.tracks.map { id -> id.id } }.flatten()
+                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
+                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
+                if (index!! < trackList.size - 1) {
+                    index = index!! + 1
+                    trackList[index!!]?.let { playMusic(it) }
+                    trackList[index!!]?.let { setTexts(it) }
+                    Log.d("trackList", "$index")
+                } else if (index!! == trackList.size - 1) {
+                    trackList[0]?.let {
+                        playMusic(it)
+                        setTexts(it)
+                    }
+                    index = 0
+                }
 
-                Log.d("trackList","$trackList")
             }
         }
     }
 
 
     private fun previousMusic() {
+        mediaPlayer.stop()
+        viewModel.trackList.observe(viewLifecycleOwner) { list ->
+            if (list != null) {
+                val trackList =
+                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
+                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
+                Log.d("id121", "$trackList")
+                if (index!! > 0) {
+                    index = index!! - 1
+                    trackList[index!!]?.let {
+                        playMusic(it)
+                        setTexts(it)
+                    }
 
+                }
+                else if (index ==0){
+                    trackList[0]?.let {
+                        playMusic(it)
+                        setTexts(it)
+                    }
+                    index = trackList.size
+                    Log.d("id121", "$index")
+                }
+
+            }
+        }
+    }
+
+
+    private fun shuffleMusic() {
+        viewModel.trackList.observe(viewLifecycleOwner) { list ->
+            if (list != null) {
+                val trackList =
+                    list.filter { album ->
+                        album.tracks.map { it.albumName }.contains(albumName)
+                    }
+                        .map { it.tracks.map { id -> id.id } }.flatten()
+                trackList.shuffled()
+            }
+        }
     }
 
     private fun seekBarConnect() {

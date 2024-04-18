@@ -9,7 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
-class SendTrackToRepo @Inject constructor(private val repoSetTrack: RepoSetTrack):ViewModel() {
+class
+SendTrackToRepo @Inject constructor(private val repoSetTrack: RepoSetTrack):ViewModel() {
 
     fun sendTrackToRepo(track: TrackEntity){
         viewModelScope.launch {

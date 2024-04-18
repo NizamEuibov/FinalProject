@@ -141,6 +141,7 @@ class AlbumViewFragment : Fragment() {
                    "id" to data.id,
                    "albumName" to data.albumName
                )
+                Log.d("id121", "${data.albumName}")
                 findNavController().navigate(R.id.action_albumViewFragment_to_playTrackFragment, bundle)
             }
 
@@ -150,8 +151,6 @@ class AlbumViewFragment : Fragment() {
 
 
     private fun albumInformation() {
-        Log.d("id121", "$albumId")
-
         albumViewModel.albumsList.observe(viewLifecycleOwner) {
 
             val albumName = it.map { it.albums.filter { it.id == albumId } }

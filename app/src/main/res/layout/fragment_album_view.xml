@@ -79,19 +79,19 @@
             />
         
         
-        <ImageButton
-            android:id="@+id/bAlbumPauseAndPlay"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:backgroundTint="@color/grey"
-           android:src="@drawable/ic_pause"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/artists"
-            android:layout_marginBottom="11dp"
-            android:layout_marginEnd="26dp"
-            android:contentDescription="@string/todo"
-            />
+<!--        <ImageButton-->
+<!--            android:id="@+id/bAlbumPauseAndPlay"-->
+<!--            android:layout_width="56dp"-->
+<!--            android:layout_height="56dp"-->
+<!--            android:backgroundTint="@color/grey"-->
+<!--           android:src="@drawable/ic_pause"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:background="@drawable/artists"-->
+<!--            android:layout_marginBottom="11dp"-->
+<!--            android:layout_marginEnd="26dp"-->
+<!--            android:contentDescription="@string/todo"-->
+<!--            />-->
         
         <ImageButton
             android:id="@+id/bAlbumViewHeart"

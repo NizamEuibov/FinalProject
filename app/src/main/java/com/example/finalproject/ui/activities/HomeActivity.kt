@@ -2,22 +2,18 @@ package com.example.finalproject.ui.activities
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityHomeBinding
-import com.example.finalproject.ui.activities.oject.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private var selectedArtist:ArrayList<Int>?=null
-    private val sharedViewModel:SharedViewModel by viewModels()
+    private var selectedArtist: ArrayList<Int>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +22,8 @@ class HomeActivity : AppCompatActivity() {
 
         selectedArtist = intent.getIntegerArrayListExtra("selected")
         Log.d("Selected", "$selectedArtist")
-        val bundle=Bundle()
+        val bundle = Bundle()
         bundle.putIntegerArrayList("id", selectedArtist)
-
-
 
 
         val bottomNav = binding.bnvHome
@@ -38,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
 
         val navController = navHost.navController
         setupWithNavController(bottomNav, navController)
-        navController.navigate(R.id.homeFragment,bundle)
+        navController.navigate(R.id.homeFragment, bundle)
 
 
         binding.bnvHome.setOnItemSelectedListener { item ->
@@ -57,31 +51,7 @@ class HomeActivity : AppCompatActivity() {
                     navController.navigate(R.id.yourLibraryFragment)
                     true
                 }
-
-
             }
         }
-        lifecycleScope.launch {
-            check()
-        }
-
     }
-
-
-    private fun musicCheck() {
-       sharedViewModel.data.observe(this) {
-           Log.d("Audio1", "$it")
-       }
-
-    }
-
-
-
-    private fun check(){
-        sharedViewModel.data.observe(this){
-            val audio =it
-            Log.d("Tracks11","$it")
-        }
-    }
-
 }
