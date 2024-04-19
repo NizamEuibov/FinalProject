@@ -58,6 +58,7 @@ class YourLibraryFragment : Fragment() {
             findNavController().navigate(R.id.action_yourLibraryFragment_to_likedSongsFragment)
         }
 
+
     }
 
     private fun libraryArtist() {
@@ -117,5 +118,16 @@ class YourLibraryFragment : Fragment() {
                 songAdapter.addList(songList)
             }
         }
+        songAdapter.setOnClickListener(object :SongAdapter.Listener{
+            override fun clickListener(data: DataTypeModel.Tracks) {
+                val bundle= bundleOf(
+                    "id" to data.id,
+                    "albumName" to data.albumName
+                )
+                findNavController().navigate(R.id.action_yourLibraryFragment_to_playTrackFragment, bundle)
+            }
+
+        })
+
     }
 }

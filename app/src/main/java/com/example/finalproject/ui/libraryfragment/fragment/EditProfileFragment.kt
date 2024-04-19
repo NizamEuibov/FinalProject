@@ -9,15 +9,22 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentEditProfileBinding
+import com.example.finalproject.ui.extension.TextView.disable
+import com.example.finalproject.ui.extension.TextView.enable
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -74,6 +81,33 @@ class EditProfileFragment : BottomSheetDialogFragment() {
         }
         binding.ibCancel.setOnClickListener {
             dismiss()
+        }
+
+
+        binding.etName.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty()) {
+                        binding.tvSave.enable()
+                    }
+                    else{
+                        binding.tvSave.disable()
+                    binding.etName.error="Enter name"
+
+                    }
+
+                }
+
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+
+        })
+        binding.tvSave.setOnClickListener {
+            changeName()
         }
 
     }
@@ -205,4 +239,12 @@ class EditProfileFragment : BottomSheetDialogFragment() {
         }
     }
 
+
+    private fun changeName (){
+    val name = binding.etName.text.toString()
+        val bundle= bundleOf(
+            "name" to name
+        )
+  findNavController().navigate(R.id.action_editProfileFragment_to_librarySettingFragment,bundle)
+    }
 }

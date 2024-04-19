@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentPlayTrackBinding
+import com.example.finalproject.ui.extension.ImageButton.disable
+import com.example.finalproject.ui.extension.ImageButton.enable
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,7 +32,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     private val viewModel: TrackViewModel by viewModels()
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer() }
     private var index: Int? = null
-    private var buttonIsEnabled = false
+    private var isShuffleEnabled=false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,6 +114,16 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             binding.ibPlay.visibility = View.INVISIBLE
             previousMusic()
 
+        }
+
+        binding.ibShuffle.setOnClickListener {
+            isShuffleEnabled = !isShuffleEnabled
+            Log.d("Shuffle","$isShuffleEnabled")
+            if (isShuffleEnabled) {
+                binding.ibShuffle.enable()
+            } else {
+                binding.ibShuffle.disable()
+            }
         }
 
 
@@ -200,8 +212,8 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             mediaPlayer.setOnPreparedListener {
                 it.start()
                 binding.skbTrack.max = mediaPlayer.duration
-               seekBarConnect()
-                displayMusicTime(0,mediaPlayer.duration)
+                seekBarConnect()
+                displayMusicTime( mediaPlayer.duration)
             }
             mediaPlayer.setOnCompletionListener {
                 nextMusic()
@@ -291,22 +303,27 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         handler.postDelayed(object : Runnable {
             override fun run() {
                 binding.skbTrack.progress = mediaPlayer.currentPosition
+                currentMusicTime(mediaPlayer.currentPosition)
                 handler.postDelayed(this, 1000)
             }
         }, 1000)
 
     }
-    private fun displayMusicTime(currentPosition: Int, totalDuration: Int) {
-        val currentMinutes = currentPosition / 1000 / 60
-        val currentSeconds = (currentPosition / 1000) % 60
+
+    private fun displayMusicTime( totalDuration: Int) {
         val totalMinutes = totalDuration / 1000 / 60
         val totalSeconds = (totalDuration / 1000) % 60
-
-        val currentTimeString = String.format("%02d:%02d", currentMinutes, currentSeconds)
         val totalTimeString = String.format("%02d:%02d", totalMinutes, totalSeconds)
+        binding.tvEndDuration.text = totalTimeString
+    }
 
-        binding.tvEndDuration.text = currentTimeString
-        binding.tvStartDuration.text = totalTimeString
+    private fun currentMusicTime(currentTime:Int){
+        val currentMinutes = currentTime / 1000 / 60
+        val currentSeconds = (currentTime / 1000) % 60
+        val currentTimeString = String.format("%02d:%02d", currentMinutes, currentSeconds)
+        binding.tvStartDuration.text = currentTimeString
+
+
     }
 
 
@@ -314,7 +331,6 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         mediaPlayer.setOnCompletionListener {
             index = index!! + 1
             nextMusic()
-            buttonIsEnabled = true
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,14 @@ import com.example.finalproject.databinding.FragmentLibrarySettingBinding
 
 class LibrarySettingFragment : Fragment() {
     private lateinit var binding:FragmentLibrarySettingBinding
+    private var name:String?=null
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        name=arguments?.getString("name")
+        Log.d("Name", "$name")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +38,6 @@ class LibrarySettingFragment : Fragment() {
         binding.ibBackSettings.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+        binding.tvSettingName.text=name
     }
-
-
 }

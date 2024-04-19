@@ -153,7 +153,11 @@
         android:id="@+id/editProfileFragment"
         android:name="com.example.finalproject.ui.libraryfragment.fragment.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_librarySettingFragment"
+            app:destination="@id/librarySettingFragment" />
+    </dialog>
     <dialog
         android:id="@+id/playTrackFragment"
         android:name="com.example.finalproject.ui.track.fragment.PlayTrackFragment"

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.databinding.FragmentLikedSongsBinding
-import com.example.finalproject.ui.libraryfragment.adapter.LikedSongsAdapter
+import com.example.finalproject.ui.libraryfragment.adapters.LikedSongsAdapter
 import com.example.finalproject.ui.libraryfragment.viewmodel.LikedTracksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LikedSongsFragment : Fragment() {
     private lateinit var binding:FragmentLikedSongsBinding
     private val viewModel:LikedTracksViewModel by viewModels()
-    private lateinit var adapter:LikedSongsAdapter
+    private lateinit var adapter: LikedSongsAdapter
 
 
     override fun onCreateView(

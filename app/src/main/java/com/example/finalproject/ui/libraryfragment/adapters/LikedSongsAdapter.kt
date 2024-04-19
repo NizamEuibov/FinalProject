@@ -1,4 +1,4 @@
-package com.example.finalproject.ui.libraryfragment.adapter
+package com.example.finalproject.ui.libraryfragment.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -20,12 +20,12 @@ class LikedSongsAdapter @Inject constructor(val context: Context) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): LikedSongsAdapter.LikedSongsViewHolder {
+    ): LikedSongsViewHolder {
         binding = SongsListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LikedSongsViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: LikedSongsAdapter.LikedSongsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LikedSongsViewHolder, position: Int) {
         holder.onBind(dataList[position], listener)
     }
 
