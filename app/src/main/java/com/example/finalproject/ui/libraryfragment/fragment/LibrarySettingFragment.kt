@@ -1,7 +1,6 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,21 +10,20 @@ import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentLibrarySettingBinding
 
 class LibrarySettingFragment : Fragment() {
-    private lateinit var binding:FragmentLibrarySettingBinding
-    private var name:String?=null
+    private lateinit var binding: FragmentLibrarySettingBinding
+    private var name: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        name=arguments?.getString("name")
-        Log.d("Name", "$name")
+        name = arguments?.getString("name")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
-        binding=FragmentLibrarySettingBinding.inflate(layoutInflater,container,false)
+    ): View {
+        binding = FragmentLibrarySettingBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -38,6 +36,13 @@ class LibrarySettingFragment : Fragment() {
         binding.ibBackSettings.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        binding.tvSettingName.text=name
+        binding.tvSettingName.text = name
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 }
+

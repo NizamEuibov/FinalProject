@@ -221,8 +221,7 @@ class EditProfileFragment : BottomSheetDialogFragment() {
     private fun gallery(){
         val intent =Intent(Intent.ACTION_PICK)
         intent.type="image/*"
-      someActivityResultLauncher.launch(intent
-      )
+      someActivityResultLauncher.launch(intent)
 
     }
 
