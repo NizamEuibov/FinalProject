@@ -1,6 +1,7 @@
 package com.example.finalproject.ui.track.fragment
 
 import android.app.Dialog
+import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentPlayTrackBinding
+import com.example.finalproject.services.MusicPlayerService
 import com.example.finalproject.ui.extension.ImageButton.disable
 import com.example.finalproject.ui.extension.ImageButton.enable
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
@@ -94,6 +96,9 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
         binding.ibPause.setOnClickListener {
             pauseMusic()
+            val intent = Intent(requireContext(), MusicPlayerService::class.java)
+            intent.action= MusicPlayerService.Actions.PAUSE.toString()
+           requireContext().startService(intent)
         }
 
         binding.ibPlay.setOnClickListener {
@@ -218,8 +223,10 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             mediaPlayer.setOnCompletionListener {
                 nextMusic()
             }
+            audio?.first()?.let { sendIntentToService(it) }
             Log.d("AUDIO1", audio.toString())
         }
+
     }
 
     private fun pauseMusic() {
@@ -228,6 +235,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             binding.ibPause.visibility = View.INVISIBLE
             binding.ibPlay.visibility = View.VISIBLE
         }
+
     }
 
 
@@ -332,6 +340,13 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             index = index!! + 1
             nextMusic()
         }
+    }
+
+    private fun sendIntentToService(audio:String){
+        val intent = Intent(requireContext(), MusicPlayerService::class.java)
+        intent.putExtra("audio",audio)
+        intent.action= MusicPlayerService.Actions.PLAY.toString()
+        requireContext().startService(intent)
     }
 
     override fun onDestroy() {
