@@ -6,7 +6,7 @@ import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.IBinder
-import android.util.Log
+import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import com.example.finalproject.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,9 +15,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MusicPlayerService : Service() {
     private lateinit var mediaPlayer: MediaPlayer
     private var isPlaying: Boolean = false
-    private var title: String? = null
-    private var text: String? = null
     private var audio: String? = null
+    private lateinit var mediaSessionCompat: MediaSessionCompat
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -32,15 +31,14 @@ class MusicPlayerService : Service() {
             Actions.PLAY.toString() -> {
                 audio = intent.getStringExtra("audio")
                 audio?.let { playMusic(it) }
-                Log.d("Audio1","$audio")
             }
 
             Actions.PAUSE.toString() -> pauseMusic()
+
             Actions.CLOSE.toString() -> stopService()
         }
         return START_NOT_STICKY
     }
-
 
     private fun playMusic(audio: String) {
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
@@ -60,7 +58,6 @@ class MusicPlayerService : Service() {
             mediaPlayer.pause()
             isPlaying = false
         }
-        notificationUpdate()
     }
 
     private fun stopService() {
@@ -68,7 +65,12 @@ class MusicPlayerService : Service() {
     }
 
     private fun notificationUpdate() {
+        if (!::mediaSessionCompat.isInitialized) {
+            mediaSessionCompat = MediaSessionCompat(applicationContext, "Music")
+        }
 
+        val mediaStyle = androidx.media.app.NotificationCompat.MediaStyle()
+            .setMediaSession(mediaSessionCompat.sessionToken)
         val intentPlayPause = Intent(this, MusicPlayerService::class.java).apply {
             action = if (isPlaying) Actions.PAUSE.toString() else Actions.PLAY.toString()
         }
@@ -77,14 +79,13 @@ class MusicPlayerService : Service() {
             PendingIntent.getService(this, 0, intentPlayPause, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification = NotificationCompat.Builder(applicationContext, MY_CHANNEL_ID)
-            .setContentTitle("oiyifvuyi")
-            .setContentText("pugbuyyijkl")
+            .setContentTitle("Nizam")
+            .setContentText("Eiubov")
+            .setSmallIcon(R.drawable.ic_spotify)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .addAction(
-                if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play,
-                if (isPlaying) "Pause" else "Play",
-                pendingIntentPlayPause
-            )
+            .addAction(R.drawable.ic_next2, "Previous", null)
+            .addAction(R.drawable.ic_next2, "Pause", pendingIntentPlayPause)
+            .addAction(R.drawable.ic_next2, "Next", null)
             .build()
         startForeground(ID, notification)
     }
@@ -99,3 +100,4 @@ class MusicPlayerService : Service() {
         PLAY, PAUSE, CLOSE
     }
 }
+

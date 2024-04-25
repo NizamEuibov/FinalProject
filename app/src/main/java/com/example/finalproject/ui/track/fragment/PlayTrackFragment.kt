@@ -102,7 +102,6 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         }
 
         binding.ibPlay.setOnClickListener {
-//            id?.let { it1 -> playMusic(it1) }
             id?.let { it1 -> playMusic(it1) }
             binding.ibPause.visibility = View.VISIBLE
             binding.ibPlay.visibility = View.INVISIBLE
@@ -231,7 +230,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
     private fun pauseMusic() {
         if (mediaPlayer.isPlaying) {
-            mediaPlayer.stop()
+            mediaPlayer.pause()
             binding.ibPause.visibility = View.INVISIBLE
             binding.ibPlay.visibility = View.VISIBLE
         }
