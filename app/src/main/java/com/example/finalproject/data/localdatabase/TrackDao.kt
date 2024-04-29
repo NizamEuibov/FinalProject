@@ -2,14 +2,18 @@ package com.example.finalproject.data.localdatabase
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.Delete
 import androidx.room.Query
+import androidx.room.Upsert
 
 @Dao
 interface TrackDao {
-    @Insert
+    @Upsert
     suspend fun upsertTrack(track: TrackEntity)
 
-    @Query("SELECT * FROM track_table")
+    @Delete
+    suspend fun deleteTrack(track: TrackEntity)
+
+    @Query("SELECT * FROM track")
     fun getTrack(): LiveData<List<TrackEntity>?>
 }

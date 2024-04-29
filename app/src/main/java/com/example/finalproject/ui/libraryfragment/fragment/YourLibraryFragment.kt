@@ -27,7 +27,11 @@ class YourLibraryFragment : Fragment() {
     private lateinit var adapter: ArtistAdapter
     private lateinit var albumAdapter: AlbumAdapter
     private lateinit var songAdapter: SongAdapter
-
+    private var name:String?=null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        name=arguments?.getString("name")
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +55,9 @@ class YourLibraryFragment : Fragment() {
         }
 
         binding.civUserImage.setOnClickListener {
-            findNavController().navigate(R.id.action_yourLibraryFragment_to_librarySettingFragment)
+            val bundle= bundleOf(
+                "name" to name)
+            findNavController().navigate(R.id.action_yourLibraryFragment_to_librarySettingFragment, bundle)
         }
 
         binding.ivLiked.setOnClickListener {

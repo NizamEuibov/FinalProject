@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_albumsFragment"
             app:destination="@id/albumsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_librarySettingFragment"
+            app:destination="@id/librarySettingFragment" />
     </fragment>
     <fragment
         android:id="@+id/albumsFragment"
@@ -130,6 +133,10 @@
         <action
             android:id="@+id/action_librarySettingFragment_to_libraryUserFragment"
             app:destination="@id/libraryUserFragment" />
+        <argument
+            android:name="sendName"
+            app:argType="string"
+            app:nullable="true"/>
     </fragment>
     <fragment
         android:id="@+id/libraryUserFragment"

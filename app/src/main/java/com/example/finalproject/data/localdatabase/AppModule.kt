@@ -18,7 +18,7 @@ object AppModule {
             applicationContext,
             RegistrationDatabase::class.java,
             "app-database"
-        ).addMigrations(MIGRATION_1_2)
+        ).fallbackToDestructiveMigration()
             .build()
     }
 

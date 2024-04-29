@@ -1,6 +1,7 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class LibrarySettingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         name = arguments?.getString("name")
+        Log.d("Name12","$name")
     }
 
     override fun onCreateView(

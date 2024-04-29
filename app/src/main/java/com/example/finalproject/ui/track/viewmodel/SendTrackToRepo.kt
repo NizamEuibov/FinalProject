@@ -18,4 +18,11 @@ SendTrackToRepo @Inject constructor(private val repoSetTrack: RepoSetTrack):View
             Log.d("Tracks1","$track")
         }
     }
+
+
+    fun deleteTrackFromDatabase(track: TrackEntity){
+        viewModelScope.launch {
+            repoSetTrack.deleteTrackFromDatabase(track)
+        }
+    }
 }

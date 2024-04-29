@@ -2,6 +2,8 @@ package com.example.finalproject.ui.track.fragment
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -16,32 +18,43 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.data.localdatabase.TrackEntity
 import com.example.finalproject.databinding.FragmentPlayTrackBinding
 import com.example.finalproject.services.MusicPlayerService
-import com.example.finalproject.ui.extension.ImageButton.disable
-import com.example.finalproject.ui.extension.ImageButton.enable
+import com.example.finalproject.ui.track.viewmodel.SendTrackToRepo
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PlayTrackFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentPlayTrackBinding
     private var id: Int? = null
     private var albumName: String? = null
+    private val sendTrackToRepo: SendTrackToRepo by viewModels()
     private val viewModel: TrackViewModel by viewModels()
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer() }
     private var index: Int? = null
-    private var isShuffleEnabled=false
+    private var isShuffleEnabled = false
+    private var isRepeatEnabled = false
+    private var job: Job? = null
+    private var isLikeEnabled = false
+    private var trackList: List<Int?> = emptyList()
+    private var trackIdList: List<Int?> = emptyList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
         albumName = arguments?.getString("albumName")
-        Log.d("IDid", "$id")
         Log.d("id121", "$albumName")
     }
 
@@ -69,6 +82,14 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.trackList.observe(viewLifecycleOwner) { list ->
+            if (list != null) {
+                trackList =
+                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
+                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
+                Log.d("IDid", "$trackList")
+            }
+        }
         id?.let { setTexts(it) }
         id?.let { playMusic(it) }
         binding.ib3Point.setOnClickListener {
@@ -97,8 +118,8 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         binding.ibPause.setOnClickListener {
             pauseMusic()
             val intent = Intent(requireContext(), MusicPlayerService::class.java)
-            intent.action= MusicPlayerService.Actions.PAUSE.toString()
-           requireContext().startService(intent)
+            intent.action = MusicPlayerService.Actions.PAUSE.toString()
+            requireContext().startService(intent)
         }
 
         binding.ibPlay.setOnClickListener {
@@ -121,15 +142,25 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         }
 
         binding.ibShuffle.setOnClickListener {
-            isShuffleEnabled = !isShuffleEnabled
-            Log.d("Shuffle","$isShuffleEnabled")
-            if (isShuffleEnabled) {
-                binding.ibShuffle.enable()
-            } else {
-                binding.ibShuffle.disable()
-            }
+            toggleShuffle()
         }
 
+        binding.ibRepeat.setOnClickListener {
+            repeatTracks()
+        }
+
+
+        binding.ibLike.setOnClickListener {
+            isLikeEnabled = !isLikeEnabled
+            if (isLikeEnabled){
+                binding.ibLike.setColorFilter(Color.RED,PorterDuff.Mode.SRC_ATOP)
+                likeTrack()
+            }
+            else{
+                binding.ibLike.setColorFilter(Color.WHITE,PorterDuff.Mode.SRC_ATOP)
+                deleteLikedTrack()
+            }
+        }
 
 
 
@@ -217,7 +248,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                 it.start()
                 binding.skbTrack.max = mediaPlayer.duration
                 seekBarConnect()
-                displayMusicTime( mediaPlayer.duration)
+                displayMusicTime(mediaPlayer.duration)
             }
             mediaPlayer.setOnCompletionListener {
                 nextMusic()
@@ -240,91 +271,92 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
     private fun nextMusic() {
         mediaPlayer.stop()
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            if (list != null) {
-                val trackList =
-                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
-                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
-                if (index!! < trackList.size - 1) {
-                    index = index!! + 1
-                    trackList[index!!]?.let { playMusic(it) }
-                    trackList[index!!]?.let { setTexts(it) }
-                    Log.d("trackList", "$index")
-                } else if (index!! == trackList.size - 1) {
-                    trackList[0]?.let {
-                        playMusic(it)
-                        setTexts(it)
-                    }
-                    index = 0
-                }
-
-            }
+        trackIdList = if (isShuffleEnabled) {
+            trackList.shuffled()
+        } else {
+            trackList
         }
+
+        if (index!! < trackIdList.size - 1) {
+            index = index!! + 1
+            trackIdList[index!!]?.let { playMusic(it) }
+            trackIdList[index!!]?.let { setTexts(it) }
+            Log.d("trackList", "$trackIdList")
+        } else if (isRepeatEnabled) {
+            trackIdList[0]?.let {
+                playMusic(it)
+                setTexts(it)
+            }
+            index = 0
+        }
+
     }
 
 
     private fun previousMusic() {
         mediaPlayer.stop()
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            if (list != null) {
-                val trackList =
-                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
-                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
-                Log.d("id121", "$trackList")
-                if (index!! > 0) {
-                    index = index!! - 1
-                    trackList[index!!]?.let {
-                        playMusic(it)
-                        setTexts(it)
-                    }
-
-                } else if (index == 0) {
-                    trackList[0]?.let {
-                        playMusic(it)
-                        setTexts(it)
-                    }
-                    index = trackList.size
-                    Log.d("id121", "$index")
-                }
-
-            }
+        trackIdList = if (isShuffleEnabled) {
+            trackList.shuffled()
+        } else {
+            trackList
         }
+        if (index!! > 0) {
+            index = index!! - 1
+            trackIdList[index!!]?.let {
+                playMusic(it)
+                setTexts(it)
+            }
+
+        } else if (index == 0) {
+            trackIdList[0]?.let {
+                playMusic(it)
+                setTexts(it)
+            }
+            index = trackIdList.size
+            Log.d("id121", "$index")
+        }
+
     }
 
-
     private fun shuffleMusic() {
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            if (list != null) {
-                val trackList =
-                    list.filter { album ->
-                        album.tracks.map { it.albumName }.contains(albumName)
-                    }
-                        .map { it.tracks.map { id -> id.id } }.flatten()
-                trackList.shuffled()
-            }
+        isShuffleEnabled = if (isShuffleEnabled) {
+            binding.ibShuffle.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP)
+            true
+        } else {
+            binding.ibShuffle.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+            false
         }
     }
 
     private fun seekBarConnect() {
-        val handler = android.os.Handler()
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                binding.skbTrack.progress = mediaPlayer.currentPosition
-                currentMusicTime(mediaPlayer.currentPosition)
-                handler.postDelayed(this, 1000)
+        job?.cancel()
+        job = CoroutineScope(Dispatchers.Main).launch {
+            while (isActive) {
+                updateSeekBar()
+                delay(1000)
             }
-        }, 1000)
-
+        }
     }
 
-    private fun displayMusicTime( totalDuration: Int) {
+    private fun updateSeekBar() {
+        try {
+            if (mediaPlayer.isPlaying) {
+                binding.skbTrack.progress = mediaPlayer.currentPosition
+                currentMusicTime(mediaPlayer.currentPosition)
+            }
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun displayMusicTime(totalDuration: Int) {
         val totalMinutes = totalDuration / 1000 / 60
         val totalSeconds = (totalDuration / 1000) % 60
         val totalTimeString = String.format("%02d:%02d", totalMinutes, totalSeconds)
         binding.tvEndDuration.text = totalTimeString
     }
 
-    private fun currentMusicTime(currentTime:Int){
+    private fun currentMusicTime(currentTime: Int) {
         val currentMinutes = currentTime / 1000 / 60
         val currentSeconds = (currentTime / 1000) % 60
         val currentTimeString = String.format("%02d:%02d", currentMinutes, currentSeconds)
@@ -333,7 +365,6 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
     }
 
-
     private fun repeat() {
         mediaPlayer.setOnCompletionListener {
             index = index!! + 1
@@ -341,11 +372,59 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun sendIntentToService(audio:String){
+    private fun sendIntentToService(audio: String) {
         val intent = Intent(requireContext(), MusicPlayerService::class.java)
-        intent.putExtra("audio",audio)
-        intent.action= MusicPlayerService.Actions.PLAY.toString()
+        intent.putExtra("audio", audio)
+        intent.action = MusicPlayerService.Actions.PLAY.toString()
         requireContext().startService(intent)
+    }
+
+
+    private fun toggleShuffle() {
+        isShuffleEnabled = !isShuffleEnabled
+        shuffleMusic()
+    }
+
+    private fun repeatTracks() {
+        isRepeatEnabled = !isRepeatEnabled
+
+        if (isRepeatEnabled) {
+            binding.ibRepeat.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP)
+        } else {
+            binding.ibRepeat.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+        }
+    }
+
+    private fun likeTrack() {
+
+        viewModel.trackList.observe(viewLifecycleOwner) { list ->
+            if (list != null) {
+                val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
+                val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
+                val name = listTracks.map { it.name }.toString().trim('[', ']')
+                val audio = listTracks.map { it.audio }.toString().trim('[', ']')
+                val image = listTracks.map { it.image }.toString().trim('[', ']')
+                val track = TrackEntity( id, name, image, audio)
+                Log.d("Tracks5", "$listTracks")
+                sendTrackToRepo.sendTrackToRepo(track)
+            }
+        }
+    }
+
+    private fun deleteLikedTrack() {
+
+        viewModel.trackList.observe(viewLifecycleOwner) { list ->
+            if (list != null) {
+                val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
+                val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
+                val name = listTracks.map { it.name }.toString().trim('[', ']')
+                val audio = listTracks.map { it.audio }.toString().trim('[', ']')
+                val image = listTracks.map { it.image }.toString().trim('[', ']')
+                val track = TrackEntity( id, name, image, audio)
+                Log.d("Tracks5", "$listTracks")
+                sendTrackToRepo.deleteTrackFromDatabase(track)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -353,6 +432,3 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         mediaPlayer.release()
     }
 }
-
-
-

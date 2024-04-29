@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.databinding.FragmentHomeBinding
 import com.example.finalproject.ui.homefragment.adapters.ParentAdapter
 import com.example.finalproject.ui.homefragment.viewmodel.HomeViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,15 +22,16 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: ParentAdapter
     private val viewModel: HomeViewModel by viewModels()
     private var selected: List<Int>? = null
-    private val PREF_NAME ="SharedPre"
+    private var name: String? = null
+    private val PREF_NAME = "SharedPre"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         selected = arguments?.getIntegerArrayList("id")
-        Log.d("Selected", "$selected")
-        selectedList(selected)
-        selected=savedList()
+        name=arguments?.getString("name")
+        Log.d("Selected1", "$selected")
+
     }
 
     override fun onCreateView(
@@ -42,8 +45,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         init()
-        Log.d("select", "${savedList()}")
+        Log.d("Selected1", "${savedList()}")
+
 
     }
 
@@ -62,16 +67,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun selectedList(selectedList: List<Int>?) {
-        val sharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putStringSet("selected_list", selectedList?.map { it.toString() }?.toSet())
+        val json = Gson().toJson(selectedList)
+        editor.putString("selected_list", json)
         editor.apply()
     }
 
-    private fun savedList(): List<Int>? {
-        val sharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val selectedSet = sharedPreferences.getStringSet("selected_list", null)
-        return selectedSet?.map { it.toInt() }
+    private fun savedList(): List<Int> {
+        val sharedPreferences =
+            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val selected = sharedPreferences.getString("selected_list", null)
+        return Gson().fromJson(selected, object : TypeToken<List<Int>>() {}.type) ?: emptyList()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        selectedList(selected)
     }
 
 

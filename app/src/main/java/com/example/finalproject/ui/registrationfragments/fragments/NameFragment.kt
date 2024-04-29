@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -79,10 +80,12 @@ class NameFragment : Fragment() {
         if (checkName(name)) {
             val user = RegistrationEntity(0, email, password, gender, name)
             viewModel.sendDataToRepository(user)
-            findNavController().navigate(R.id.action_nameFragment_to_artistsFragment)
-        }
-        else{
-            Toast.makeText(context,"Accept policy",Toast.LENGTH_SHORT).show()
+            val bundle = bundleOf(
+                "name" to name)
+            findNavController().navigate(R.id.action_nameFragment_to_artistsFragment,bundle)
+
+        } else {
+            Toast.makeText(context, "Accept policy", Toast.LENGTH_SHORT).show()
         }
 
 

@@ -6,6 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/logUiFragment">
 
+
+
     <fragment
         android:id="@+id/emailFragment"
         android:name="com.example.finalproject.ui.registrationfragments.fragments.EmailFragment"
@@ -82,7 +84,6 @@
     <action
         android:id="@+id/action_loginnFragment_to_homeFragment"
         app:destination="@+id/homeFragment"/>
-
 
 
 </navigation>

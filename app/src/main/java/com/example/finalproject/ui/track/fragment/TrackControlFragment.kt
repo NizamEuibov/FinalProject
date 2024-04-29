@@ -1,6 +1,8 @@
 package com.example.finalproject.ui.track.fragment
 
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,6 +34,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
     private var artistName: String? = null
     private var albumId: Int? = null
     private var artistId: Int? = null
+    private var isButton = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +71,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        binding.tvAlbumControlShare.setOnClickListener {
+        binding.ibShare.setOnClickListener {
             val bundle = bundleOf("id" to id)
             val trackControlFragment = TrackShareFragment().apply {
                 arguments = bundle
@@ -77,12 +80,12 @@ class TrackControlFragment : BottomSheetDialogFragment() {
         }
 
 
-        binding.tvAlbumControlAlbum.setOnClickListener {
+        binding.ibViewAlbum.setOnClickListener {
             val bundle = bundleOf("albumId" to albumId)
             findNavController().navigate(R.id.albumViewFragment, bundle)
             dismiss()
         }
-        binding.tvAlbumControlArtist.setOnClickListener {
+        binding.ibViewArtist.setOnClickListener {
             val bundle = bundleOf(
                 "id" to artistId
             )
@@ -91,8 +94,17 @@ class TrackControlFragment : BottomSheetDialogFragment() {
         }
         trackImage()
 
-        binding.tvAlbumControlLike.setOnClickListener {
-            sendTrack()
+        binding.ibLike.setOnClickListener {
+            isButton= !isButton
+
+            if (isButton) {
+                binding.ibLike.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP)
+                sendTrack()
+            }
+            else{
+                binding.ibLike.setColorFilter(Color.WHITE,PorterDuff.Mode.SRC_ATOP)
+                deleteMusicFromDatabase()
+            }
         }
     }
 
@@ -124,10 +136,20 @@ class TrackControlFragment : BottomSheetDialogFragment() {
 
     private fun sendTrack() {
         val id = trackList.map { it.id }.toString().trim('[', ']').toInt()
-        val name = trackList.map { it.name }.toString()
-        val audio = trackList.map { it.audio }.toString()
-        val image = trackList.map { it.image }.toString()
-        val track = TrackEntity(0,id, name, image, audio)
+        val name = trackList.map { it.name }.toString().trim('[', ']')
+        val audio = trackList.map { it.audio }.toString().trim('[', ']')
+        val image = trackList.map { it.image }.toString().trim('[', ']')
+        val track = TrackEntity( id, name, image, audio)
         sendTrackToRepo.sendTrackToRepo(track)
+    }
+
+
+    private fun deleteMusicFromDatabase() {
+        val id = trackList.map { it.id }.toString().trim('[', ']').toInt()
+        val name = trackList.map { it.name }.toString().trim('[', ']')
+        val audio = trackList.map { it.audio }.toString().trim('[', ']')
+        val image = trackList.map { it.image }.toString().trim('[', ']')
+        val track = TrackEntity( id, name, image, audio)
+        sendTrackToRepo.deleteTrackFromDatabase(track)
     }
 }

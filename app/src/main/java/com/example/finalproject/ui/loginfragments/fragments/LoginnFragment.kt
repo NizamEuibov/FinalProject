@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.finalproject.databinding.FragmentLoginBinding
 import com.example.finalproject.ui.activities.HomeActivity
+import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
 import com.example.finalproject.ui.loginfragments.model.LoginModel
 import com.example.finalproject.ui.loginfragments.viewmodel.LogInViewModel
@@ -40,25 +41,7 @@ class LoginnFragment : Fragment() {
             getLogin()
         }
 
-
-        binding.etForLogin.addTextChangedListener(object : TextWatcher {
-            val email = binding.etForLogin.text.toString()
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.isEmpty() == true && !(Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
-                    binding.etForLogin.error = "Please enter your Spotify email address."
-                } else {
-                    binding.buttonLogInn.enable()
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-        })
+        textWatcher()
 
         binding.cvBack.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -83,9 +66,56 @@ class LoginnFragment : Fragment() {
                 Toast.LENGTH_LONG
             ).show()
         }
+    }
 
+    private fun textWatcher() {
+        binding.etForLogin.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val email = Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()
+                val password = binding.etForPassword.text.toString().isNotEmpty()
+                if (email && password) {
+                    binding.buttonLogInn.enable()
+                } else {
+                    binding.buttonLogInn.disable()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
+
+        binding.etForPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val password = s.toString().length >= 8
+                val email =
+                    Patterns.EMAIL_ADDRESS.matcher(binding.etForLogin.text.toString()).matches()
+                if (password && email) {
+                    binding.buttonLogInn.enable()
+                } else {
+                    binding.etForPassword.error = "Email or password is incorrect."
+                    binding.buttonLogInn.disable()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
     }
 
 }
+
+
+
 
 

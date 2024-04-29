@@ -34,7 +34,7 @@ object ImageButton{
 
     fun ImageButton.disable(){
         this.isClickable=false
-        this.isEnabled =true
+        this.isEnabled =false
         this.setColorFilter(Color.WHITE,PorterDuff.Mode.SRC_ATOP)
     }
 }

@@ -22,12 +22,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ArtistsFragment : Fragment() {
+    private var name:String?=null
     private lateinit var binding: FragmentArtistsBinding
     private lateinit var adapter: ArtistsAdapter
     private val viewModel: ArtistsViewModel by viewModels()
     private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        name=arguments?.getString("name")
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,6 +93,7 @@ class ArtistsFragment : Fragment() {
                         //findNavController().navigate(R.id.action_artistsFragment_to_homeFragment,bundle)
                         val navigateIntent = Intent(requireActivity(),HomeActivity::class.java)
                         navigateIntent.putExtra("selected", ArrayList(isSelected))
+                        navigateIntent.putExtra("name", name)
                         startActivity(navigateIntent)
                     }
                 }

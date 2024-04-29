@@ -208,8 +208,8 @@
 
     <ImageButton
         android:id="@+id/ibPlayList"
-        android:layout_width="18dp"
-        android:layout_height="16dp"
+        android:layout_width="20dp"
+        android:layout_height="19dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="15dp"
         android:background="@color/background"
@@ -221,8 +221,8 @@
 
     <ImageButton
         android:id="@+id/ibShare"
-        android:layout_width="15dp"
-        android:layout_height="19dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="45dp"
         android:background="@color/background"
         android:contentDescription="@string/todo"
@@ -230,5 +230,17 @@
         app:layout_constraintBottom_toBottomOf="@id/tvMotion2"
         app:layout_constraintEnd_toStartOf="@id/ibPlayList"
         app:layout_constraintTop_toTopOf="@id/ibPlayList" />
+
+    <ImageButton
+        android:id="@+id/ibLike"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_heart"
+        android:background="@color/background"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="@id/skbTrack"
+        app:layout_constraintBottom_toTopOf="@id/tvEndDuration"
+        android:contentDescription="@string/todo"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
