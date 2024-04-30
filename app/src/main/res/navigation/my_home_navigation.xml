@@ -176,6 +176,9 @@
         <action
             android:id="@+id/action_playTrackFragment_to_trackControlFragment"
             app:destination="@id/trackControlFragment" />
+        <action
+            android:id="@+id/action_playTrackFragment_to_forBluetoothFragment"
+            app:destination="@id/forBluetoothFragment" />
     </dialog>
     <fragment
         android:id="@+id/likedSongsFragment"
@@ -186,4 +189,9 @@
             android:id="@+id/action_likedSongsFragment_to_playTrackFragment"
             app:destination="@id/playTrackFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/forBluetoothFragment"
+        android:name="com.example.finalproject.ui.track.fragment.ForBluetoothFragment"
+        android:label="fragment_for_bluetooth"
+        tools:layout="@layout/fragment_for_bluetooth" />
 </navigation>

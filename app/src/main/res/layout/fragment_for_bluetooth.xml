@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.track.fragment.ForBluetoothFragment">
+
+    <ImageButton
+        android:id="@+id/ibCancel"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todo"
+        android:layout_marginEnd="21dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/tvListeningOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/listening_on"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_connect"
+        app:layout_constraintEnd_toStartOf="@id/tvMotion2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvListeningOn"
+        app:layout_constraintBottom_toTopOf="@id/tvSelectDevice"/>
+
+
+    <TextView
+        android:id="@+id/tvMotion2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="5dp"
+        android:text="@string/motion_beatspill"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_blue"
+        app:layout_constraintStart_toEndOf="@id/ivConnect"
+        app:layout_constraintTop_toBottomOf="@id/tvListeningOn" />
+
+    <TextView
+        android:id="@+id/tvSelectDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/select_a_device"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvBravia4k"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivConnect" />
+
+    <ImageView
+        android:id="@+id/ivTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_tv"
+        app:layout_constraintEnd_toStartOf="@id/tvBravia4k"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSelectDevice"
+        app:layout_constraintBottom_toTopOf="@id/ivMacBook"/>
+
+    <TextView
+        android:id="@+id/tvBravia4k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="-10dp"
+        android:text="@string/bravia_4k_gb"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivTv"
+        app:layout_constraintTop_toTopOf="@id/ivTv" />
+
+
+    <TextView
+        android:id="@+id/tvGoogleCast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="5dp"
+        android:text="@string/google_cast"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_cast"
+        app:layout_constraintBottom_toBottomOf="@id/ivTv"
+        app:layout_constraintStart_toStartOf="@id/tvBravia4k"
+        app:layout_constraintTop_toBottomOf="@id/tvBravia4k" />
+
+
+    <ImageView
+        android:id="@+id/ivMacBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_macbook"
+        app:layout_constraintEnd_toStartOf="@id/tvMacBookPro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivTv"
+        app:layout_constraintBottom_toTopOf="@id/ivAirPlay"/>
+
+
+    <TextView
+        android:id="@+id/tvMacBookPro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/momitha_s_macbook_pro"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivMacBook"
+        app:layout_constraintStart_toEndOf="@id/ivMacBook"
+        app:layout_constraintTop_toTopOf="@id/ivMacBook" />
+
+
+    <ImageView
+        android:id="@+id/ivMacBook3Point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_3point"
+        app:layout_constraintBottom_toBottomOf="@id/tvMacBookPro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvMacBookPro" />
+
+
+    <ImageView
+        android:id="@+id/ivAirPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_airplay"
+        app:layout_constraintEnd_toStartOf="@+id/tvAirPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivMacBook"
+        app:layout_constraintBottom_toTopOf="@id/tvStart"/>
+
+
+    <TextView
+        android:id="@+id/tvAirPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/airplay_or_bluetooth"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivAirPlay"
+        app:layout_constraintStart_toEndOf="@id/ivAirPlay"
+        app:layout_constraintTop_toTopOf="@id/ivAirPlay" />
+
+
+    <TextView
+        android:id="@+id/tvStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/start_a_group_session"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAirPlay"
+        app:layout_constraintBottom_toTopOf="@id/tvSmallText"/>
+
+
+    <TextView
+        android:id="@+id/tvSmallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/listen_with_friends_in_real_time_pick_what_to_play_and_control_the_music_together"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStart"
+        app:layout_constraintBottom_toTopOf="@id/civBluetooth"/>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civBluetooth"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:src="@mipmap/ic_exit_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSmallText"
+        app:layout_constraintBottom_toTopOf="@id/bStartSession"/>
+
+    <Button
+        android:id="@+id/bStartSession"
+        android:layout_width="169dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/start_session"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/civBluetooth"
+        app:layout_constraintBottom_toTopOf="@id/bJoin"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/background"
+        android:text="@string/scan_to_join"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bStartSession"
+        app:layout_constraintBottom_toTopOf="@id/skbVolume"
+        app:strokeColor="@color/bbColor"
+        app:strokeWidth="1dp"
+        android:layout_marginBottom="40dp"/>
+
+    <ImageView
+        android:id="@+id/ivVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_volume"
+        app:layout_constraintBottom_toBottomOf="@id/skbVolume"
+        app:layout_constraintEnd_toStartOf="@id/skbVolume"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/skbVolume" />
+
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/skbVolume"
+        android:layout_width="343dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivVolume"
+        app:thumbColor="@color/white"
+        app:thumbRadius="8dp"
+        app:trackColorActive="@color/grey"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -99,6 +99,17 @@
     <string name="edit">Edit Profile</string>
     <string name="save">Save</string>
     <string name="liked_songs">Liked Songs</string>
+    <string name="listening_on">Listening On</string>
+    <string name="select_a_device">Select a device</string>
+    <string name="bravia_4k_gb">BRAVIA 4K GB</string>
+    <string name="google_cast">Google Cast</string>
+    <string name="momitha_s_macbook_pro">Momitha’s MacBook Pro</string>
+    <string name="airplay_or_bluetooth">Airplay or Bluetooth</string>
+    <string name="start_a_group_session">Start a Group Session</string>
+    <string name="listen_with_friends_in_real_time_pick_what_to_play_and_control_the_music_together">Listen with friends, in real time. Pick what to play and control the music together.</string>
+    <string name="beta">BETA</string>
+    <string name="start_session">Start Session</string>
+    <string name="scan_to_join">Scan to join</string>
 
 </resources>
 

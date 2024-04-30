@@ -177,6 +177,10 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
+
+        binding.tvMotion2.setOnClickListener {
+            findNavController().navigate(R.id.action_playTrackFragment_to_forBluetoothFragment)
+        }
     }
 
 
