@@ -1,5 +1,7 @@
 package com.example.finalproject.ui.registrationfragments.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -59,7 +61,10 @@ class NameFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.isNotEmpty() == true) {
+                val isRadioButton1Checked = binding.rb1Name.isChecked
+                val isRadioButton2Checked = binding.rb2Name.isChecked
+
+                if (isRadioButton1Checked && isRadioButton2Checked && s?.isNotEmpty() == true) {
                     binding.buttonAccount.enable()
                 } else {
                     binding.buttonAccount.disable()
@@ -72,6 +77,14 @@ class NameFragment : Fragment() {
 
         })
 
+        binding.tvUse.setOnClickListener {
+            directionToSite()
+        }
+
+        binding.tvPolicy.setOnClickListener {
+            directionToSite()
+        }
+
     }
 
     private fun sendName() {
@@ -81,8 +94,9 @@ class NameFragment : Fragment() {
             val user = RegistrationEntity(0, email, password, gender, name)
             viewModel.sendDataToRepository(user)
             val bundle = bundleOf(
-                "name" to name)
-            findNavController().navigate(R.id.action_nameFragment_to_artistsFragment,bundle)
+                "name" to name
+            )
+            findNavController().navigate(R.id.action_nameFragment_to_artistsFragment, bundle)
 
         } else {
             Toast.makeText(context, "Accept policy", Toast.LENGTH_SHORT).show()
@@ -95,5 +109,12 @@ class NameFragment : Fragment() {
         val radioButton1 = binding.rb1Name
         val radioButton2 = binding.rb2Name
         return (text.isNotEmpty() && radioButton2.isChecked && radioButton1.isChecked)
+    }
+
+
+    private fun directionToSite() {
+        val intent = "https://www.spotify.com/us/legal/privacy-policy/"
+        val intentUrl = Intent(Intent.ACTION_VIEW, Uri.parse(intent))
+        startActivity(intentUrl)
     }
 }

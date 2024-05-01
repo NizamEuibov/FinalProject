@@ -110,6 +110,8 @@
     <string name="beta">BETA</string>
     <string name="start_session">Start Session</string>
     <string name="scan_to_join">Scan to join</string>
+    <string name="point">Point your camera at a Spotify code.</string>
+    <string name="select">Select from photos</string>
 
 </resources>
 

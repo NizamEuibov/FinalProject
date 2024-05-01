@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_searchFragment_to_artistViewFragment"
             app:destination="@id/artistViewFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_scanQrCodeFragment"
+            app:destination="@id/scanQrCodeFragment" />
 
     </fragment>
     <fragment
@@ -194,4 +197,9 @@
         android:name="com.example.finalproject.ui.track.fragment.ForBluetoothFragment"
         android:label="fragment_for_bluetooth"
         tools:layout="@layout/fragment_for_bluetooth" />
+    <dialog
+        android:id="@+id/scanQrCodeFragment"
+        android:name="com.example.finalproject.ui.serachfragments.fragments.ScanQrCodeFragment"
+        android:label="fragment_scan_qr_code"
+        tools:layout="@layout/fragment_scan_qr_code" />
 </navigation>

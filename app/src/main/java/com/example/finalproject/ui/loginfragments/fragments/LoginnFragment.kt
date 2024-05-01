@@ -51,7 +51,7 @@ class LoginnFragment : Fragment() {
 
     private fun getLogin() {
         email = binding.etForLogin.text.toString()
-        password = binding.etForPassword.text.toString()
+        password = binding.etRegistration.text.toString()
         data = LoginModel(email, password)
 
 
@@ -76,7 +76,7 @@ class LoginnFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()
-                val password = binding.etForPassword.text.toString().isNotEmpty()
+                val password = binding.etRegistration.text.toString().isNotEmpty()
                 if (email && password) {
                     binding.buttonLogInn.enable()
                 } else {
@@ -90,7 +90,7 @@ class LoginnFragment : Fragment() {
         })
 
 
-        binding.etForPassword.addTextChangedListener(object : TextWatcher {
+        binding.etRegistration.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -102,7 +102,7 @@ class LoginnFragment : Fragment() {
                 if (password && email) {
                     binding.buttonLogInn.enable()
                 } else {
-                    binding.etForPassword.error = "Email or password is incorrect."
+                    binding.etRegistration.error = "Email or password is incorrect."
                     binding.buttonLogInn.disable()
                 }
             }

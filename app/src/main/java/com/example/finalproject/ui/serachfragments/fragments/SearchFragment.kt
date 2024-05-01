@@ -14,7 +14,7 @@ import com.example.finalproject.ui.serachfragments.model.CardListModel
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var adapter:SearchAdapter
+    private lateinit var adapter: SearchAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,32 +31,34 @@ class SearchFragment : Fragment() {
         }
         init()
 
-        adapter.setOnClickListener(object :SearchAdapter.Listener{
+        adapter.setOnClickListener(object : SearchAdapter.Listener {
             override fun onClickListener(data: CardListModel) {
                 when (data.text) {
                     "Albums" ->
-                    findNavController().navigate(R.id.action_searchFragment_to_albumsFragment)
+                        findNavController().navigate(R.id.action_searchFragment_to_albumsFragment)
+
                     "Artist" ->
                         findNavController().navigate(R.id.action_searchFragment_to_artistViewFragment)
                 }
 
             }
         })
-
+        binding.ivCamera.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_scanQrCodeFragment)
+        }
 
     }
 
-    private fun init(){
-        adapter=SearchAdapter()
-        binding.rvSearch.adapter=adapter
-        binding.rvSearch.layoutManager=GridLayoutManager(context,2)
+    private fun init() {
+        adapter = SearchAdapter()
+        binding.rvSearch.adapter = adapter
+        binding.rvSearch.layoutManager = GridLayoutManager(context, 2)
         adapter.addLists(cardList)
 
     }
 
 
-
-    private val cardList= listOf(
+    private val cardList = listOf(
         CardListModel("Music"),
         CardListModel("Albums"),
         CardListModel("Artist"),
@@ -71,4 +73,4 @@ class SearchFragment : Fragment() {
         CardListModel("Trending")
     )
 
-    }
+}

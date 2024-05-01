@@ -22,6 +22,18 @@
 
         />
     
+    <ImageView
+        android:id="@+id/ivCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSearch"
+        app:layout_constraintBottom_toBottomOf="@id/tvSearch"
+        android:contentDescription="@string/todo"
+        android:layout_marginEnd="15dp"
+        />
+    
     
     <androidx.appcompat.widget.SearchView
         android:id="@+id/svSearch"
