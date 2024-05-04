@@ -1,9 +1,7 @@
 package com.example.finalproject.ui.homefragment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -11,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.HomeListBinding
 
-class ParentAdapter(private val context: Context): RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
+class ParentAdapter: RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
     private lateinit var binding:HomeListBinding
     private val dataList= mutableListOf<DataTypeModel.NameAndImage>()
 
@@ -38,12 +36,12 @@ class ParentAdapter(private val context: Context): RecyclerView.Adapter<ParentAd
 
         fun onBind(data: DataTypeModel.NameAndImage){
             with(binding){
-                Glide.with(context).load(data.image)
+                Glide.with(itemView.context).load(data.image)
                     .into(ivHomeImage)
                 tvHomeName.text=data.name
-           val childAdapter=ChildAdapter(context)
+           val childAdapter=ChildAdapter(itemView.context)
                 rvHomeChild.adapter=childAdapter
-                rvHomeChild.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+                rvHomeChild.layoutManager=LinearLayoutManager(itemView.context,LinearLayoutManager.HORIZONTAL,false)
                 childAdapter.addList(data.albums)
 
             }
@@ -60,3 +58,4 @@ class ParentAdapter(private val context: Context): RecyclerView.Adapter<ParentAd
     }
 
 }
+// single activity, user information add artist list, save user id in shared prefenrence, log out

@@ -1,4 +1,4 @@
-package com.example.finalproject.ui.registrationfragments.fragments
+package com.example.finalproject.ui.registrationsFragments.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -18,7 +18,7 @@ import com.example.finalproject.data.localdatabase.RegistrationEntity
 import com.example.finalproject.databinding.FragmentNameBinding
 import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
-import com.example.finalproject.ui.registrationfragments.viewmodel.RegistrationViewModel
+import com.example.finalproject.ui.registrationsFragments.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 //I have some problem for navigation
@@ -61,10 +61,8 @@ class NameFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val isRadioButton1Checked = binding.rb1Name.isChecked
-                val isRadioButton2Checked = binding.rb2Name.isChecked
 
-                if (isRadioButton1Checked && isRadioButton2Checked && s?.isNotEmpty() == true) {
+                if (s?.isNotEmpty() == true) {
                     binding.buttonAccount.enable()
                 } else {
                     binding.buttonAccount.disable()
@@ -88,29 +86,25 @@ class NameFragment : Fragment() {
     }
 
     private fun sendName() {
-
         val name = binding.etRegistration.text.toString()
-        if (checkName(name)) {
-            val user = RegistrationEntity(0, email, password, gender, name)
-            viewModel.sendDataToRepository(user)
-            val bundle = bundleOf(
-                "name" to name
-            )
-            findNavController().navigate(R.id.action_nameFragment_to_artistsFragment, bundle)
+        val user = RegistrationEntity(0, email, password, gender, name)
+        viewModel.sendDataToRepository(user) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Data sent successfully", Toast.LENGTH_SHORT)
+                    .show()
 
-        } else {
-            Toast.makeText(context, "Accept policy", Toast.LENGTH_SHORT).show()
+
+                val bundle = bundleOf(
+                    "email" to email
+                )
+                findNavController().navigate(R.id.action_nameFragment_to_artistsFragment, bundle)
+
+            } else {
+                Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
-
-
     }
-
-    private fun checkName(text: String): Boolean {
-        val radioButton1 = binding.rb1Name
-        val radioButton2 = binding.rb2Name
-        return (text.isNotEmpty() && radioButton2.isChecked && radioButton1.isChecked)
-    }
-
 
     private fun directionToSite() {
         val intent = "https://www.spotify.com/us/legal/privacy-policy/"

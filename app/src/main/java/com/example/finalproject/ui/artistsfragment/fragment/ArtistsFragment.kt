@@ -2,6 +2,7 @@ package com.example.finalproject.ui.artistsfragment.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,25 +13,32 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalproject.R
+import com.example.finalproject.data.localdatabase.ArtistsEntity
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentArtistsBinding
 import com.example.finalproject.ui.activities.HomeActivity
 import com.example.finalproject.ui.artistsfragment.adapters.ArtistsAdapter
+import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsIdViewModel
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
+import com.example.finalproject.ui.artistsfragment.viewmodel.UserIdViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
 class ArtistsFragment : Fragment() {
-    private var name:String?=null
     private lateinit var binding: FragmentArtistsBinding
     private lateinit var adapter: ArtistsAdapter
+    private val userIdViewModel:UserIdViewModel by viewModels()
+    private val artistsIdViewModel:ArtistsIdViewModel by viewModels()
     private val viewModel: ArtistsViewModel by viewModels()
     private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
+    private var userId by Delegates.notNull<Int>()
+    private lateinit var email:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        name=arguments?.getString("name")
+        email= arguments?.getString("email").toString()
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +73,13 @@ class ArtistsFragment : Fragment() {
             }
         })
 
+        userIdViewModel.getUserId(email).observe(viewLifecycleOwner){
+            if (it != null) {
+                userId=it
+                Log.d("UserId", "$userId")
+            }
+        }
+
 
     }
 
@@ -90,11 +105,12 @@ class ArtistsFragment : Fragment() {
 
                     binding.artistsButton.setOnClickListener {
                         val isSelected=selectedItems.map { it.id }
-                        //findNavController().navigate(R.id.action_artistsFragment_to_homeFragment,bundle)
-                        val navigateIntent = Intent(requireActivity(),HomeActivity::class.java)
-                        navigateIntent.putExtra("selected", ArrayList(isSelected))
-                        navigateIntent.putExtra("name", name)
-                        startActivity(navigateIntent)
+                        val intent = Intent(requireActivity(), HomeActivity::class.java)
+                        intent.putExtra("userId", userId)
+                        val artist =ArtistsEntity(0, userId, isSelected)
+                       artistsIdViewModel.sendArtistsIdToRepository(artist)
+                        startActivity(intent)
+
                     }
                 }
             }

@@ -58,3 +58,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
+
+<!--    //shapeable image view-->

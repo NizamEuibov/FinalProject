@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/emailFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.fragments.EmailFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.EmailFragment"
         android:label="EmailFragment">
         <action
             android:id="@+id/action_emailFragment_to_passwordFragment"
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/passwordFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.fragments.PasswordFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.PasswordFragment"
         android:label="PasswordFragment">
         <action
             android:id="@+id/action_passwordFragment_to_genderFragment"
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.fragments.GenderFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.GenderFragment"
         android:label="GenderFragment">
         <action
             android:id="@+id/action_genderFragment_to_nameFragment"
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/nameFragment"
-        android:name="com.example.finalproject.ui.registrationfragments.fragments.NameFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.NameFragment"
         android:label="NameFragment" >
 
         <action

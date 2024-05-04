@@ -17,7 +17,7 @@ object AppModule {
         return Room.databaseBuilder(
             applicationContext,
             RegistrationDatabase::class.java,
-            "app-database"
+            "app-database"  //add like const
         ).fallbackToDestructiveMigration()
             .build()
     }
@@ -30,6 +30,11 @@ object AppModule {
     @Provides
     fun provideTrackDao(registrationDatabase: RegistrationDatabase): TrackDao {
         return registrationDatabase.trackDao()
+    }
+
+    @Provides
+    fun provideArtistsDao(registrationDatabase: RegistrationDatabase): ArtistsDao {
+        return registrationDatabase.artistDao()
     }
 
 

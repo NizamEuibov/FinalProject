@@ -10,13 +10,19 @@ import com.example.finalproject.ui.loginfragments.model.LoginModel
 interface RegistrationDao {
 
     @Insert
-    suspend fun insertUser(user:RegistrationEntity)
+    suspend fun insertUser(user: RegistrationEntity)
+
+    @Query("SELECT id FROM registration_entity WHERE email =:email")
+    fun getUserId(email: String): LiveData<Int?>
+
+    @Query("SELECT email, password FROM registration_entity ")
+    fun getEmailAndPassword(): LiveData<List<LoginModel>?>
 
 
+    @Query("SELECT * FROM registration_entity")
+    fun getAllData(): LiveData<List<RegistrationEntity>?>
 
-    @Query("SELECT * FROM registration_table")
-    fun getEmailAndPassword(): LiveData<List<LoginModel>>
+    @Query("SELECT userName FROM registration_entity WHERE id = :id")
+    fun getUserName(id: Int): LiveData<String>
 
-
-
-    }
+}

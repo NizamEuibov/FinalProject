@@ -12,8 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object RetrofitArtistsManager {
 
-
-
     @Provides
     fun retrofitArtists():Retrofit{
         return Retrofit.Builder()
@@ -28,3 +26,6 @@ object RetrofitArtistsManager {
     }
 
 }
+
+
+//change name like module

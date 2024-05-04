@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.homefragment.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,28 +8,30 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalproject.data.localdatabase.ArtistsEntity
+import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.FragmentHomeBinding
 import com.example.finalproject.ui.homefragment.adapters.ParentAdapter
+import com.example.finalproject.ui.homefragment.viewmodel.ForArtistsIdViewModel
 import com.example.finalproject.ui.homefragment.viewmodel.HomeViewModel
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: ParentAdapter
+    private val viewModelForArtistsId: ForArtistsIdViewModel by viewModels()
     private val viewModel: HomeViewModel by viewModels()
-    private var selected: List<Int>? = null
-    private var name: String? = null
+    private var selected: ArtistsEntity? = null
+    private var userId: Int? = null
     private val PREF_NAME = "SharedPre"
+    private var artistsLists: List<DataTypeModel.NameAndImage> = emptyList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        selected = arguments?.getIntegerArrayList("id")
-        name=arguments?.getString("name")
-        Log.d("Selected1", "$selected")
+        userId = arguments?.getInt("userId")
+
 
     }
 
@@ -45,46 +46,42 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         init()
-        Log.d("Selected1", "${savedList()}")
-
+        Log.d("UserId", "$userId")
+        artistsIdFromDatabase()
+        sendListToAdapter()
 
     }
 
 
     private fun init() {
-        adapter = ParentAdapter(requireContext())
-        binding.rvHome.adapter = adapter
-        binding.rvHome.layoutManager = LinearLayoutManager(context)
         viewModel.list.observe(viewLifecycleOwner) { it ->
-            Log.d("user554", "$it")
             if (it != null) {
-                val matchItems = it.filter { selected?.contains(it.id) == true }
-                adapter.addList(matchItems)
+                artistsLists = it
             }
         }
     }
 
-    private fun selectedList(selectedList: List<Int>?) {
-        val sharedPreferences =
-            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val json = Gson().toJson(selectedList)
-        editor.putString("selected_list", json)
-        editor.apply()
-    }
+    private fun artistsIdFromDatabase() {
+        userId?.let {
+            viewModelForArtistsId.artistsId(it).observe(viewLifecycleOwner) { list ->
+                selected = list
+                Log.d("UserId", "$list")
 
-    private fun savedList(): List<Int> {
-        val sharedPreferences =
-            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val selected = sharedPreferences.getString("selected_list", null)
-        return Gson().fromJson(selected, object : TypeToken<List<Int>>() {}.type) ?: emptyList()
+            }
+        }
+    }
+    private fun sendListToAdapter(){
+        adapter = ParentAdapter()
+        binding.rvHome.adapter = adapter
+        binding.rvHome.layoutManager = LinearLayoutManager(context)
+        val list =selected?.artistsId
+        val list1= artistsLists.filter { list!!.contains(it.id) }
+        adapter.addList(list1)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        selectedList(selected)
     }
 
 

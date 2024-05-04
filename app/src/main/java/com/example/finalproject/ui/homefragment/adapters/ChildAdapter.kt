@@ -61,7 +61,6 @@ class ChildAdapter( private val context: Context):RecyclerView.Adapter<ChildAdap
     }
 
     interface SelectedListener{
-
         fun onItemListener(data: DataTypeModel.AlbumList)
     }
 }

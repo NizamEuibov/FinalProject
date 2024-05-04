@@ -1,4 +1,4 @@
-package com.example.finalproject.ui.registrationfragments.fragments
+package com.example.finalproject.ui.registrationsFragments.fragments
 
 import android.os.Bundle
 import android.text.Editable
