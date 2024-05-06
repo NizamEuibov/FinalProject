@@ -1,24 +1,28 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentLibrarySettingBinding
+import com.example.finalproject.ui.libraryfragment.viewmodel.UserNameViewModel
+import com.example.finalproject.ui.`object`.SharedPrefs
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LibrarySettingFragment : Fragment() {
     private lateinit var binding: FragmentLibrarySettingBinding
-    private var name: String? = null
-
+    private val viewModel: UserNameViewModel by viewModels()
+    private var id: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        name = arguments?.getString("name")
-        Log.d("Name12","$name")
+        id = SharedPrefs.getUserId("UserId")
     }
 
     override fun onCreateView(
@@ -31,6 +35,7 @@ class LibrarySettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        userName()
         binding.civSettings.setOnClickListener {
             findNavController().navigate(R.id.action_librarySettingFragment_to_libraryUserFragment)
         }
@@ -38,13 +43,31 @@ class LibrarySettingFragment : Fragment() {
         binding.ibBackSettings.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        binding.tvSettingName.text = name
-
+        binding.bLogOut.setOnClickListener {
+            logOutAlertDialog()
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun userName() {
 
+        id?.let {
+            viewModel.getUserName(it).observe(viewLifecycleOwner) { name ->
+                binding.tvSettingName.text = name
+
+            }
+        }
+    }
+
+    private fun logOutAlertDialog() {
+        AlertDialog.Builder(context)
+            .setMessage("Do you want to exit")
+            .setPositiveButton("Yes") { _, _ ->
+                SharedPrefs.removeUserId("UserId")
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 }
+
 

@@ -112,6 +112,7 @@
     <string name="scan_to_join">Scan to join</string>
     <string name="point">Point your camera at a Spotify code.</string>
     <string name="select">Select from photos</string>
+    <string name="log_out">Log out</string>
 
 </resources>
 

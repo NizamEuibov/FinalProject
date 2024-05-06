@@ -7,6 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class UserNameViewModel @Inject constructor(private val registrationRepository: RegistrationRepository):ViewModel() {
-    fun getUserName(id:Int):LiveData<String> = registrationRepository.getUserName(id)
+class UserNameViewModel @Inject constructor(private val registrationRepository: RegistrationRepository) :
+    ViewModel() {
+    fun getUserName(id: Int): LiveData<String> {
+       return registrationRepository.getUserName(id)
+    }
 }

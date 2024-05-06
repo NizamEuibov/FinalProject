@@ -10,18 +10,15 @@ object SharedPrefs {
         prefs = sharedPreferences
     }
 
-    fun putString(key: String, value: String) {
-        prefs?.edit()?.putString(key, value)?.apply()
+    fun putUserId(key: String, value: Int) {
+        prefs?.edit()?.putInt(key, value)?.apply()
     }
 
-
-    fun putList(key: String, list: List<Int>) {
-        prefs?.edit()?.putString(key, list.joinToString(separator = ","))?.apply()
+    fun getUserId(key: String): Int? {
+        return prefs?.getInt(key, 0)
     }
 
-    fun getString(key: String): String? {
-        return prefs?.getString(key, null)
+    fun removeUserId(key: String) {
+        prefs?.edit()?.remove(key)?.apply()
     }
-
-    fun getList(key: String){}
 }

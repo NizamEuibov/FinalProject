@@ -58,4 +58,4 @@ class ParentAdapter: RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
     }
 
 }
-// single activity, user information add artist list, save user id in shared prefenrence, log out
+// single activity, click for child adapter
