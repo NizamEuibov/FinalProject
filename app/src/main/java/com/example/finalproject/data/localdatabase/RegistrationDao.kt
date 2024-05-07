@@ -15,7 +15,7 @@ interface RegistrationDao {
     @Query("SELECT id FROM registration_entity WHERE email =:email")
     fun getUserId(email: String): LiveData<Int?>
 
-    @Query("SELECT email, password FROM registration_entity ")
+    @Query("SELECT id, email, password FROM registration_entity ")
     fun getEmailAndPassword(): LiveData<List<LoginModel>?>
 
 

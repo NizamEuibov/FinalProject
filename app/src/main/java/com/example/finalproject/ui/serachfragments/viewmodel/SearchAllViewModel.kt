@@ -17,7 +17,7 @@ class SearchAllViewModel @Inject constructor(repoNetwork: NetworkRepository) : V
 
     init {
         viewModelScope.launch {
-            _artistsList.value = repoNetwork.getArtists()
+//            _artistsList.value = repoNetwork.getArtists()
         }
     }
 }

@@ -22,3 +22,12 @@ object SharedPrefs {
         prefs?.edit()?.remove(key)?.apply()
     }
 }
+
+
+object ConstVal {
+    const val APP = "app-database"
+    const val ARTISTSALBUMSAPI = "/v3.0/artists/albums/?client_id=1a88e795"
+    const val TRACKAPI = "/v3.0/artists/tracks/?client_id=1a88e795"
+    const val BASEURL = "https://api.jamendo.com"
+    const val ERROR = "Failed to load data"
+}

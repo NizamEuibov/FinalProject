@@ -12,8 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentAlbumControlBinding
 import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
+import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import com.example.finalproject.ui.track.fragment.TrackShareFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -24,11 +27,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class AlbumControlFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentAlbumControlBinding
     private val viewModel: AlbumViewModel by viewModels()
+    private var list: List<DataTypeModel.NameAndImage> = emptyList()
     private var id: Int? = null
-    private var artistId:Int?=null
+    private var artistId: Int? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = BottomSheetDialog(requireContext(), com.google.android.material.R.style.Theme_Design_BottomSheetDialog)
+        val dialog = BottomSheetDialog(
+            requireContext(),
+            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+        )
         dialog.setOnShowListener { dialog ->
             val d = dialog as BottomSheetDialog
             val bottomSheet =
@@ -43,7 +50,7 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
 
-       }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,54 +63,74 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        albumInformation()
+        init()
 
         binding.tbClose.setOnClickListener {
             dismiss()
         }
         binding.tvAlbumControlShare.setOnClickListener {
-            val bundle= bundleOf(
+            val bundle = bundleOf(
                 "idAlbum" to id
             )
-           val trackControlFragment =TrackShareFragment().apply {
-               arguments=bundle
-           }
-            trackControlFragment.show(childFragmentManager,"")
+            val trackControlFragment = TrackShareFragment().apply {
+                arguments = bundle
+            }
+            trackControlFragment.show(childFragmentManager, "")
         }
         binding.tvAlbumControlArtist.setOnClickListener {
-            val bundle= bundleOf(
+            val bundle = bundleOf(
                 "id" to artistId
             )
-            findNavController().navigate(R.id.artistViewFragment,bundle)
+            findNavController().navigate(R.id.artistViewFragment, bundle)
             dismiss()
         }
     }
 
 
-    private fun albumInformation() {
-        viewModel.albumsList.observe(viewLifecycleOwner) {
-            if (it != null) {
-                artistId=it.filter { it.albums.map { it.id }.contains(id) }.map { it.id }.toString().trim('[',']').toInt()
-                val albumImage =
-                    it.map { it.albums.filter { it.id == id } }.map { it.map { it.image } }
-                        .flatten().toString().trim('[',']')
-                val artistName =
-                    it.filter { it.albums.map { it.id }.contains(id) }.map { it.name }.toString()
-                val albumName =
-                    it.map { it.albums.filter { it.id == id } }.map { it.map { it.name } }.flatten()
-
-                with(binding) {
-                    tvAlbumName.text = albumName.toString().trim('[', ']')
-                    tvArtistsName.text = artistName.trim('[', ']')
-                    Glide.with(requireContext()).load(albumImage).placeholder(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_exit_background
-                        )
-                    ).into(ivAlbumControl)
+    private fun init() {
+        viewModel.albumsList.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
                 }
 
+                is UIState.Data -> {
+                    list = data.data
+                    albumInformation()
+                }
+
+                else -> {
+                    UIState.Error(ERROR)
+                }
             }
+        }
+    }
+
+
+    private fun albumInformation() {
+        artistId =
+            list.filter { it.albums.map { it.id }.contains(id) }.map { it.id }.toString()
+                .trim('[', ']').toInt()
+        val albumImage =
+            list.map { it.albums.filter { it.id == id } }.map { it.map { it.image } }
+                .flatten().toString().trim('[', ']')
+
+        val artistName =
+            list.filter { it.albums.map { it.id }.contains(id) }.map { it.name }.toString()
+
+        val albumName =
+            list.map { it.albums.filter { it.id == id } }.map { it.map { it.name } }.flatten()
+
+        with(binding) {
+            tvAlbumName.text = albumName.toString().trim('[', ']')
+            tvArtistsName.text = artistName.trim('[', ']')
+            Glide.with(requireContext()).load(albumImage).placeholder(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_exit_background
+                )
+            ).into(ivAlbumControl)
         }
     }
 

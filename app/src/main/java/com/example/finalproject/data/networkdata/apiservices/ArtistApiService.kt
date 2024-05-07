@@ -2,15 +2,17 @@ package com.example.finalproject.data.networkdata.apiservices
 
 
 import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.ui.`object`.ConstVal.ARTISTSALBUMSAPI
+import com.example.finalproject.ui.`object`.ConstVal.TRACKAPI
 import retrofit2.Response
 import retrofit2.http.GET
 
 interface ArtistApiService {
 
-    @GET("/v3.0/artists/albums/?client_id=1a88e795")
+    @GET(ARTISTSALBUMSAPI)
     suspend fun getArtistsApi():Response<DataTypeModel.Model>
 
 
-    @GET("/v3.0/artists/tracks/?client_id=1a88e795")
+    @GET(TRACKAPI)
     suspend fun getTracks():Response<DataTypeModel.Model>
 }

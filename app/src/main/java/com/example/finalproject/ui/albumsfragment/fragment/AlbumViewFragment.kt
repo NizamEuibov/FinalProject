@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentAlbumViewBinding
-import com.example.finalproject.ui.activities.oject.SharedViewModel
 import com.example.finalproject.ui.albumsfragment.adapter.AlbumViewAdapter
 import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
 import com.example.finalproject.ui.albumsfragment.viewmodel.TrackViewModel
+import com.example.finalproject.ui.`object`.ConstVal
 import com.example.finalproject.ui.track.fragment.TrackControlFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,7 +36,7 @@ class AlbumViewFragment : Fragment() {
     private var albumId: Int? = null
     private val albumViewModel: AlbumViewModel by viewModels()
     private var tracksList: List<DataTypeModel.Tracks> = emptyList()
-    private val sharedViewModel:SharedViewModel by viewModels()
+    private var list: List<DataTypeModel.NameAndImage> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +68,7 @@ class AlbumViewFragment : Fragment() {
         if (id != 0) {
             albumView()
         } else {
-            albumInformation()
+            albumUIState()
         }
         init()
         binding.bBack.setOnClickListener {
@@ -137,12 +138,15 @@ class AlbumViewFragment : Fragment() {
             }
 
             override fun onClickAudioListener(data: DataTypeModel.Tracks) {
-               val bundle = bundleOf(
-                   "id" to data.id,
-                   "albumName" to data.albumName
-               )
+                val bundle = bundleOf(
+                    "id" to data.id,
+                    "albumName" to data.albumName
+                )
                 Log.d("id121", "${data.albumName}")
-                findNavController().navigate(R.id.action_albumViewFragment_to_playTrackFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_albumViewFragment_to_playTrackFragment,
+                    bundle
+                )
             }
 
 
@@ -150,25 +154,33 @@ class AlbumViewFragment : Fragment() {
     }
 
 
-    private fun albumInformation() {
-        albumViewModel.albumsList.observe(viewLifecycleOwner) {
+    private fun albumUIState() {
+        albumViewModel.albumsList.observe(viewLifecycleOwner) { data ->
 
-            val albumName = it.map { it.albums.filter { it.id == albumId } }
-                .map { it.map { it.name } }.flatten()
-            val artistName =
-                it.filter { it.albums.map { it.id }.contains(albumId) }.map { it.name }
-            val albumImage = it.map { it.albums.filter { it.id == albumId } }
-                .map { it.map { it.image } }.flatten().toString().trim('[', ']')
-            val artistImage =
-                it.filter { it.albums.map { it.id }.contains(albumId) }.map { it.image }.toString()
-                    .trim('[', ']')
-            binding.tvArtistName.text = artistName.toString().trim('[', ']')
-            binding.tvAlbumView.text = albumName.toString().trim('[', ']')
-            Glide.with(requireContext()).load(albumImage).into(binding.ivAlbumView)
-            Glide.with(requireContext()).load(artistImage).into(binding.civAlbumView)
+
         }
 
-        viewModel.trackList.observe(viewLifecycleOwner) { it ->
+
+    }
+
+    private fun albumInformation() {
+        val albumName = list.map { it.albums.filter { it.id == albumId } }
+            .map { it.map { it.name } }.flatten()
+        val artistName =
+            list.filter { it.albums.map { it.id }.contains(albumId) }.map { it.name }
+        val albumImage = list.map { it.albums.filter { it.id == albumId } }
+            .map { it.map { it.image } }.flatten().toString().trim('[', ']')
+        val artistImage =
+            list.filter { it.albums.map { it.id }.contains(albumId) }.map { it.image }.toString()
+                .trim('[', ']')
+        binding.tvArtistName.text = artistName.toString().trim('[', ']')
+        binding.tvAlbumView.text = albumName.toString().trim('[', ']')
+        Glide.with(requireContext()).load(albumImage).into(binding.ivAlbumView)
+        Glide.with(requireContext()).load(artistImage).into(binding.civAlbumView)
+
+
+        viewModel.trackList.observe(viewLifecycleOwner)
+        { it ->
 
             if (it != null) {
                 val trackList =
@@ -196,7 +208,5 @@ class AlbumViewFragment : Fragment() {
             }
         }
     }
-
-
-
 }
+

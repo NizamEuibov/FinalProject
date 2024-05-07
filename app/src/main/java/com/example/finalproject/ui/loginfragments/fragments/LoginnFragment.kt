@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.finalproject.databinding.FragmentLoginBinding
 import com.example.finalproject.ui.activities.HomeActivity
 import com.example.finalproject.ui.extension.Button.disable
@@ -18,6 +20,8 @@ import com.example.finalproject.ui.extension.Button.enable
 import com.example.finalproject.ui.loginfragments.model.LoginModel
 import com.example.finalproject.ui.loginfragments.viewmodel.LogInViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginnFragment : Fragment() {
@@ -26,6 +30,7 @@ class LoginnFragment : Fragment() {
     lateinit var email: String
     lateinit var password: String
     lateinit var data: LoginModel
+    private var id: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,11 +59,14 @@ class LoginnFragment : Fragment() {
         password = binding.etRegistration.text.toString()
         data = LoginModel(email, password)
 
-
         if (viewModel.checkData(data) == true) {
-//            findNavController().navigate(R.id.action_loginnFragment_to_homeFragment)
-            val navigateIntent = Intent(requireContext(), HomeActivity::class.java)
-            startActivity(navigateIntent)
+            lifecycleScope.launch {
+                getUserId(email)
+                delay(1000)
+                val navigateIntent = Intent(requireContext(), HomeActivity::class.java)
+                navigateIntent.putExtra("userId", id)
+                startActivity(navigateIntent)
+            }
         } else {
             Toast.makeText(
                 requireContext(),
@@ -66,6 +74,7 @@ class LoginnFragment : Fragment() {
                 Toast.LENGTH_LONG
             ).show()
         }
+
     }
 
     private fun textWatcher() {
@@ -113,9 +122,12 @@ class LoginnFragment : Fragment() {
         })
     }
 
+    private fun getUserId(email: String) {
+        viewModel.userId(email).observe(viewLifecycleOwner) {
+            if (it != null) {
+                id = it
+                Log.d("UserId", "$id")
+            }
+        }
+    }
 }
-
-
-
-
-

@@ -14,9 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalproject.R
 import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentAlbumsBinding
 import com.example.finalproject.ui.albumsfragment.adapter.AlbumsAdapter
 import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
+import com.example.finalproject.ui.`object`.ConstVal
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,10 +46,11 @@ class AlbumsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       if(id !=0){
-        init()}
-        else
-       {albumList()}
+        if (id != 0) {
+            init()
+        } else {
+            albumList()
+        }
         listenerView()
 
         binding.cvBack.setOnClickListener {
@@ -78,19 +81,38 @@ class AlbumsFragment : Fragment() {
         adapter = AlbumsAdapter(requireContext())
         binding.rvAlbum.adapter = adapter
         binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
-        viewModel.albumsList.observe(viewLifecycleOwner) { artists ->
-            artistsList = artists
-            if (artists != null)
-                albumsList = artists.map { it.albums }.flatten()
-            val artistId = artists.map { it.id }
-            Log.d("user555", "$artistId")
-            if (artistId.contains(id)) {
-                adapter.addImage(artists.filter { it.id == id }.map { it.albums }.flatten())
-            } else
-                adapter.addImage(albumsList)
+        viewModel.albumsList.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
+
+                is UIState.Data -> {
+                    artistsList = data.data
+                    albumsList
+                }
+
+                else -> {
+                    UIState.Error(ConstVal.ERROR)
+                }
+
+            }
 
 
         }
+    }
+
+    private fun albumList() {
+        albumsList = artistsList.map { it.albums }.flatten()
+        val artistId = artistsList.map { it.id }
+        Log.d("user555", "$artistId")
+        if (artistId.contains(id)) {
+            adapter.addImage(artistsList.filter { it.id == id }.map { it.albums }.flatten())
+        } else
+            adapter.addImage(albumsList)
+
+
     }
 
 
@@ -113,9 +135,11 @@ class AlbumsFragment : Fragment() {
                 val albumName = data.id
 
                 val bundle = bundleOf(
-                     "id" to data.id,
-                    "name" to  artistsList.filter { it.albums.contains(data) }.map { it.name }.toString(),
-                    "image" to artistsList.filter { it.albums.contains(data) }.map { it.image }.toString(),
+                    "id" to data.id,
+                    "name" to artistsList.filter { it.albums.contains(data) }.map { it.name }
+                        .toString(),
+                    "image" to artistsList.filter { it.albums.contains(data) }.map { it.image }
+                        .toString(),
                     "albumName" to data.name,
                     "albumImage" to data.image
 
@@ -129,14 +153,14 @@ class AlbumsFragment : Fragment() {
         })
     }
 
-    private fun albumList(){
+    private fun albumsList() {
         adapter = AlbumsAdapter(requireContext())
         binding.rvAlbum.adapter = adapter
         binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
-        viewModel.albumsList.observe(viewLifecycleOwner){
-            val albumList=it.map { it.albums }.flatten()
+        viewModel.albumsList.observe(viewLifecycleOwner) {
+            val albumList = it.map { it.albums }.flatten()
             adapter.addImage(albumList)
         }
     }
-}
+}}
 

@@ -23,7 +23,7 @@ class ArtistsViewModel @Inject constructor(private val repoNetwork: NetworkRepos
     private fun getArtists() {
         viewModelScope.launch {
 
-            _artistsLiveData.value=repoNetwork.getArtists()
+//            _artistsLiveData.value=repoNetwork.getArtists()
             Log.d("user54","$_artistsLiveData")
 
         }

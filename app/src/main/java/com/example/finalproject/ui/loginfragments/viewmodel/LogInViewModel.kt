@@ -1,5 +1,7 @@
 package com.example.finalproject.ui.loginfragments.viewmodel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.finalproject.repository.repositorylocaldata.RegistrationRepository
@@ -8,15 +10,19 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor( registrationRepository: RegistrationRepository) : ViewModel() {
-    private val loginList = MutableLiveData<List<LoginModel>?>()
+class LogInViewModel @Inject constructor( private val registrationRepository: RegistrationRepository) : ViewModel() {
+    private val _loginList = MutableLiveData<List<LoginModel>?>()
+    fun userId(email:String):LiveData<Int?>{
+        return registrationRepository.getUserId(email)
+    }
     init {
        registrationRepository.loginModel.observeForever {
-            loginList.value = it
+            _loginList.value = it
+           Log.d("UserId","$it")
         }
     }
-    fun checkData(data: LoginModel): Boolean? {
-        return loginList.value?.contains(data)
+    fun checkData(data:LoginModel): Boolean? {
+        return _loginList.value?.contains(data)
 
     }
 }

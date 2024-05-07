@@ -2,15 +2,18 @@ package com.example.finalproject.ui.homefragment.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.data.localdatabase.ArtistsEntity
 import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentHomeBinding
 import com.example.finalproject.ui.homefragment.adapters.ParentAdapter
 import com.example.finalproject.ui.homefragment.viewmodel.ForArtistsIdViewModel
@@ -28,7 +31,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private var selected: ArtistsEntity? = null
     private var id: Int? = null
-    private var userId:Int?=null
+    private var userId: Int? = null
     private val PREF_NAME = "SharedPre"
     private var artistsLists: List<DataTypeModel.NameAndImage> = emptyList()
 
@@ -37,7 +40,6 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("userId")
         userId1()
-
     }
 
     override fun onCreateView(
@@ -61,9 +63,25 @@ class HomeFragment : Fragment() {
 
 
     private fun init() {
-        viewModel.list.observe(viewLifecycleOwner) {
-            if (it != null) {
-                artistsLists = it
+        viewModel.list.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
+
+                is UIState.Data -> {
+                    artistsLists = data.data
+                }
+
+                is UIState.Error -> {
+                    binding.tvError.isVisible = true
+                    binding.tvError.text=data.error
+                }
+
+                UIState.None -> {
+
+                }
             }
         }
     }
@@ -91,10 +109,8 @@ class HomeFragment : Fragment() {
         val sharedPreferences =
             requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         SharedPrefs.sharedPrefs(sharedPreferences)
-        id?.let { SharedPrefs.putUserId("UserId", it) }
-        userId =SharedPrefs.getUserId("UserId")
+        id?.let { SharedPrefs.putUserId("UserId", 22) }
+        userId = SharedPrefs.getUserId("UserId")
+        Log.d("userid", "$userId")
     }
-
-
-
 }

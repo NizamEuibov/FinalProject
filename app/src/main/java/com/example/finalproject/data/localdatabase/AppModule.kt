@@ -2,6 +2,7 @@ package com.example.finalproject.data.localdatabase
 
 import android.app.Application
 import androidx.room.Room
+import com.example.finalproject.ui.`object`.ConstVal.APP
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +18,7 @@ object AppModule {
         return Room.databaseBuilder(
             applicationContext,
             RegistrationDatabase::class.java,
-            "app-database"  //add like const
+            APP  //add like const
         ).fallbackToDestructiveMigration()
             .build()
     }

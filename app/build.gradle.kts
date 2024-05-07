@@ -51,6 +51,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.media3:media3-common:1.3.0")
     implementation("androidx.activity:activity-ktx:1.9.0")
+    implementation("androidx.activity:activity:1.8.0")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:5.0.0-rc01")
