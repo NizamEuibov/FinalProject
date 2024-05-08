@@ -16,7 +16,9 @@ import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.data.localdatabase.TrackEntity
 import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentTrackControlBinding
+import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import com.example.finalproject.ui.track.viewmodel.SendTrackToRepo
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -35,6 +37,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
     private var albumId: Int? = null
     private var artistId: Int? = null
     private var isButton = false
+    private var list: List<DataTypeModel.NameAndImage> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +69,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
 
         binding.tbClose.setOnClickListener {
             dismiss()
@@ -92,54 +96,70 @@ class TrackControlFragment : BottomSheetDialogFragment() {
             findNavController().navigate(R.id.artistViewFragment, bundle)
             dismiss()
         }
-        trackImage()
 
         binding.ibLike.setOnClickListener {
-            isButton= !isButton
+            isButton = !isButton
 
             if (isButton) {
                 binding.ibLike.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP)
                 sendTrack()
-            }
-            else{
-                binding.ibLike.setColorFilter(Color.WHITE,PorterDuff.Mode.SRC_ATOP)
+            } else {
+                binding.ibLike.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
                 deleteMusicFromDatabase()
             }
         }
     }
 
-    private fun trackImage() {
-        viewModel.trackList.observe(viewLifecycleOwner) { it ->
-            if (it != null) {
-                trackList = it.map { it.tracks.filter { it.id == id } }.flatten()
-                artistId =
-                    it.filter { it.tracks.map { it.id }.contains(id) }.map { it.id }.toString()
-                        .trim('[', ']').toInt()
-                val trackImage =
-                    it.map { it.tracks.filter { it.id == id } }.map { it.map { it.image } }
-                        .flatten().toString().trim('[', ']')
-                val trackName =
-                    it.map { it.tracks.filter { it.id == id } }.map { it.map { it.name } }.flatten()
-                artistName =
-                    it.filter { it.tracks.map { it.id }.contains(id) }.map { it.name }.toString()
-
-                with(binding) {
-                    Glide.with(requireContext()).load(trackImage).into(ivTrackImage)
-                    tvTrackName.text = trackName.toString().trim('[', ']')
-                    tvArtistsName.text = artistName?.trim('[', ']')
+    private fun init() {
+        viewModel.trackList.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
                 }
 
-                Log.d("user5552", "$trackName $artistName $trackImage")
+                is UIState.Data -> {
+                    list = data.data
+                    trackImage()
+                }
+
+                else -> {
+                    UIState.Error(ERROR)
+                }
             }
+
         }
     }
+
+    private fun trackImage() {
+        trackList = list.map { it.tracks.filter { it.id == id } }.flatten()
+        artistId =
+            list.filter { it.tracks.map { it.id }.contains(id) }.map { it.id }.toString()
+                .trim('[', ']').toInt()
+        val trackImage =
+            list.map { it.tracks.filter { it.id == id } }.map { it.map { it.image } }
+                .flatten().toString().trim('[', ']')
+        val trackName =
+            list.map { it.tracks.filter { it.id == id } }.map { it.map { it.name } }.flatten()
+        artistName =
+            list.filter { it.tracks.map { it.id }.contains(id) }.map { it.name }.toString()
+
+        with(binding) {
+            Glide.with(requireContext()).load(trackImage).into(ivTrackImage)
+            tvTrackName.text = trackName.toString().trim('[', ']')
+            tvArtistsName.text = artistName?.trim('[', ']')
+        }
+
+        Log.d("user5552", "$trackName $artistName $trackImage")
+    }
+
 
     private fun sendTrack() {
         val id = trackList.map { it.id }.toString().trim('[', ']').toInt()
         val name = trackList.map { it.name }.toString().trim('[', ']')
         val audio = trackList.map { it.audio }.toString().trim('[', ']')
         val image = trackList.map { it.image }.toString().trim('[', ']')
-        val track = TrackEntity( id, name, image, audio)
+        val track = TrackEntity(id, name, image, audio)
         sendTrackToRepo.sendTrackToRepo(track)
     }
 
@@ -149,7 +169,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
         val name = trackList.map { it.name }.toString().trim('[', ']')
         val audio = trackList.map { it.audio }.toString().trim('[', ']')
         val image = trackList.map { it.image }.toString().trim('[', ']')
-        val track = TrackEntity( id, name, image, audio)
+        val track = TrackEntity(id, name, image, audio)
         sendTrackToRepo.deleteTrackFromDatabase(track)
     }
 }

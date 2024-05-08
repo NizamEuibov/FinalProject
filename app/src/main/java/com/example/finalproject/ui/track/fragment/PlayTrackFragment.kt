@@ -19,8 +19,11 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.data.localdatabase.TrackEntity
+import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentPlayTrackBinding
 import com.example.finalproject.services.MusicPlayerService
+import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import com.example.finalproject.ui.track.viewmodel.SendTrackToRepo
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -49,13 +52,14 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     private var isLikeEnabled = false
     private var trackList: List<Int?> = emptyList()
     private var trackIdList: List<Int?> = emptyList()
+    private var list: List<DataTypeModel.NameAndImage> = emptyList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
         albumName = arguments?.getString("albumName")
-        Log.d("id121", "$albumName")
+        Log.d("id12", "$id")
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -82,16 +86,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            if (list != null) {
-                trackList =
-                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
-                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
-                Log.d("IDid", "$trackList")
-            }
-        }
-        id?.let { setTexts(it) }
-        id?.let { playMusic(it) }
+        init()
         binding.ib3Point.setOnClickListener {
             val bundle = bundleOf(
                 "id" to id
@@ -152,12 +147,11 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
         binding.ibLike.setOnClickListener {
             isLikeEnabled = !isLikeEnabled
-            if (isLikeEnabled){
-                binding.ibLike.setColorFilter(Color.RED,PorterDuff.Mode.SRC_ATOP)
+            if (isLikeEnabled) {
+                binding.ibLike.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP)
                 likeTrack()
-            }
-            else{
-                binding.ibLike.setColorFilter(Color.WHITE,PorterDuff.Mode.SRC_ATOP)
+            } else {
+                binding.ibLike.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
                 deleteLikedTrack()
             }
         }
@@ -184,84 +178,103 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     }
 
 
-    private fun setTexts(id: Int) {
-        Log.d("IDid", "$id")
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            if (list != null) {
-                val artistName =
-                    list.filter { tracks ->
-                        tracks.tracks.map { tracksId ->
-                            tracksId.id
-                        }.contains(id)
-                    }.map { name ->
-                        name.name
-                    }.toString()
-                        .trim('[', ']')
+    private fun init() {
+        viewModel.trackList.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
 
+                is UIState.Data -> {
+                    list = data.data
+                    trackList =
+                        list.map { album -> album.tracks.filter { it.albumName == albumName } }
+                            .map { tracks -> tracks.map { id -> id.id } }.flatten()
+                    id?.let { setTexts(it) }
+                    id?.let { playMusic(it) }
+                }
 
-                val albumName =
-                    list.map { tracks ->
-                        tracks.tracks.filter { tracksId ->
-                            tracksId.id == id
-                        }
-                    }.map { tracks ->
-                        tracks.map { albumName -> albumName.albumName }
-                    }
-                        .flatten().toString().trim('[', ']')
-
-
-                val trackName =
-                    list.map { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
-                        .map { tracks -> tracks.map { albumName -> albumName.name } }
-                        .flatten().toString().trim('[', ']')
-
-
-                val image =
-                    list.map { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
-                        .map { tracks -> tracks.map { image -> image.image } }
-                        .flatten().toString().trim('[', ']')
-
-                val trackList =
-                    list.map { album -> album.tracks.filter { it.albumName == albumName } }
-                        .map { tracks -> tracks.map { id -> id.id } }.flatten()
-
-
-
-                index = trackList.indexOf(id)
-                with(binding) {
-                    Glide.with(requireContext()).load(image).into(ivTracks)
-                    tvArtistName.text = artistName
-                    tvAlbumName.text = albumName
-                    tvTrackName.text = trackName
+                else -> {
+                    UIState.Error(ERROR)
                 }
             }
+
+        }
+    }
+
+    private fun setTexts(id: Int) {
+        val artistName =
+            list.filter { tracks ->
+                tracks.tracks.map { tracksId ->
+                    tracksId.id
+                }.contains(id)
+            }.map { name ->
+                name.name
+            }.toString()
+                .trim('[', ']')
+
+
+        val albumName =
+            list.map { tracks ->
+                tracks.tracks.filter { tracksId ->
+                    tracksId.id == id
+                }
+            }.map { tracks ->
+                tracks.map { albumName -> albumName.albumName }
+            }
+                .flatten().toString().trim('[', ']')
+
+
+        val trackName =
+            list.map { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
+                .map { tracks -> tracks.map { albumName -> albumName.name } }
+                .flatten().toString().trim('[', ']')
+
+
+        val image =
+            list.map { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
+                .map { tracks -> tracks.map { image -> image.image } }
+                .flatten().toString().trim('[', ']')
+
+        val trackList =
+            list.map { album -> album.tracks.filter { it.albumName == albumName } }
+                .map { tracks -> tracks.map { id -> id.id } }.flatten()
+
+
+
+        index = trackList.indexOf(id)
+        with(binding) {
+            Glide.with(requireContext()).load(image).into(ivTracks)
+            tvArtistName.text = artistName
+            tvAlbumName.text = albumName
+            tvTrackName.text = trackName
+
         }
     }
 
     private fun playMusic(id: Int) {
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            val audio =
-                list?.flatMap { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
-                    ?.map { audio -> audio.audio }
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-            mediaPlayer.reset()
-            mediaPlayer.setDataSource(audio?.first())
-            mediaPlayer.isLooping = true
-            mediaPlayer.prepareAsync()
-            mediaPlayer.setOnPreparedListener {
-                it.start()
-                binding.skbTrack.max = mediaPlayer.duration
-                seekBarConnect()
-                displayMusicTime(mediaPlayer.duration)
-            }
-            mediaPlayer.setOnCompletionListener {
-                nextMusic()
-            }
-            audio?.first()?.let { sendIntentToService(it) }
-            Log.d("AUDIO1", audio.toString())
+        val audio =
+            list.flatMap { tracks -> tracks.tracks.filter { tracksId -> tracksId.id == id } }
+                .map { audio -> audio.audio }
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
+        mediaPlayer.reset()
+        mediaPlayer.setDataSource(audio.first())
+        mediaPlayer.isLooping = true
+        mediaPlayer.prepareAsync()
+        mediaPlayer.setOnPreparedListener {
+            it.start()
+            binding.skbTrack.max = mediaPlayer.duration
+            seekBarConnect()
+            displayMusicTime(mediaPlayer.duration)
         }
-
+        mediaPlayer.setOnCompletionListener {
+            nextMusic()
+        }
+//        audio.first()?.let { sendIntentToService(it) }
+//        Log.d("AUDIO1", audio.toString())
     }
+
 
     private fun pauseMusic() {
         if (mediaPlayer.isPlaying) {
@@ -400,36 +413,27 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     }
 
     private fun likeTrack() {
-
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            if (list != null) {
                 val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
                 val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
                 val name = listTracks.map { it.name }.toString().trim('[', ']')
                 val audio = listTracks.map { it.audio }.toString().trim('[', ']')
                 val image = listTracks.map { it.image }.toString().trim('[', ']')
-                val track = TrackEntity( id, name, image, audio)
+                val track = TrackEntity(id, name, image, audio)
                 Log.d("Tracks5", "$listTracks")
                 sendTrackToRepo.sendTrackToRepo(track)
             }
-        }
-    }
+
 
     private fun deleteLikedTrack() {
-
-        viewModel.trackList.observe(viewLifecycleOwner) { list ->
-            if (list != null) {
                 val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
                 val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
                 val name = listTracks.map { it.name }.toString().trim('[', ']')
                 val audio = listTracks.map { it.audio }.toString().trim('[', ']')
                 val image = listTracks.map { it.image }.toString().trim('[', ']')
-                val track = TrackEntity( id, name, image, audio)
+                val track = TrackEntity(id, name, image, audio)
                 Log.d("Tracks5", "$listTracks")
                 sendTrackToRepo.deleteTrackFromDatabase(track)
             }
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()

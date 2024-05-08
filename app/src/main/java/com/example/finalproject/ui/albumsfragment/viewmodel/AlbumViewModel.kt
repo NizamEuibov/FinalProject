@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AlbumViewModel @Inject constructor(private val repoNetwork: NetworkRepository) : ViewModel() {
+class AlbumViewModel @Inject constructor(private val repoNetwork: NetworkRepository) :
+    ViewModel() {
     private val _albumsList = MutableLiveData<UIState>()
     val albumsList: LiveData<UIState> = _albumsList
 
@@ -19,7 +20,8 @@ class AlbumViewModel @Inject constructor(private val repoNetwork: NetworkReposit
     init {
         viewModelScope.launch {
             _albumsList.value = UIState.Loading(true)
-            _albumsList.value = repoNetwork.getArtists()
+            val response = repoNetwork.getArtists()
+            _albumsList.value = response
             _albumsList.value = UIState.Loading(false)
         }
     }

@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalproject.R
 import com.example.finalproject.data.localdatabase.ArtistsEntity
 import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentArtistsBinding
 import com.example.finalproject.ui.activities.HomeActivity
 import com.example.finalproject.ui.artistsfragment.adapters.ArtistsAdapter
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsIdViewModel
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
 import com.example.finalproject.ui.artistsfragment.viewmodel.UserIdViewModel
+import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
@@ -29,17 +31,18 @@ import kotlin.properties.Delegates
 class ArtistsFragment : Fragment() {
     private lateinit var binding: FragmentArtistsBinding
     private lateinit var adapter: ArtistsAdapter
-    private val userIdViewModel:UserIdViewModel by viewModels()
-    private val artistsIdViewModel:ArtistsIdViewModel by viewModels()
+    private val userIdViewModel: UserIdViewModel by viewModels()
+    private val artistsIdViewModel: ArtistsIdViewModel by viewModels()
     private val viewModel: ArtistsViewModel by viewModels()
     private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
     private var userId by Delegates.notNull<Int>()
-    private lateinit var email:String
+    private lateinit var email: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        email= arguments?.getString("email").toString()
+        email = arguments?.getString("email").toString()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +55,7 @@ class ArtistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        init1()
+        init()
         binding.cvBack.setOnClickListener {
             findNavController().navigate(R.id.action_artistsFragment_to_logInFragment)
         }
@@ -73,9 +76,9 @@ class ArtistsFragment : Fragment() {
             }
         })
 
-        userIdViewModel.getUserId(email).observe(viewLifecycleOwner){
+        userIdViewModel.getUserId(email).observe(viewLifecycleOwner) {
             if (it != null) {
-                userId=it
+                userId = it
                 Log.d("UserId", "$userId")
             }
         }
@@ -83,17 +86,36 @@ class ArtistsFragment : Fragment() {
 
     }
 
-    private fun init1() {
+
+    private fun init() {
+        viewModel.artistsLiveData.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
+
+                is UIState.Data -> {
+                    artistsList = data.data
+                    artistsInformation()
+                }
+
+                else -> {
+                    UIState.Error(ERROR)
+                }
+            }
+        }
+    }
+
+    private fun artistsInformation() {
         adapter = ArtistsAdapter(requireContext())
         binding.rvArtists.adapter = adapter
         binding.rvArtists.layoutManager = GridLayoutManager(context, 3)
-        viewModel.artistsLiveData.observe(viewLifecycleOwner) { artists ->
-            artists?.let {
-                artistsList = it
-                adapter.addNotes(artistsList)
+        adapter.addNotes(artistsList)
+        adapterClick()
+    }
 
-            }
-        }
+    private fun adapterClick() {
         adapter.setSelectedListener(object : ArtistsAdapter.SelectedListener {
             override fun onSelected(selectedItems: List<DataTypeModel.NameAndImage>) {
 
@@ -104,11 +126,11 @@ class ArtistsFragment : Fragment() {
                     binding.artistsButton.visibility = View.VISIBLE
 
                     binding.artistsButton.setOnClickListener {
-                        val isSelected=selectedItems.map { it.id }
+                        val isSelected = selectedItems.map { it.id }
                         val intent = Intent(requireActivity(), HomeActivity::class.java)
                         intent.putExtra("userId", userId)
-                        val artist =ArtistsEntity(0, userId, isSelected)
-                       artistsIdViewModel.sendArtistsIdToRepository(artist)
+                        val artist = ArtistsEntity(0, userId, isSelected)
+                        artistsIdViewModel.sendArtistsIdToRepository(artist)
                         startActivity(intent)
 
                     }
@@ -116,7 +138,6 @@ class ArtistsFragment : Fragment() {
             }
 
         })
-
     }
 
     private fun filteredList(query: String) {

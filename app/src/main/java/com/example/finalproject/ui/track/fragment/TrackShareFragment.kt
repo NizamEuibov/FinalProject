@@ -14,8 +14,10 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentTrackShareBinding
-import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
+import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,7 +32,7 @@ class TrackShareFragment : BottomSheetDialogFragment() {
     private var idAlbum: Int? = null
     private var sendTrackAudio: String? = null
     private var shareAlbum: String? = null
-    private val albumViewModel: AlbumViewModel by viewModels()
+    private var list: List<DataTypeModel.NameAndImage> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,18 +59,14 @@ class TrackShareFragment : BottomSheetDialogFragment() {
             val d = it as BottomSheetDialog
             val bottomSheet =
                 d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
-            BottomSheetBehavior.from(bottomSheet!!).state=BottomSheetBehavior.STATE_EXPANDED
+            BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_EXPANDED
         }
         return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (id == 0) {
-            albumInformation()
-        } else {
-            trackInformation()
-        }
+        init()
         binding.fabExit.setOnClickListener {
             dismiss()
         }
@@ -116,61 +114,81 @@ class TrackShareFragment : BottomSheetDialogFragment() {
     }
 
 
-    private fun trackInformation() {
-        viewModel.trackList.observe(viewLifecycleOwner) { it ->
-            if (it != null) {
-                val artistName =
-                    it.filter { it.tracks.map { it.id }.contains(id) }.map { it.name }.toString()
-                val trackName =
-                    it.map { it.tracks.filter { it.id == id } }.map { it.map { it.name } }.flatten()
-                        .toString()
-                val trackImage =
-                    it.map { it.tracks.filter { it.id == id } }.map { it.map { it.image } }
-                        .flatten().toString().trim('[', ']')
+    private fun init() {
+        viewModel.trackList.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
 
-                sendTrackAudio =
-                    it.map { it.tracks.filter { it.id == id } }.map { it.map { it.audio } }
-                        .flatten()
-                        .toString()
+                is UIState.Data -> {
+                    list = data.data
+                    if (id != null) {
+                        trackInformation()
+                    } else {
+                        albumInformation()
+                    }
+                }
 
-                with(binding) {
-                    Glide.with(requireContext()).load(trackImage).into(ivTrack)
-                    tvArtistName.text = artistName.trim('[', ']')
-                    tvTrackName.text = trackName.trim('[', ']')
+                else -> {
+                    UIState.Error(ERROR)
                 }
             }
+
+
         }
 
 
     }
 
+
+    private fun trackInformation() {
+        val artistName =
+            list.filter { it.tracks.map { it.id }.contains(id) }.map { it.name }.toString()
+        Log.d("id121", artistName)
+        val trackName =
+            list.map { it.tracks.filter { it.id == id } }.map { it.map { it.name } }.flatten()
+                .toString()
+        val trackImage =
+            list.map { it.tracks.filter { it.id == id } }.map { it.map { it.image } }
+                .flatten().toString().trim('[', ']')
+
+        sendTrackAudio =
+            list.map { it.tracks.filter { it.id == id } }.map { it.map { it.audio } }
+                .flatten()
+                .toString()
+
+        with(binding) {
+            Glide.with(requireContext()).load(trackImage).into(ivTrack)
+            tvArtistName.text = artistName.trim('[', ']')
+            tvTrackName.text = trackName.trim('[', ']')
+        }
+    }
+
+
     private fun albumInformation() {
 
-        albumViewModel.albumsList.observe(viewLifecycleOwner) { it ->
-            Log.d("iT", "$it")
-            if (it != null) {
-                val artistName =
-                    it.filter { it.albums.map { it.id }.contains(idAlbum) }.map { it.name }
-                        .toString()
-                val albumName =
-                    it.map { it.albums.filter { it.id == idAlbum } }.map { it.map { it.name } }
-                        .flatten()
-                        .toString()
-                val albumImage =
-                    it.map { it.albums.filter { it.id == idAlbum } }.map { it.map { it.image } }
-                        .flatten().toString().trim('[', ']')
+        val artistName =
+            list.filter { it.tracks.map { it.albumId }.contains(idAlbum) }.map { it.name }
+                .toString()
+        val albumName =
+            list.map { it.tracks.filter { it.albumId == idAlbum } }.map { it.map { it.albumName } }
+                .flatten()
+                .toString()
+        val albumImage =
+            list.map { it.tracks.filter { it.albumId == idAlbum } }.map { it.map { it.image } }
+                .flatten().toString().trim('[', ']')
 
-                shareAlbum = albumImage
+        shareAlbum = albumImage
 
 
-                with(binding) {
-                    Glide.with(requireContext()).load(albumImage).into(ivTrack)
-                    tvArtistName.text = artistName.trim('[', ']')
-                    tvTrackName.text = albumName.trim('[', ']')
-                }
-            }
+        with(binding) {
+            Glide.with(requireContext()).load(albumImage).into(ivTrack)
+            tvArtistName.text = artistName.trim('[', ']')
+            tvTrackName.text = albumName.trim('[', ']')
+
         }
-
     }
 
     private fun sendTrackWithWhatsapp(link: String) {

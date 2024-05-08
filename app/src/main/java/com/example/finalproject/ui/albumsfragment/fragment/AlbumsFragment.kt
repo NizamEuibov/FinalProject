@@ -18,7 +18,7 @@ import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentAlbumsBinding
 import com.example.finalproject.ui.albumsfragment.adapter.AlbumsAdapter
 import com.example.finalproject.ui.albumsfragment.viewmodel.AlbumViewModel
-import com.example.finalproject.ui.`object`.ConstVal
+import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,12 +46,8 @@ class AlbumsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (id != 0) {
-            init()
-        } else {
-            albumList()
-        }
-        listenerView()
+        init()
+
 
         binding.cvBack.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -90,11 +86,18 @@ class AlbumsFragment : Fragment() {
 
                 is UIState.Data -> {
                     artistsList = data.data
-                    albumsList
+                    if (id != null) {
+                        albumList()
+                    } else {
+                       addList()
+                    }
+                    listenerView()
+
+
                 }
 
                 else -> {
-                    UIState.Error(ConstVal.ERROR)
+                    UIState.Error(ERROR)
                 }
 
             }
@@ -135,11 +138,7 @@ class AlbumsFragment : Fragment() {
                 val albumName = data.id
 
                 val bundle = bundleOf(
-                    "id" to data.id,
-                    "name" to artistsList.filter { it.albums.contains(data) }.map { it.name }
-                        .toString(),
-                    "image" to artistsList.filter { it.albums.contains(data) }.map { it.image }
-                        .toString(),
+                    "albumId" to data.id,
                     "albumName" to data.name,
                     "albumImage" to data.image
 
@@ -152,15 +151,12 @@ class AlbumsFragment : Fragment() {
 
         })
     }
-
-    private fun albumsList() {
+    private fun addList() {
         adapter = AlbumsAdapter(requireContext())
         binding.rvAlbum.adapter = adapter
         binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
-        viewModel.albumsList.observe(viewLifecycleOwner) {
-            val albumList = it.map { it.albums }.flatten()
-            adapter.addImage(albumList)
-        }
+        val albumList = artistsList.map { it.albums }.flatten()
+        adapter.addImage(albumList)
     }
-}}
-
+}
+//back edende melumat itir

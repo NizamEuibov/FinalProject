@@ -11,11 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.R
 import com.example.finalproject.data.networkdata.models.DataTypeModel
+import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentYourLibraryBinding
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
 import com.example.finalproject.ui.libraryfragment.adapters.AlbumAdapter
 import com.example.finalproject.ui.libraryfragment.adapters.ArtistAdapter
 import com.example.finalproject.ui.libraryfragment.adapters.SongAdapter
+import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,11 +29,13 @@ class YourLibraryFragment : Fragment() {
     private lateinit var adapter: ArtistAdapter
     private lateinit var albumAdapter: AlbumAdapter
     private lateinit var songAdapter: SongAdapter
-    private var name:String?=null
+    private var name: String? = null
+    private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        name=arguments?.getString("name")
+        name = arguments?.getString("name")
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,20 +48,28 @@ class YourLibraryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
+        libraryArtist()
         binding.bLibraryArtist.setOnClickListener {
+            init()
             libraryArtist()
         }
         binding.bLibraryAlbum.setOnClickListener {
+            init()
             libraryAlbum()
         }
         binding.bLibraryPlaylists.setOnClickListener {
-            librarySong()
+            init1()
         }
 
         binding.civUserImage.setOnClickListener {
-            val bundle= bundleOf(
-                "name" to name)
-            findNavController().navigate(R.id.action_yourLibraryFragment_to_librarySettingFragment, bundle)
+            val bundle = bundleOf(
+                "name" to name
+            )
+            findNavController().navigate(
+                R.id.action_yourLibraryFragment_to_librarySettingFragment,
+                bundle
+            )
         }
 
         binding.ivLiked.setOnClickListener {
@@ -67,15 +79,36 @@ class YourLibraryFragment : Fragment() {
 
     }
 
+    private fun init() {
+        viewModel.artistsLiveData.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
+
+                is UIState.Data -> {
+                    artistsList = data.data
+                }
+
+                else -> {
+                    UIState.Error(ERROR)
+                }
+            }
+
+        }
+    }
+
     private fun libraryArtist() {
         adapter = ArtistAdapter(requireContext())
         binding.rvLibrary.adapter = adapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
-        viewModel.artistsLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                adapter.addList(it)
-            }
-        }
+        adapter.addList(artistsList)
+        artistAdapterClick()
+    }
+
+
+    private fun artistAdapterClick() {
         adapter.setOnClickListener(object : ArtistAdapter.Listener {
             override fun clickListener(data: DataTypeModel.NameAndImage) {
                 val bundle = bundleOf(
@@ -93,23 +126,42 @@ class YourLibraryFragment : Fragment() {
         albumAdapter = AlbumAdapter(requireContext())
         binding.rvLibrary.adapter = albumAdapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
-        viewModel.artistsLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                albumAdapter.addList(it.map { it.albums }.flatten())
+        albumAdapter.addList(artistsList.map { it.albums }.flatten())
+        albumAdapterClick()
+    }
 
 
+    private fun albumAdapterClick() {
+        albumAdapter.setOnClickListener(object : AlbumAdapter.Listener {
+            override fun clickListener(data: DataTypeModel.AlbumList) {
+                val bundle = bundleOf(
+                    "albumId" to data.id
+                )
+                findNavController().navigate(
+                    R.id.action_yourLibraryFragment_to_albumViewFragment,
+                    bundle
+                )
+            }
+        })
+    }
 
-                albumAdapter.setOnClickListener(object : AlbumAdapter.Listener {
-                    override fun clickListener(data: DataTypeModel.AlbumList) {
-                        val bundle = bundleOf(
-                            "albumId" to data.id
-                        )
-                        findNavController().navigate(
-                            R.id.action_yourLibraryFragment_to_albumViewFragment,
-                            bundle
-                        )
-                    }
-                })
+    private fun init1() {
+
+        trackViewModel.trackList.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility =
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
+
+                is UIState.Data -> {
+                    artistsList = data.data
+                    librarySong()
+                }
+
+                else -> {
+                    UIState.Error(ERROR)
+                }
             }
         }
     }
@@ -118,22 +170,24 @@ class YourLibraryFragment : Fragment() {
         songAdapter = SongAdapter(requireContext())
         binding.rvLibrary.adapter = songAdapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
-        trackViewModel.trackList.observe(viewLifecycleOwner) {
-            if (it != null) {
-                val songList = it.map { it.tracks }.flatten()
-                songAdapter.addList(songList)
-            }
-        }
-        songAdapter.setOnClickListener(object :SongAdapter.Listener{
+        val songList = artistsList.map { it.tracks }.flatten()
+        songAdapter.addList(songList)
+        songAdapterClick()
+    }
+
+    private fun songAdapterClick() {
+        songAdapter.setOnClickListener(object : SongAdapter.Listener {
             override fun clickListener(data: DataTypeModel.Tracks) {
-                val bundle= bundleOf(
+                val bundle = bundleOf(
                     "id" to data.id,
                     "albumName" to data.albumName
                 )
-                findNavController().navigate(R.id.action_yourLibraryFragment_to_playTrackFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_yourLibraryFragment_to_playTrackFragment,
+                    bundle
+                )
             }
 
         })
-
     }
 }

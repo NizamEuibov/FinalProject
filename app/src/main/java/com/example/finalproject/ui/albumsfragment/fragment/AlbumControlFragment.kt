@@ -31,25 +31,10 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
     private var id: Int? = null
     private var artistId: Int? = null
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = BottomSheetDialog(
-            requireContext(),
-            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-        )
-        dialog.setOnShowListener { dialog ->
-            val d = dialog as BottomSheetDialog
-            val bottomSheet =
-                d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
-            BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_EXPANDED
-        }
-
-        return dialog
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
-
     }
 
     override fun onCreateView(
@@ -60,6 +45,20 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
         return (binding.root)
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(
+            requireContext(),
+            com.google.android.material.R.style.Theme_Design_BottomSheetDialog
+        )
+        dialog.setOnShowListener {
+            val d = it as BottomSheetDialog
+            val bottomSheet =
+                d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
+            BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        return dialog
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -112,9 +111,10 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
         artistId =
             list.filter { it.albums.map { it.id }.contains(id) }.map { it.id }.toString()
                 .trim('[', ']').toInt()
+
         val albumImage =
             list.map { it.albums.filter { it.id == id } }.map { it.map { it.image } }
-                .flatten().toString().trim('[', ']')
+                .flatten().toString().trim('[',']')
 
         val artistName =
             list.filter { it.albums.map { it.id }.contains(id) }.map { it.name }.toString()
