@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation_view"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.finalproject.ui.homefragment.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.finalproject.ui.serachfragments.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_searchFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_searchAllFragment"
+            app:destination="@id/searchAllFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_artistViewFragment"
+            app:destination="@id/artistViewFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_scanQrCodeFragment"
+            app:destination="@id/scanQrCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yourLibraryFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.fragment.YourLibraryFragment"
+        android:label="fragment_your_library"
+        tools:layout="@layout/fragment_your_library">
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_albumViewFragment"
+            app:destination="@id/albumViewFragment" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_playTrackFragment"
+            app:destination="@id/playTrackFragment" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_library"
+            app:destination="@id/library" />
+        <action
+            android:id="@+id/action_yourLibraryFragment_to_likedSongsFragment"
+            app:destination="@id/likedSongsFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/albumsFragment"
+        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumsFragment"
+        android:label="fragment_albums"
+        tools:layout="@layout/fragment_albums">
+        <action
+            android:id="@+id/action_albumsFragment_to_albumViewFragment"
+            app:destination="@id/albumViewFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/albumControlFragment"
+        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumControlFragment"
+        android:label="AlbumControlFragment">
+        <action
+            android:id="@+id/action_albumControlFragment_to_trackShareFragment"
+            app:destination="@id/trackShareFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/albumViewFragment"
+        android:name="com.example.finalproject.ui.albumsfragment.fragment.AlbumViewFragment"
+        android:label="fragment_album_view"
+        tools:layout="@layout/fragment_album_view">
+        <action
+            android:id="@+id/action_albumViewFragment_to_albumControlFragment"
+            app:destination="@id/albumControlFragment" />
+        <action
+            android:id="@+id/action_albumViewFragment_to_trackControlFragment"
+            app:destination="@id/trackControlFragment" />
+        <action
+            android:id="@+id/action_albumViewFragment_to_playTrackFragment"
+            app:destination="@id/playTrackFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/trackShareFragment"
+        android:name="com.example.finalproject.ui.track.fragment.TrackShareFragment"
+        android:label="fragment_track_share"
+        tools:layout="@layout/fragment_track_share" />
+    <dialog
+        android:id="@+id/playTrackFragment"
+        android:name="com.example.finalproject.ui.track.fragment.PlayTrackFragment"
+        android:label="fragment_play_track"
+        tools:layout="@layout/fragment_play_track">
+        <action
+            android:id="@+id/action_playTrackFragment_to_forBluetoothFragment"
+            app:destination="@id/forBluetoothFragment" />
+        <action
+            android:id="@+id/action_playTrackFragment_to_trackShareFragment"
+            app:destination="@id/trackShareFragment" />
+        <action
+            android:id="@+id/action_playTrackFragment_to_trackControlFragment"
+            app:destination="@id/trackControlFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/artistViewFragment"
+        android:name="com.example.finalproject.ui.artistsfragment.fragment.ArtistViewFragment"
+        android:label="ArtistViewFragment">
+        <action
+            android:id="@+id/action_artistViewFragment_to_albumViewFragment"
+            app:destination="@id/albumViewFragment" />
+        <action
+            android:id="@+id/action_artistViewFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/trackControlFragment"
+        android:name="com.example.finalproject.ui.track.fragment.TrackControlFragment"
+        android:label="TrackControlFragment">
+        <action
+            android:id="@+id/action_trackControlFragment_to_trackShareFragment"
+            app:destination="@id/trackShareFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/searchAllFragment"
+        android:name="com.example.finalproject.ui.serachfragments.fragments.SearchAllFragment"
+        android:label="fragment_search_all"
+        tools:layout="@layout/fragment_search_all">
+        <action
+            android:id="@+id/action_searchAllFragment_to_albumViewFragment"
+            app:destination="@id/albumViewFragment" />
+
+        <action
+            android:id="@+id/action_searchAllFragment_to_albumsFragment"
+            app:destination="@id/albumsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/forBluetoothFragment"
+        android:name="com.example.finalproject.ui.track.fragment.ForBluetoothFragment"
+        android:label="fragment_for_bluetooth"
+        tools:layout="@layout/fragment_for_bluetooth" />
+
+    <navigation
+        android:id="@+id/library"
+        app:startDestination="@id/librarySettingFragment">
+        <fragment
+            android:id="@+id/librarySettingFragment"
+            android:name="com.example.finalproject.ui.libraryfragment.fragment.LibrarySettingFragment"
+            android:label="fragment_library_setting"
+            tools:layout="@layout/fragment_library_setting">
+            <action
+                android:id="@+id/action_librarySettingFragment_to_libraryUserFragment"
+                app:destination="@id/libraryUserFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/libraryUserFragment"
+            android:name="com.example.finalproject.ui.libraryfragment.fragment.LibraryUserFragment"
+            android:label="fragment_library_user"
+            tools:layout="@layout/fragment_library_user">
+            <action
+                android:id="@+id/action_libraryUserFragment_to_editProfileFragment"
+                app:destination="@id/editProfileFragment" />
+        </fragment>
+
+        <dialog
+            android:id="@+id/editProfileFragment"
+            android:name="com.example.finalproject.ui.libraryfragment.fragment.EditProfileFragment"
+            android:label="fragment_edit_profile"
+            tools:layout="@layout/fragment_edit_profile">
+            <action
+                android:id="@+id/action_editProfileFragment_to_librarySettingFragment"
+                app:destination="@id/librarySettingFragment" />
+        </dialog>
+    </navigation>
+    <fragment
+        android:id="@+id/likedSongsFragment"
+        android:name="com.example.finalproject.ui.libraryfragment.fragment.LikedSongsFragment"
+        android:label="fragment_liked_songs"
+        tools:layout="@layout/fragment_liked_songs" />
+
+    <dialog
+        android:id="@+id/scanQrCodeFragment"
+        android:name="com.example.finalproject.ui.serachfragments.fragments.ScanQrCodeFragment"
+        android:label="fragment_scan_qr_code"
+        tools:layout="@layout/fragment_scan_qr_code" />
+</navigation>

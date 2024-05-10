@@ -67,7 +67,7 @@ class YourLibraryFragment : Fragment() {
                 "name" to name
             )
             findNavController().navigate(
-                R.id.action_yourLibraryFragment_to_librarySettingFragment,
+                R.id.action_yourLibraryFragment_to_library,
                 bundle
             )
         }
@@ -88,7 +88,7 @@ class YourLibraryFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsList = data.data
+                    artistsList = data.data!!
                 }
 
                 else -> {
@@ -155,7 +155,7 @@ class YourLibraryFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsList = data.data
+                    artistsList = data.data!!
                     librarySong()
                 }
 

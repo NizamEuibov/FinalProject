@@ -1,6 +1,6 @@
 package com.example.finalproject.ui.loginfragments.fragments
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,12 +13,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.finalproject.databinding.FragmentLoginBinding
-import com.example.finalproject.ui.activities.HomeActivity
 import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
 import com.example.finalproject.ui.loginfragments.model.LoginModel
 import com.example.finalproject.ui.loginfragments.viewmodel.LogInViewModel
+import com.example.finalproject.ui.`object`.ConstVal.PREF_NAME
+import com.example.finalproject.ui.`object`.SharedPrefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -63,9 +65,9 @@ class LoginnFragment : Fragment() {
             lifecycleScope.launch {
                 getUserId(email)
                 delay(1000)
-                val navigateIntent = Intent(requireContext(), HomeActivity::class.java)
-                navigateIntent.putExtra("userId", id)
-                startActivity(navigateIntent)
+                id?.let { SharedPrefs.putUserId("UserId", it) }
+                sharedPreferences()
+                findNavController().navigate(LoginnFragmentDirections.actionLoginnFragmentToMainNavigationGraph())
             }
         } else {
             Toast.makeText(
@@ -129,5 +131,12 @@ class LoginnFragment : Fragment() {
                 Log.d("UserId", "$id")
             }
         }
+    }
+
+    private fun sharedPreferences() {
+        val sharedPreferences =
+            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        SharedPrefs.sharedPrefs(sharedPreferences)
+        SharedPrefs.SignUp("SignedUp",true)
     }
 }

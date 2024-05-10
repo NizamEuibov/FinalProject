@@ -123,7 +123,7 @@ class TrackShareFragment : BottomSheetDialogFragment() {
                 }
 
                 is UIState.Data -> {
-                    list = data.data
+                    list = data.data!!
                     if (id != null) {
                         trackInformation()
                     } else {

@@ -1,6 +1,6 @@
 package com.example.finalproject.ui.artistsfragment.fragment
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,12 +17,13 @@ import com.example.finalproject.data.localdatabase.ArtistsEntity
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentArtistsBinding
-import com.example.finalproject.ui.activities.HomeActivity
 import com.example.finalproject.ui.artistsfragment.adapters.ArtistsAdapter
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsIdViewModel
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
 import com.example.finalproject.ui.artistsfragment.viewmodel.UserIdViewModel
 import com.example.finalproject.ui.`object`.ConstVal.ERROR
+import com.example.finalproject.ui.`object`.ConstVal.PREF_NAME
+import com.example.finalproject.ui.`object`.SharedPrefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
@@ -54,10 +55,10 @@ class ArtistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        startFirst()
         init()
         binding.cvBack.setOnClickListener {
-            findNavController().navigate(R.id.action_artistsFragment_to_logInFragment)
+            findNavController().navigate(R.id.action_artistsFragment_to_loginnFragment)
         }
 
 
@@ -76,18 +77,12 @@ class ArtistsFragment : Fragment() {
             }
         })
 
-        userIdViewModel.getUserId(email).observe(viewLifecycleOwner) {
-            if (it != null) {
-                userId = it
-                Log.d("UserId", "$userId")
-            }
-        }
-
 
     }
 
 
     private fun init() {
+
         viewModel.artistsLiveData.observe(viewLifecycleOwner) { data ->
             when (data) {
                 is UIState.Loading -> {
@@ -96,7 +91,7 @@ class ArtistsFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsList = data.data
+                    artistsList = data.data!!
                     artistsInformation()
                 }
 
@@ -105,6 +100,7 @@ class ArtistsFragment : Fragment() {
                 }
             }
         }
+
     }
 
     private fun artistsInformation() {
@@ -127,12 +123,9 @@ class ArtistsFragment : Fragment() {
 
                     binding.artistsButton.setOnClickListener {
                         val isSelected = selectedItems.map { it.id }
-                        val intent = Intent(requireActivity(), HomeActivity::class.java)
-                        intent.putExtra("userId", userId)
                         val artist = ArtistsEntity(0, userId, isSelected)
                         artistsIdViewModel.sendArtistsIdToRepository(artist)
-                        startActivity(intent)
-
+                        findNavController().navigate(ArtistsFragmentDirections.actionArtistsFragmentToMainNavigationGraph())
                     }
                 }
             }
@@ -149,6 +142,25 @@ class ArtistsFragment : Fragment() {
         }
     }
 
+
+    private fun sharedPreferences() {
+        val sharedPreferences =
+            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        SharedPrefs.sharedPrefs(sharedPreferences)
+        SharedPrefs.putUserId("UserId", userId)
+        SharedPrefs.SignUp("SignedUp", true)
+    }
+
+
+    private fun startFirst() {
+        userIdViewModel.getUserId(email).observe(viewLifecycleOwner) {
+            if (it != null) {
+                userId = it
+                Log.d("UserId", "$userId")
+                sharedPreferences()
+            }
+        }
+    }
 
 }
 

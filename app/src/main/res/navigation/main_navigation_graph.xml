@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/homeNavigationFragment">
+
+    <fragment
+        android:id="@+id/homeNavigationFragment"
+        android:name="com.example.finalproject.ui.activities.HomeNavigationFragment"
+        android:label="fragment_home_navigation"
+        tools:layout="@layout/fragment_home_navigation" />
+
+    <action
+        android:id="@+id/action_global_albumsAndTracksAlbumViews"
+        app:destination="@id/albumViewFragment"
+        app:popUpTo="@id/searchFragment" />
+    <action
+        android:id="@+id/action_global_albumsAndTracksArtistsView"
+        app:destination="@id/artistViewFragment"
+        app:popUpTo="@id/searchFragment" />
+
+    <action
+        android:id="@+id/action_global_albumsAndTracksSearchAll"
+        app:destination="@id/searchAllFragment"
+        app:popUpTo="@id/searchFragment" />
+
+    <action android:id="@+id/action_global_albumsAndTracksPlay"
+        app:destination="@id/playTrackFragment"
+        app:popUpTo="@id/yourLibraryFragment" />
+
+    <action android:id="@+id/action_global_albumsAndTracksAlbumView"
+        app:destination="@id/albumViewFragment"
+        app:popUpTo="@id/yourLibraryFragment"/>
+
+    <action android:id="@+id/action_global_albumsAndTracksArtistsViews"
+        app:destination="@id/artistViewFragment"
+        app:popUpTo="@id/yourLibraryFragment"/>
+</navigation>

@@ -187,7 +187,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                 }
 
                 is UIState.Data -> {
-                    list = data.data
+                    list = data.data!!
                     trackList =
                         list.map { album -> album.tracks.filter { it.albumName == albumName } }
                             .map { tracks -> tracks.map { id -> id.id } }.flatten()

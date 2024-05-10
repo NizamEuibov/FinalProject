@@ -93,7 +93,7 @@ class AlbumViewFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    list = data.data
+                    list = data.data!!
                     albumInformation()
                     adapterClick()
                 }
@@ -104,30 +104,6 @@ class AlbumViewFragment : Fragment() {
         }
 
     }
-
-
-
-//    private fun albumUIState() {
-//        albumViewModel.albumsList.observe(viewLifecycleOwner) { data ->
-//            when (data) {
-//                is UIState.Data -> {
-//                    list = data.data
-//                    if (id != null) {
-//                        albumView()
-//                    } else {
-//                        albumInformation()
-//                    }
-//                }
-//
-//                else -> {
-//                    UIState.Error(ConstVal.ERROR)
-//                }
-//            }
-//
-//        }
-//
-//
-//    }
 
     private fun albumInformation() {
         val artistName =
@@ -145,34 +121,6 @@ class AlbumViewFragment : Fragment() {
         Glide.with(requireContext()).load(artistImage).into(binding.civAlbumView)
         addList()
 
-//        viewModel.trackList.observe(viewLifecycleOwner)
-//        { it ->
-//
-//            if (it != null) {
-//                val trackList =
-//                    it.filter { it.tracks.map { it.albumId }.contains(albumId) }.map { it.tracks }
-//                        .flatten()
-//                adapter.addTrack(trackList)
-//                adapter.setOnClickListener(object : AlbumViewAdapter.Listener {
-//                    override fun onClickListener(data: DataTypeModel.Tracks) {
-//
-//                        val bundle = bundleOf(
-//                            "id" to data.id,
-//                            "albumId" to id
-//                        )
-//
-//                        val trackControlFragment = TrackControlFragment().apply {
-//                            arguments = bundle
-//                        }
-//                        trackControlFragment.show(childFragmentManager, "")
-//                    }
-//
-//                    override fun onClickAudioListener(data: DataTypeModel.Tracks) {
-//
-//                    }
-//                })
-//            }
-//        }
     }
 
     private fun addList() {

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_nav_graph"
+    app:startDestination="@id/logUiFragment">
+
+    <fragment
+        android:id="@+id/logUiFragment"
+        android:name="com.example.finalproject.ui.loginfragments.fragments.LogUiFragment"
+        android:label="LogUiFragment" >
+        <action
+            android:id="@+id/action_logUiFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+        <action
+            android:id="@+id/action_logUiFragment_to_loginnFragment"
+            app:destination="@id/loginnFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.NameFragment"
+        android:label="NameFragment" >
+        <action
+            android:id="@+id/action_nameFragment_to_artistsFragment"
+            app:destination="@id/artistsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/genderFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.GenderFragment"
+        android:label="GenderFragment" >
+        <action
+            android:id="@+id/action_genderFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginnFragment"
+        android:name="com.example.finalproject.ui.loginfragments.fragments.LoginnFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginnFragment_to_main_navigation_graph"
+            app:destination="@id/main_navigation_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.PasswordFragment"
+        android:label="PasswordFragment" >
+        <action
+            android:id="@+id/action_passwordFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.example.finalproject.ui.registrationsFragments.fragments.EmailFragment"
+        android:label="EmailFragment" >
+        <action
+            android:id="@+id/action_emailFragment_to_passwordFragment"
+            app:destination="@id/passwordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistsFragment"
+        android:name="com.example.finalproject.ui.artistsfragment.fragment.ArtistsFragment"
+        android:label="fragment_artists"
+        tools:layout="@layout/fragment_artists" >
+        <action
+            android:id="@+id/action_artistsFragment_to_loginnFragment"
+            app:destination="@id/loginnFragment" />
+        <action
+            android:id="@+id/action_artistsFragment_to_main_navigation_graph"
+            app:destination="@id/main_navigation_graph" />
+    </fragment>
+    <include app:graph="@navigation/main_navigation_graph" />
+</navigation>

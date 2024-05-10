@@ -85,7 +85,7 @@ class AlbumsFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsList = data.data
+                    artistsList = data.data!!
                     if (id != null) {
                         albumList()
                     } else {

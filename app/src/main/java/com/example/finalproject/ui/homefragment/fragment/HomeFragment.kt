@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.homefragment.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,16 +29,16 @@ class HomeFragment : Fragment() {
     private val viewModelForArtistsId: ForArtistsIdViewModel by viewModels()
     private val viewModel: HomeViewModel by viewModels()
     private var selected: ArtistsEntity? = null
-    private var id: Int? = null
     private var userId: Int? = null
-    private val PREF_NAME = "SharedPre"
     private var artistsLists: List<DataTypeModel.NameAndImage> = emptyList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        id = arguments?.getInt("userId")
-        userId1()
+        userId=SharedPrefs.getUserId("UserId")
+        Log.d("UserId1","$userId")
+        Log.d("UserId1","${SharedPrefs.checkSignUp("SignedUp")}")
+
     }
 
     override fun onCreateView(
@@ -71,7 +70,7 @@ class HomeFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsLists = data.data
+                    artistsLists = data.data!!
                 }
 
                 is UIState.Error -> {
@@ -103,14 +102,5 @@ class HomeFragment : Fragment() {
         val list = selected?.artistsId
         val list1 = artistsLists.filter { list?.contains(it.id) == true }
         adapter.addList(list1)
-    }
-
-    private fun userId1() {
-        val sharedPreferences =
-            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        SharedPrefs.sharedPrefs(sharedPreferences)
-        id?.let { SharedPrefs.putUserId("UserId", 22) }
-        userId = SharedPrefs.getUserId("UserId")
-        Log.d("userid", "$userId")
     }
 }

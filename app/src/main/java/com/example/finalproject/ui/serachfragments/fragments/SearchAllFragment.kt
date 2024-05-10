@@ -75,7 +75,7 @@ class SearchAllFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsList = data.data
+                    artistsList = data.data!!
                     searchList()
                     adapterClick()
                 }

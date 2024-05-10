@@ -11,7 +11,7 @@ class NetworkRepository @Inject constructor(private val artistApiService: Artist
         return try {
             val response = artistApiService.getArtistsApi()
             if (response.isSuccessful) {
-                UIState.Data(response.body()?.result ?: emptyList())
+                UIState.Data(response.body()?.result)
             } else {
                 UIState.Error(ERROR)
             }

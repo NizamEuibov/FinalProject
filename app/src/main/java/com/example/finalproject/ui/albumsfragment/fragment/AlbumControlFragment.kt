@@ -95,7 +95,7 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
                 }
 
                 is UIState.Data -> {
-                    list = data.data
+                    list = data.data!!
                     albumInformation()
                 }
 

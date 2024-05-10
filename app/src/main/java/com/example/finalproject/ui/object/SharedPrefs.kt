@@ -21,6 +21,18 @@ object SharedPrefs {
     fun removeUserId(key: String) {
         prefs?.edit()?.remove(key)?.apply()
     }
+
+    fun SignUp(key: String, value: Boolean) {
+        prefs?.edit()?.putBoolean(key, value)?.apply()
+    }
+
+    fun checkSignUp(key: String): Boolean? {
+        return prefs?.getBoolean(key, false)
+    }
+
+    fun removeSignUp(key: String) {
+         prefs?.edit()?.remove(key)?.apply()
+    }
 }
 
 
@@ -30,4 +42,5 @@ object ConstVal {
     const val TRACKAPI = "/v3.0/artists/tracks/?client_id=1a88e795"
     const val BASEURL = "https://api.jamendo.com"
     const val ERROR = "Failed to load data"
+    const val PREF_NAME = "SharedPreferences"
 }

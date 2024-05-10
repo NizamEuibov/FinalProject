@@ -119,7 +119,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
                 }
 
                 is UIState.Data -> {
-                    list = data.data
+                    list = data.data!!
                     trackImage()
                 }
 

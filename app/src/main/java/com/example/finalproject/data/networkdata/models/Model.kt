@@ -50,6 +50,6 @@ import com.google.gson.annotations.SerializedName
 sealed class UIState{
     data object None : UIState()
     data class Loading(val isLoading: Boolean) : UIState()
-    data class Data(val data: List<DataTypeModel.NameAndImage>) : UIState()
+    data class Data(val data: List<DataTypeModel.NameAndImage>?) : UIState()
     data class Error(val error: String) : UIState()
 }

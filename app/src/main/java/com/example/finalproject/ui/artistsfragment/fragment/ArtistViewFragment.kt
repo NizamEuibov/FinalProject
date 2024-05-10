@@ -43,12 +43,13 @@ class ArtistViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentArtistViewBinding.inflate(layoutInflater, container, false)
+        Log.d("Lifecycle", "start")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("Lifecycle", "${init()}")
         init()
 
         binding.cvBack.setOnClickListener {
@@ -69,14 +70,12 @@ class ArtistViewFragment : Fragment() {
                 }
                 return true
             }
-
-        }
-
-        )
+        })
     }
 
 
     private fun init() {
+
         viewModel.artistsLiveData.observe(viewLifecycleOwner) { data ->
             when (data) {
                 is UIState.Loading -> {
@@ -85,7 +84,7 @@ class ArtistViewFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsList = data.data
+                    artistsList = data.data!!
                     if (id != null) {
                         getArtistWithId()
                     } else {
@@ -97,7 +96,6 @@ class ArtistViewFragment : Fragment() {
                     UIState.Error(ERROR)
                 }
             }
-
         }
     }
 
@@ -113,7 +111,7 @@ class ArtistViewFragment : Fragment() {
         simpleArtistAdapter = SimpleArtistAdapter(requireContext())
         binding.rvArtists.adapter = simpleArtistAdapter
         binding.rvArtists.layoutManager = LinearLayoutManager(context)
-                simpleArtistAdapter?.addList(artistsList)
+        simpleArtistAdapter?.addList(artistsList)
         simpleArtistAdapter?.setOnClickListener(object : SimpleArtistAdapter.Listener {
             override fun clickListener(data: DataTypeModel.NameAndImage) {
                 val bundle = bundleOf(

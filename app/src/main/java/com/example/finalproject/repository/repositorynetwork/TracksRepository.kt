@@ -10,7 +10,7 @@ class TracksRepository @Inject constructor(private val artistApiService: ArtistA
         return try {
             val response = artistApiService.getTracks()
             if (response.isSuccessful) {
-                UIState.Data(response.body()?.result ?: emptyList())
+                UIState.Data(response.body()?.result)
             } else {
                 UIState.Error(ERROR)
             }

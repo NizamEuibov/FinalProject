@@ -1,6 +1,7 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentLibrarySettingBinding
+import com.example.finalproject.ui.activities.MainActivity
 import com.example.finalproject.ui.libraryfragment.viewmodel.UserNameViewModel
 import com.example.finalproject.ui.`object`.SharedPrefs
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,6 +65,9 @@ class LibrarySettingFragment : Fragment() {
             .setMessage("Do you want to exit")
             .setPositiveButton("Yes") { _, _ ->
                 SharedPrefs.removeUserId("UserId")
+                SharedPrefs.removeSignUp("SignedUp")
+                val intent = Intent(requireActivity(),MainActivity::class.java)
+                startActivity(intent)
             }
             .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()
