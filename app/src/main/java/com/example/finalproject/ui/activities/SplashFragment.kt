@@ -30,7 +30,7 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Useridspalsh","${SharedPrefs.getUserId("UserId")}")
+        Log.d("Useridspalsh","${SharedPrefs.checkSignUp("SignedUp")}")
         val icon = bindng.icSpotify
 
         animation = ObjectAnimator.ofFloat(icon, "alpha", 1f, 0.5f)
@@ -41,7 +41,7 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(1500)
-            if (SharedPrefs.getUserId("UserId") == 5) {
+            if (SharedPrefs.getUserId("UserId") == null) {
                 findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToRegistrationNavGraph())
             } else {
                 findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigationGraph())

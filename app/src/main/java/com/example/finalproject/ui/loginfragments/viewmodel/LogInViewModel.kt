@@ -10,19 +10,35 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor( private val registrationRepository: RegistrationRepository) : ViewModel() {
+class LogInViewModel @Inject constructor(private val registrationRepository: RegistrationRepository) :
+    ViewModel() {
     private val _loginList = MutableLiveData<List<LoginModel>?>()
-    fun userId(email:String):LiveData<Int?>{
+    val _list =MutableLiveData<UiStateLogin>(UiStateLogin.None)
+    val list :LiveData<UiStateLogin> =_list
+    fun userId(email: String): LiveData<Int?> {
         return registrationRepository.getUserId(email)
     }
+
     init {
-       registrationRepository.loginModel.observeForever {
+        registrationRepository.loginModel.observeForever {
             _loginList.value = it
-           Log.d("UserId","$it")
+            Log.d("UserId", "$it")
         }
     }
-    fun checkData(data:LoginModel): Boolean? {
+
+    fun checkData(data: LoginModel): Boolean? {
         return _loginList.value?.contains(data)
 
     }
+
+    fun uiState():{
+//It is not completed
+    }
+}
+
+sealed class UiStateLogin {
+    data object None : UiStateLogin()
+    data class Loading(val isLoading: Boolean) : UiStateLogin()
+    data class Data(val data: Boolean) : UiStateLogin()
+    data class Error(val error: String) : UiStateLogin()
 }

@@ -64,7 +64,6 @@ class HomeFragment : Fragment() {
                 is UIState.Data -> {
                     artistsLists = data.data!!
                     artistsIdFromDatabase()
-                    Log.d("UserIddata", "$data")
                 }
 
                 is UIState.Error -> {
