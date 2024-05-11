@@ -65,7 +65,6 @@ class LoginnFragment : Fragment() {
             lifecycleScope.launch {
                 getUserId(email)
                 delay(1000)
-                id?.let { SharedPrefs.putUserId("UserId", it) }
                 sharedPreferences()
                 findNavController().navigate(LoginnFragmentDirections.actionLoginnFragmentToMainNavigationGraph())
             }
@@ -129,6 +128,11 @@ class LoginnFragment : Fragment() {
             if (it != null) {
                 id = it
                 Log.d("UserId", "$id")
+                val sharedPreferences =
+                    requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+                SharedPrefs.sharedPrefs(sharedPreferences)
+                SharedPrefs.SignUp("SignedUp", true)
+                SharedPrefs.putUserId("UserId", it)
             }
         }
     }
@@ -137,6 +141,6 @@ class LoginnFragment : Fragment() {
         val sharedPreferences =
             requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         SharedPrefs.sharedPrefs(sharedPreferences)
-        SharedPrefs.SignUp("SignedUp",true)
+        SharedPrefs.SignUp("SignedUp", true)
     }
 }

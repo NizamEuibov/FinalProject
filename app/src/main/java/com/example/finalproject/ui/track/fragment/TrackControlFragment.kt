@@ -129,6 +129,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
             }
 
         }
+        viewModel.fetchTracks()
     }
 
     private fun trackImage() {

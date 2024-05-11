@@ -11,11 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchAllViewModel @Inject constructor(repoNetwork: NetworkRepository) : ViewModel() {
+class SearchAllViewModel @Inject constructor(private val repoNetwork: NetworkRepository) : ViewModel() {
     private val _artistsList = MutableLiveData<UIState>()
     val artistsList: LiveData<UIState> = _artistsList
 
-    init {
+   fun fetchArtists() {
         viewModelScope.launch {
             _artistsList.value = UIState.Loading(true)
             val response = repoNetwork.getArtists()

@@ -50,7 +50,7 @@ class AlbumsFragment : Fragment() {
 
 
         binding.cvBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack(R.id.artistViewFragment, false)
         }
 
 
@@ -89,7 +89,7 @@ class AlbumsFragment : Fragment() {
                     if (id != null) {
                         albumList()
                     } else {
-                       addList()
+                        addList()
                     }
                     listenerView()
 
@@ -99,11 +99,9 @@ class AlbumsFragment : Fragment() {
                 else -> {
                     UIState.Error(ERROR)
                 }
-
             }
-
-
         }
+        viewModel.fetchArtist()
     }
 
     private fun albumList() {
@@ -151,6 +149,7 @@ class AlbumsFragment : Fragment() {
 
         })
     }
+
     private fun addList() {
         adapter = AlbumsAdapter(requireContext())
         binding.rvAlbum.adapter = adapter

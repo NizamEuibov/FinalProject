@@ -51,11 +51,9 @@ class YourLibraryFragment : Fragment() {
         init()
         libraryArtist()
         binding.bLibraryArtist.setOnClickListener {
-            init()
             libraryArtist()
         }
         binding.bLibraryAlbum.setOnClickListener {
-            init()
             libraryAlbum()
         }
         binding.bLibraryPlaylists.setOnClickListener {
@@ -95,8 +93,8 @@ class YourLibraryFragment : Fragment() {
                     UIState.Error(ERROR)
                 }
             }
-
         }
+        viewModel.fetchArtists()
     }
 
     private fun libraryArtist() {
@@ -164,6 +162,7 @@ class YourLibraryFragment : Fragment() {
                 }
             }
         }
+        trackViewModel.fetchTracks()
     }
 
     private fun librarySong() {
@@ -187,7 +186,6 @@ class YourLibraryFragment : Fragment() {
                     bundle
                 )
             }
-
         })
     }
 }

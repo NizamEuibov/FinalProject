@@ -18,6 +18,7 @@ import android.widget.FrameLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -25,6 +26,8 @@ import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentEditProfileBinding
 import com.example.finalproject.ui.extension.TextView.disable
 import com.example.finalproject.ui.extension.TextView.enable
+import com.example.finalproject.ui.libraryfragment.viewmodel.UserNameViewModel
+import com.example.finalproject.ui.`object`.SharedPrefs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -41,9 +44,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EditProfileFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentEditProfileBinding
-   private val CAMERA_REQUEST_CODE = 1
+    private val viewModel: UserNameViewModel by viewModels()
+    private val CAMERA_REQUEST_CODE = 1
     private lateinit var someActivityResultLauncher: ActivityResultLauncher<Intent>
-
 
 
     override fun onCreateView(
@@ -84,21 +87,20 @@ class EditProfileFragment : BottomSheetDialogFragment() {
         }
 
 
-        binding.etName.addTextChangedListener(object :TextWatcher{
+        binding.etName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().isNotEmpty()) {
-                        binding.tvSave.enable()
-                    }
-                    else{
-                        binding.tvSave.disable()
-                    binding.etName.error="Enter name"
-
-                    }
+                    binding.tvSave.enable()
+                } else {
+                    binding.tvSave.disable()
+                    binding.etName.error = "Enter name"
 
                 }
+
+            }
 
 
             override fun afterTextChanged(s: Editable?) {
@@ -113,20 +115,17 @@ class EditProfileFragment : BottomSheetDialogFragment() {
     }
 
     private fun alertDialog() {
-        val alertDialog = AlertDialog.Builder(context)
-        alertDialog.setTitle("Change Profile Photo")
-      val alertDialogItems = arrayOf("Choose Photo" , "Take Photo" , "Remove Photo")
-        alertDialog.setItems(alertDialogItems){dialog , which ->
-             when(which){
-                 0 ->cameraPermissionCheck()
-                 1 -> galleryCheck()
-             }
-        }
-        val alert = alertDialog.create()
-        alert.show()
+        val alertDialogItems = arrayOf("Choose Photo", "Take Photo", "Remove Photo")
+        AlertDialog.Builder(context)
+            .setTitle("Change Profile Photo")
+            .setItems(alertDialogItems) { dialog, which ->
+                when (which) {
+                    0 -> cameraPermissionCheck()
+                    1 -> galleryCheck()
+                }
+            }.show()
+
     }
-
-
 
 
     private fun cameraPermissionCheck() {
@@ -180,9 +179,8 @@ class EditProfileFragment : BottomSheetDialogFragment() {
                 crossfade(1000)
                 transformations(CircleCropTransformation())
             }
-        }
-        else{
-            binding.civEditProfile.load(data?.data){
+        } else {
+            binding.civEditProfile.load(data?.data) {
                 crossfade(true)
                 crossfade(1000)
                 transformations(CircleCropTransformation())
@@ -196,36 +194,36 @@ class EditProfileFragment : BottomSheetDialogFragment() {
     }
 
     private fun galleryCheck() {
-       Dexter.withContext(requireContext())
-           .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-           .withListener(object :PermissionListener{
-               override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                  gallery()
-               }
+        Dexter.withContext(requireContext())
+            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                    gallery()
+                }
 
-               override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-                  alertDialog()
-               }
+                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                    alertDialog()
+                }
 
-               override fun onPermissionRationaleShouldBeShown(
-                   p0: PermissionRequest?,
-                   p1: PermissionToken?
-               ) {
-                   alertDialog()
-               }
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    p1: PermissionToken?
+                ) {
+                    alertDialog()
+                }
 
-           }).onSameThread().check()
+            }).onSameThread().check()
     }
 
 
-    private fun gallery(){
-        val intent =Intent(Intent.ACTION_PICK)
-        intent.type="image/*"
-      someActivityResultLauncher.launch(intent)
+    private fun gallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        someActivityResultLauncher.launch(intent)
 
     }
 
-    private fun result(){
+    private fun result() {
         someActivityResultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -239,11 +237,18 @@ class EditProfileFragment : BottomSheetDialogFragment() {
     }
 
 
-    private fun changeName (){
-    val name = binding.etName.text.toString()
-        val bundle= bundleOf(
+    private fun changeName() {
+        val name = binding.etName.text.toString()
+        val bundle = bundleOf(
             "name" to name
         )
-  findNavController().navigate(R.id.action_editProfileFragment_to_librarySettingFragment,bundle)
+        val id = SharedPrefs.getUserId("UserId")
+        if (id != null) {
+            viewModel.updateUserName(id, name)
+        }
+        findNavController().navigate(
+            R.id.action_editProfileFragment_to_librarySettingFragment,
+            bundle
+        )
     }
 }

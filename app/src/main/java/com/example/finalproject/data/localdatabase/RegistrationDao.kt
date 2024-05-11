@@ -12,6 +12,9 @@ interface RegistrationDao {
     @Insert
     suspend fun insertUser(user: RegistrationEntity)
 
+    @Query("UPDATE registration_entity SET userName =:userName WHERE id = :id")
+    suspend fun updateUserName(id:Int, userName:String)
+
     @Query("SELECT id FROM registration_entity WHERE email =:email")
     fun getUserId(email: String): LiveData<Int?>
 

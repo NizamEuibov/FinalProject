@@ -15,7 +15,7 @@ class TrackViewModel @Inject constructor(private val repoTracks: TracksRepositor
     private val _trackList = MutableLiveData<UIState>()
     val trackList: LiveData<UIState> = _trackList
 
-    init {
+    fun fetchTracks() {
         viewModelScope.launch {
             _trackList.value=UIState.Loading(true)
             val response = repoTracks.getTracks()

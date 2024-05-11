@@ -86,8 +86,7 @@ class SearchAllFragment : Fragment() {
             }
 
         }
-
-
+        viewModel.fetchArtists()
     }
 
     private fun searchList() {

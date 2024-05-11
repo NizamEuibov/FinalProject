@@ -15,11 +15,7 @@ class HomeViewModel @Inject constructor(private val artists: NetworkRepository) 
     private val _list = MutableLiveData<UIState>(UIState.None)
     val list: LiveData<UIState> = _list
 
-    init {
-        getInformation()
-    }
-
-    private fun getInformation() {
+   fun getInformation() {
         viewModelScope.launch {
             _list.value = UIState.Loading(true)
             val response = artists.getArtists()

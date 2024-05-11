@@ -17,7 +17,7 @@ class AlbumViewModel @Inject constructor(private val repoNetwork: NetworkReposit
     val albumsList: LiveData<UIState> = _albumsList
 
 
-    init {
+    fun fetchArtist() {
         viewModelScope.launch {
             _albumsList.value = UIState.Loading(true)
             val response = repoNetwork.getArtists()

@@ -19,7 +19,6 @@ import com.example.finalproject.databinding.FragmentArtistViewBinding
 import com.example.finalproject.ui.artistsfragment.adapters.ArtistViewAdapter
 import com.example.finalproject.ui.artistsfragment.adapters.SimpleArtistAdapter
 import com.example.finalproject.ui.artistsfragment.viewmodel.ArtistsViewModel
-import com.example.finalproject.ui.`object`.ConstVal.ERROR
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -85,18 +84,22 @@ class ArtistViewFragment : Fragment() {
 
                 is UIState.Data -> {
                     artistsList = data.data!!
-                    if (id != null) {
-                        getArtistWithId()
-                    } else {
+                    Log.d("artistId", "$data")
+                    if (id == null) {
                         simpleGetArtist()
+                    } else {
+                        getArtistWithId()
                     }
                 }
 
-                else -> {
-                    UIState.Error(ERROR)
+                is UIState.Error -> {
+                }
+
+                UIState.None -> {
                 }
             }
         }
+        viewModel.fetchArtists()
     }
 
     private fun getArtistWithId() {
@@ -138,6 +141,4 @@ class ArtistViewFragment : Fragment() {
             adapter?.addList(searchList)
         }
     }
-
-
 }

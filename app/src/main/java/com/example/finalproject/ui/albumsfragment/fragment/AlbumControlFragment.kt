@@ -104,6 +104,7 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
                 }
             }
         }
+        viewModel.fetchArtist()
     }
 
 
@@ -114,7 +115,7 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
 
         val albumImage =
             list.map { it.albums.filter { it.id == id } }.map { it.map { it.image } }
-                .flatten().toString().trim('[',']')
+                .flatten().toString().trim('[', ']')
 
         val artistName =
             list.filter { it.albums.map { it.id }.contains(id) }.map { it.name }.toString()

@@ -102,7 +102,7 @@ class AlbumViewFragment : Fragment() {
                 }
             }
         }
-
+    viewModel.fetchTracks()
     }
 
     private fun albumInformation() {

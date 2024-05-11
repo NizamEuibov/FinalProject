@@ -14,7 +14,7 @@ import javax.inject.Inject
 class TrackViewModel @Inject constructor(private val repoTracks: TracksRepository) :ViewModel(){
     private val _tracksList=MutableLiveData<UIState>()
     val trackList:LiveData<UIState> =_tracksList
-    init {
+    fun fetchTracks() {
         viewModelScope.launch {
             _tracksList.value=UIState.Loading(true)
            _tracksList.value= repoTracks.getTracks()

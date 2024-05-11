@@ -2,6 +2,7 @@ package com.example.finalproject.ui.activities
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("Useridspalsh","${SharedPrefs.getUserId("UserId")}")
         val icon = bindng.icSpotify
 
         animation = ObjectAnimator.ofFloat(icon, "alpha", 1f, 0.5f)
@@ -39,7 +41,7 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(1500)
-            if (SharedPrefs.getUserId("UserId") == null) {
+            if (SharedPrefs.getUserId("UserId") == 5) {
                 findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToRegistrationNavGraph())
             } else {
                 findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigationGraph())

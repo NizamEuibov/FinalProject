@@ -100,7 +100,7 @@ class ArtistsFragment : Fragment() {
                 }
             }
         }
-
+        viewModel.fetchArtists()
     }
 
     private fun artistsInformation() {

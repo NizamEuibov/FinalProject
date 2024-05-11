@@ -199,8 +199,8 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
                     UIState.Error(ERROR)
                 }
             }
-
         }
+        viewModel.fetchTracks()
     }
 
     private fun setTexts(id: Int) {
@@ -413,27 +413,27 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
     }
 
     private fun likeTrack() {
-                val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
-                val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
-                val name = listTracks.map { it.name }.toString().trim('[', ']')
-                val audio = listTracks.map { it.audio }.toString().trim('[', ']')
-                val image = listTracks.map { it.image }.toString().trim('[', ']')
-                val track = TrackEntity(id, name, image, audio)
-                Log.d("Tracks5", "$listTracks")
-                sendTrackToRepo.sendTrackToRepo(track)
-            }
+        val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
+        val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
+        val name = listTracks.map { it.name }.toString().trim('[', ']')
+        val audio = listTracks.map { it.audio }.toString().trim('[', ']')
+        val image = listTracks.map { it.image }.toString().trim('[', ']')
+        val track = TrackEntity(id, name, image, audio)
+        Log.d("Tracks5", "$listTracks")
+        sendTrackToRepo.sendTrackToRepo(track)
+    }
 
 
     private fun deleteLikedTrack() {
-                val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
-                val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
-                val name = listTracks.map { it.name }.toString().trim('[', ']')
-                val audio = listTracks.map { it.audio }.toString().trim('[', ']')
-                val image = listTracks.map { it.image }.toString().trim('[', ']')
-                val track = TrackEntity(id, name, image, audio)
-                Log.d("Tracks5", "$listTracks")
-                sendTrackToRepo.deleteTrackFromDatabase(track)
-            }
+        val listTracks = list.map { it.tracks.filter { it.id == id } }.flatten()
+        val id = listTracks.map { it.id }.toString().trim('[', ']').toInt()
+        val name = listTracks.map { it.name }.toString().trim('[', ']')
+        val audio = listTracks.map { it.audio }.toString().trim('[', ']')
+        val image = listTracks.map { it.image }.toString().trim('[', ']')
+        val track = TrackEntity(id, name, image, audio)
+        Log.d("Tracks5", "$listTracks")
+        sendTrackToRepo.deleteTrackFromDatabase(track)
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -15,5 +15,9 @@ class RegistrationRepository @Inject constructor(private val registrationDao: Re
         registrationDao.insertUser(user)
     }
 
+    suspend fun updateUserName(id: Int,userName:String){
+        registrationDao.updateUserName(id, userName)
+    }
+
 
 }

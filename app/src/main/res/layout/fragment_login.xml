@@ -71,7 +71,6 @@
         android:hint="@string/email"
         android:paddingStart="15dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvForLogin"
@@ -92,23 +91,24 @@
         app:layout_constraintTop_toBottomOf="@id/etForLogin" />
 
 
-    <!--    <com.google.android.material.textfield.TextInputEditText-->
-    <!--        android:id="@+id/etForPassword"-->
-    <!--        android:layout_width="337dp"-->
-    <!--        android:layout_height="51dp"-->
-    <!--        android:layout_marginHorizontal="37dp"-->
-    <!--        android:layout_marginTop="7dp"-->
-    <!--        android:background="@drawable/edittextcorner"-->
-    <!--        android:hint="@string/password"-->
-    <!--        android:inputType="textPassword"-->
-    <!--        android:paddingStart="15dp"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textColorHint="@color/white"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tvForPassword"-->
-    <!--        tools:ignore="RtlSymmetry"-->
-    <!--      />-->
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/tilRegistration"-->
+    <!--            android:layout_width="337dp"-->
+    <!--            android:layout_height="51dp"-->
+    <!--            android:layout_marginHorizontal="37dp"-->
+    <!--            android:layout_marginTop="7dp"-->
+    <!--            android:background="@drawable/edittextcorner"-->
+    <!--            android:hint="@string/password"-->
+    <!--            android:inputType="textPassword"-->
+    <!--            android:paddingStart="15dp"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textColorHint="@color/white"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/tvForPassword"-->
+    <!--            tools:ignore="RtlSymmetry"-->
+
+    <!--          />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilRegistration"
@@ -123,21 +123,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvForPassword"
         app:passwordToggleEnabled="true"
+        app:hintEnabled="false"
         >
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etRegistration"
-            android:layout_width="340dp"
-            android:layout_height="51dp"
+            android:layout_width="337dp"
+            android:layout_height="60dp"
             android:background="@drawable/edittextcorner"
-            android:hint="@string/password"
             android:inputType="textPassword"
             android:singleLine="true"
+            android:hint="@string/password"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            tools:ignore="Autofill,LabelFor"
-            app:passwordToggleEnabled="true"
             />
 
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.data.localdatabase.ArtistsEntity
 import com.example.finalproject.data.networkdata.models.DataTypeModel
@@ -19,8 +18,6 @@ import com.example.finalproject.ui.homefragment.viewmodel.ForArtistsIdViewModel
 import com.example.finalproject.ui.homefragment.viewmodel.HomeViewModel
 import com.example.finalproject.ui.`object`.SharedPrefs
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -35,9 +32,9 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userId=SharedPrefs.getUserId("UserId")
-        Log.d("UserId1","$userId")
-        Log.d("UserId1","${SharedPrefs.checkSignUp("SignedUp")}")
+        userId = SharedPrefs.getUserId("UserId")
+        Log.d("UserId1", "$userId")
+        Log.d("UserId1", "${SharedPrefs.checkSignUp("SignedUp")}")
 
     }
 
@@ -53,11 +50,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        lifecycleScope.launch {
-            artistsIdFromDatabase()
-            delay(2000)
-            sendListToAdapter()
-        }
     }
 
 
@@ -71,11 +63,13 @@ class HomeFragment : Fragment() {
 
                 is UIState.Data -> {
                     artistsLists = data.data!!
+                    artistsIdFromDatabase()
+                    Log.d("UserIddata", "$data")
                 }
 
                 is UIState.Error -> {
                     binding.tvError.isVisible = true
-                    binding.tvError.text=data.error
+                    binding.tvError.text = data.error
                 }
 
                 UIState.None -> {
@@ -83,6 +77,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        viewModel.getInformation()
     }
 
     private fun artistsIdFromDatabase() {
@@ -90,6 +85,7 @@ class HomeFragment : Fragment() {
         userId?.let {
             viewModelForArtistsId.artistsId(it).observe(viewLifecycleOwner) { list ->
                 selected = list
+                sendListToAdapter()
             }
         }
 

@@ -15,9 +15,7 @@ class ArtistsViewModel @Inject constructor(private val repoNetwork: NetworkRepos
     ViewModel() {
     private var _artistsLiveData = MutableLiveData<UIState>()
     val artistsLiveData: LiveData<UIState> = _artistsLiveData
-
-
-    init {
+    fun fetchArtists(){
         viewModelScope.launch {
             _artistsLiveData.value = UIState.Loading(true)
             val response = repoNetwork.getArtists()

@@ -135,11 +135,8 @@ class TrackShareFragment : BottomSheetDialogFragment() {
                     UIState.Error(ERROR)
                 }
             }
-
-
         }
-
-
+        viewModel.fetchTracks()
     }
 
 
