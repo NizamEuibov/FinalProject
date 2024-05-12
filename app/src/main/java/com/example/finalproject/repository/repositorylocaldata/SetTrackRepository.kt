@@ -11,7 +11,7 @@ class SetTrackRepository @Inject constructor(private val trackDao: TrackDao) {
       trackDao.upsertTrack(track)
     }
 
-  suspend fun deleteTrackFromDatabase(track: TrackEntity){
-    trackDao.deleteTrack(track)
+  suspend fun deleteTrackFromDatabase(userId:Int){
+    trackDao.deleteTrack(userId)
   }
 }

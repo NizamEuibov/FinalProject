@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.artistsfragment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +10,7 @@ import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.ArtistViewListBinding
 import javax.inject.Inject
 
-class ArtistViewAdapter @Inject constructor(private val context: Context) :
+class ArtistViewAdapter @Inject constructor() :
     RecyclerView.Adapter<ArtistViewAdapter.ForArtistViewHolder>() {
   private lateinit var binding:ArtistViewListBinding
   private var dataList= mutableListOf<DataTypeModel.NameAndImage>()
@@ -32,11 +31,11 @@ class ArtistViewAdapter @Inject constructor(private val context: Context) :
     inner class ForArtistViewHolder (private var binding:ArtistViewListBinding):ViewHolder(binding.root) {
         fun onBind(data:DataTypeModel.NameAndImage){
             with(binding){
-                Glide.with(context).load(data.image).into(civArtistImage)
+                Glide.with(itemView.context).load(data.image).into(civArtistImage)
                 tvArtistName.text=data.name
-                val artistAlbumViewAdapter=ArtistAlbumViewAdapter(context)
+                val artistAlbumViewAdapter=ArtistAlbumViewAdapter()
                 rvAlbumView.adapter=artistAlbumViewAdapter
-                rvAlbumView.layoutManager=LinearLayoutManager(context)
+                rvAlbumView.layoutManager=LinearLayoutManager(itemView.context)
                 artistAlbumViewAdapter.addList(data.albums)
             }
         }

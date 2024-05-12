@@ -98,7 +98,7 @@ class YourLibraryFragment : Fragment() {
     }
 
     private fun libraryArtist() {
-        adapter = ArtistAdapter(requireContext())
+        adapter = ArtistAdapter()
         binding.rvLibrary.adapter = adapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
         adapter.addList(artistsList)
@@ -121,7 +121,7 @@ class YourLibraryFragment : Fragment() {
     }
 
     private fun libraryAlbum() {
-        albumAdapter = AlbumAdapter(requireContext())
+        albumAdapter = AlbumAdapter()
         binding.rvLibrary.adapter = albumAdapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
         albumAdapter.addList(artistsList.map { it.albums }.flatten())
@@ -166,7 +166,7 @@ class YourLibraryFragment : Fragment() {
     }
 
     private fun librarySong() {
-        songAdapter = SongAdapter(requireContext())
+        songAdapter = SongAdapter()
         binding.rvLibrary.adapter = songAdapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
         val songList = artistsList.map { it.tracks }.flatten()

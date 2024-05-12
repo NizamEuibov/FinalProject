@@ -10,7 +10,7 @@ import com.example.finalproject.data.localdatabase.TrackEntity
 import com.example.finalproject.databinding.SongsListBinding
 import javax.inject.Inject
 
-class LikedSongsAdapter @Inject constructor(val context: Context) :
+class LikedSongsAdapter @Inject constructor() :
     RecyclerView.Adapter<LikedSongsAdapter.LikedSongsViewHolder>() {
     private lateinit var binding: SongsListBinding
     private val dataList = mutableListOf<TrackEntity>()
@@ -37,7 +37,7 @@ class LikedSongsAdapter @Inject constructor(val context: Context) :
         ViewHolder(binding.root) {
         fun onBind(data: TrackEntity, listener: Listener?) {
             with(binding) {
-                Glide.with(context).load(data.trackImage).into(civSong)
+                Glide.with(itemView.context).load(data.trackImage).into(civSong)
                 tvSong.text = data.trackName
                 itemView.setOnClickListener {
                     listener?.clickListener(data)

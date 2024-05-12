@@ -10,10 +10,10 @@ import com.example.finalproject.data.networkdata.models.DataTypeModel
 
 import com.example.finalproject.databinding.ChildHomeListBinding
 
-class ChildAdapter( private val context: Context):RecyclerView.Adapter<ChildAdapter.ChildViewHolder>() {
+class ChildAdapter():RecyclerView.Adapter<ChildAdapter.ChildViewHolder>() {
     private lateinit var binding:ChildHomeListBinding
     private val dataList= mutableListOf<DataTypeModel.AlbumList>()
-    private var selectedListener:SelectedListener?=null
+    private var selectedListener:ParentAdapter.SelectedListener?=null
 
 
     override fun onCreateViewHolder(
@@ -36,9 +36,9 @@ class ChildAdapter( private val context: Context):RecyclerView.Adapter<ChildAdap
 
     inner class ChildViewHolder(private val binding:ChildHomeListBinding):ViewHolder(binding.root) {
 
-        fun onBind(data: DataTypeModel.AlbumList, selectedListener: SelectedListener?){
+        fun onBind(data: DataTypeModel.AlbumList, selectedListener: ParentAdapter.SelectedListener?){
             with(binding){
-                Glide.with(context).load(data.image)
+                Glide.with(itemView.context).load(data.image)
                     .into(ivHomeImage)
                 tvHomeName.text=data.name
                 itemView.setOnClickListener{
@@ -50,17 +50,10 @@ class ChildAdapter( private val context: Context):RecyclerView.Adapter<ChildAdap
 
     }
 
-    fun setOnItemClick(listener: SelectedListener){
-        this.selectedListener=listener
-    }
-
     fun addList(newList:List<DataTypeModel.AlbumList>){
         dataList.clear()
         dataList.addAll(newList)
         notifyDataSetChanged()
     }
 
-    interface SelectedListener{
-        fun onItemListener(data: DataTypeModel.AlbumList)
-    }
 }

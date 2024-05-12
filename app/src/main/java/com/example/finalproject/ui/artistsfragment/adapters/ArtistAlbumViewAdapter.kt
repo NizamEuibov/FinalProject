@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.artistsfragment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,7 @@ import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.AlbumViewListBinding
 import javax.inject.Inject
 
-class ArtistAlbumViewAdapter @Inject constructor(private val context: Context) :
+class ArtistAlbumViewAdapter @Inject constructor() :
     RecyclerView.Adapter<ArtistAlbumViewAdapter.ArtistAlbumViewHolder>() {
     private lateinit var binding: AlbumViewListBinding
     private var dataList = mutableListOf<DataTypeModel.AlbumList>()
@@ -38,7 +37,7 @@ class ArtistAlbumViewAdapter @Inject constructor(private val context: Context) :
         ViewHolder(binding.root) {
         fun onBind(data: DataTypeModel.AlbumList,listener: Listener?) {
             with(binding) {
-                Glide.with(context).load(data.image).into(civSearchAll)
+                Glide.with(itemView.context).load(data.image).into(civSearchAll)
                 tvSearchAll.text = data.name
 
                 itemView.setOnClickListener {

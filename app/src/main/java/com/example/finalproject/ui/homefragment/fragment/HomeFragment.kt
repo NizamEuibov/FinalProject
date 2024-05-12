@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalproject.R
 import com.example.finalproject.data.localdatabase.ArtistsEntity
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.data.networkdata.models.UIState
@@ -77,6 +79,10 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.getInformation()
+
+
+
+
     }
 
     private fun artistsIdFromDatabase() {
@@ -97,5 +103,12 @@ class HomeFragment : Fragment() {
         val list = selected?.artistsId
         val list1 = artistsLists.filter { list?.contains(it.id) == true }
         adapter.addList(list1)
+
+        adapter.setOnItemClick(object :ParentAdapter.SelectedListener{
+            override fun onItemListener(data: DataTypeModel.AlbumList) {
+                findNavController().navigate(R.id.action_homeFragment_to_albumViewFragment)
+            }
+
+        })
     }
 }

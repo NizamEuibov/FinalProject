@@ -19,6 +19,7 @@ import com.example.finalproject.ui.extension.Button.disable
 import com.example.finalproject.ui.extension.Button.enable
 import com.example.finalproject.ui.loginfragments.model.LoginModel
 import com.example.finalproject.ui.loginfragments.viewmodel.LogInViewModel
+import com.example.finalproject.ui.loginfragments.viewmodel.UiStateLogin
 import com.example.finalproject.ui.`object`.ConstVal.PREF_NAME
 import com.example.finalproject.ui.`object`.SharedPrefs
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,21 +62,32 @@ class LoginnFragment : Fragment() {
         password = binding.etRegistration.text.toString()
         data = LoginModel(email, password)
 
-        if (viewModel.checkData(data) == true) {
-            lifecycleScope.launch {
-                getUserId(email)
-                delay(1000)
-                sharedPreferences()
-                findNavController().navigate(LoginnFragmentDirections.actionLoginnFragmentToMainNavigationGraph())
-            }
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Oops! Something went wrong, please try again or check your email or password",
-                Toast.LENGTH_LONG
-            ).show()
-        }
+        viewModel.checkData(data).observe(viewLifecycleOwner){data->
+            when(data){
+                is UiStateLogin.Loading ->{
+                    binding.progressBar.visibility=
+                        if (data.isLoading) View.VISIBLE else View.GONE
+                }
+                is UiStateLogin.Data->{
+                    if (data.data){
+                        lifecycleScope.launch {
+                            getUserId(email)
+                            delay(1000)
+                            sharedPreferences()
+                            findNavController().navigate(LoginnFragmentDirections.actionLoginnFragmentToMainNavigationGraph())
+                        }
+                    }
+                }
+                is UiStateLogin.Error->{
+                    val error=data.error
+                    Toast.makeText(requireContext(),error , Toast.LENGTH_SHORT).show()
 
+                }
+
+                UiStateLogin.None -> { }
+            }
+
+        }
     }
 
     private fun textWatcher() {

@@ -37,7 +37,7 @@ class LikedSongsFragment : Fragment() {
 
 
     private fun likedSongs(){
-        adapter= LikedSongsAdapter(requireContext())
+        adapter= LikedSongsAdapter()
         binding.rvLikedSongs.adapter=adapter
         binding.rvLikedSongs.layoutManager=LinearLayoutManager(context)
         viewModel.likedTracks.observe(viewLifecycleOwner){list->

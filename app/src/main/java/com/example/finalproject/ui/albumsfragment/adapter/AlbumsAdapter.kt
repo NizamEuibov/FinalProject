@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.albumsfragment.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,7 @@ import com.example.finalproject.databinding.AlbumsListBinding
 import javax.inject.Inject
 
 
-class AlbumsAdapter @Inject constructor(val context: Context) :
+class AlbumsAdapter @Inject constructor() :
     RecyclerView.Adapter<AlbumsAdapter.PodcastViewHolder>() {
     private val dataList = mutableListOf<DataTypeModel.AlbumList>()
     private var listener:Listener?=null
@@ -34,7 +33,7 @@ class AlbumsAdapter @Inject constructor(val context: Context) :
     inner class PodcastViewHolder(private val binding: AlbumsListBinding) :
         ViewHolder(binding.root) {
         fun onBind(data: DataTypeModel.AlbumList, listener: Listener?) {
-            Glide.with(context).load(data.image)
+            Glide.with(itemView.context).load(data.image)
                 .into(binding.ivAlbum)
             binding.tvAlbums.text = data.name
             itemView.setOnClickListener{

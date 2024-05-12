@@ -38,7 +38,7 @@
         android:id="@+id/civUser"
         android:layout_width="122dp"
         android:layout_height="122dp"
-        android:src="@mipmap/ic_exit"
+        android:src="@drawable/ic_account"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

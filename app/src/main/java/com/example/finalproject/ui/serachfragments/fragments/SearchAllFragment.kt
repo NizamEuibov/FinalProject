@@ -26,7 +26,6 @@ class SearchAllFragment : Fragment() {
     private lateinit var adapter: SearchAllAdapter
     private var listArtists: List<DataTypeModel> = emptyList()
     private val viewModel: SearchAllViewModel by viewModels()
-    private var id: Int? = null
     private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
 
     override fun onCreateView(
@@ -90,7 +89,7 @@ class SearchAllFragment : Fragment() {
     }
 
     private fun searchList() {
-        adapter = SearchAllAdapter(requireContext())
+        adapter = SearchAllAdapter()
         binding.rvSearchAll.adapter = adapter
         binding.rvSearchAll.layoutManager = LinearLayoutManager(context)
         val listAlbums = artistsList.map { it.albums }.flatten()

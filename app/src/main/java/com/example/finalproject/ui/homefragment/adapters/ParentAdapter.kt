@@ -12,6 +12,7 @@ import com.example.finalproject.databinding.HomeListBinding
 class ParentAdapter: RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
     private lateinit var binding:HomeListBinding
     private val dataList= mutableListOf<DataTypeModel.NameAndImage>()
+    private var listener:SelectedListener?=null
 
 
     override fun onCreateViewHolder(
@@ -39,7 +40,7 @@ class ParentAdapter: RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
                 Glide.with(itemView.context).load(data.image)
                     .into(ivHomeImage)
                 tvHomeName.text=data.name
-           val childAdapter=ChildAdapter(itemView.context)
+           val childAdapter=ChildAdapter()
                 rvHomeChild.adapter=childAdapter
                 rvHomeChild.layoutManager=LinearLayoutManager(itemView.context,LinearLayoutManager.HORIZONTAL,false)
                 childAdapter.addList(data.albums)
@@ -55,6 +56,14 @@ class ParentAdapter: RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
         dataList.clear()
         dataList.addAll(newList)
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClick(listener: SelectedListener){
+        this.listener=listener
+    }
+
+    interface SelectedListener{
+        fun onItemListener(data: DataTypeModel.AlbumList)
     }
 
 }

@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.SearchAllListBinding
 
-class ArtistAdapter (val context: Context) :
+class ArtistAdapter () :
     RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder>() {
 
     private var dataList = mutableListOf<DataTypeModel.NameAndImage>()
@@ -35,7 +35,7 @@ class ArtistAdapter (val context: Context) :
         ViewHolder(binding.root) {
         fun onBind(data: DataTypeModel.NameAndImage, listener: Listener?) {
             with(binding) {
-                Glide.with(context).load(data.image).into(civSearchAll)
+                Glide.with(itemView.context).load(data.image).into(civSearchAll)
                 binding.tvSearchAll.text = data.name
                 itemView.setOnClickListener {
                     listener?.clickListener(data)

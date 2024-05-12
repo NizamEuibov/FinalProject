@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.libraryfragment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,7 @@ import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.SearchAlbumListBinding
 import javax.inject.Inject
 
-class AlbumAdapter @Inject constructor(val context: Context) :
+class AlbumAdapter @Inject constructor() :
     RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     private lateinit var binding: SearchAlbumListBinding
     private var dataList = mutableListOf<DataTypeModel.AlbumList>()
@@ -35,7 +34,7 @@ class AlbumAdapter @Inject constructor(val context: Context) :
         ViewHolder(binding.root) {
         fun onBind(data: DataTypeModel.AlbumList, listener: Listener?) {
             with(binding) {
-                Glide.with(context).load(data.image).into(civSearchAll)
+                Glide.with(itemView.context).load(data.image).into(civSearchAll)
                 tvSearchAll.text = data.name
                 itemView.setOnClickListener {
                     listener?.clickListener(data)

@@ -19,6 +19,7 @@ import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.data.networkdata.models.UIState
 import com.example.finalproject.databinding.FragmentTrackControlBinding
 import com.example.finalproject.ui.`object`.ConstVal.ERROR
+import com.example.finalproject.ui.`object`.SharedPrefs
 import com.example.finalproject.ui.track.viewmodel.SendTrackToRepo
 import com.example.finalproject.ui.track.viewmodel.TrackViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -33,6 +34,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
     private val sendTrackToRepo: SendTrackToRepo by viewModels()
     private var trackList: List<DataTypeModel.Tracks> = emptyList()
     private var id: Int? = null
+    private var userId: Int? = null
     private var artistName: String? = null
     private var albumId: Int? = null
     private var artistId: Int? = null
@@ -43,6 +45,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
         albumId = arguments?.getInt("albumId")
+        userId = SharedPrefs.getUserId("UserId")
     }
 
     override fun onCreateView(
@@ -70,6 +73,7 @@ class TrackControlFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        iconVisibility()
 
         binding.tbClose.setOnClickListener {
             dismiss()
@@ -160,17 +164,31 @@ class TrackControlFragment : BottomSheetDialogFragment() {
         val name = trackList.map { it.name }.toString().trim('[', ']')
         val audio = trackList.map { it.audio }.toString().trim('[', ']')
         val image = trackList.map { it.image }.toString().trim('[', ']')
-        val track = TrackEntity(id, name, image, audio)
+        val track = TrackEntity(id, userId, name, image, audio)
         sendTrackToRepo.sendTrackToRepo(track)
     }
 
 
     private fun deleteMusicFromDatabase() {
-        val id = trackList.map { it.id }.toString().trim('[', ']').toInt()
-        val name = trackList.map { it.name }.toString().trim('[', ']')
-        val audio = trackList.map { it.audio }.toString().trim('[', ']')
-        val image = trackList.map { it.image }.toString().trim('[', ']')
-        val track = TrackEntity(id, name, image, audio)
-        sendTrackToRepo.deleteTrackFromDatabase(track)
+        userId?.let { sendTrackToRepo.deleteTrackFromDatabase(it) }
+    }
+
+    private fun iconVisibility() {
+        userId?.let {
+            sendTrackToRepo.getLikedTracks(it).observe(viewLifecycleOwner) { list ->
+                val userIdList = list?.map { userId -> userId.userId }
+                val tracksIdList = list?.map { id -> id.number }
+
+                if (userIdList?.contains(userId) == true &&
+                    tracksIdList?.contains(id) == true
+                ) {
+                    binding.ibLike.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP)
+                    isButton = true
+                } else {
+                    binding.ibLike.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+                    isButton = false
+                }
+            }
+        }
     }
 }

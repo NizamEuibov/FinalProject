@@ -74,7 +74,7 @@ class AlbumsFragment : Fragment() {
     }
 
     private fun init() {
-        adapter = AlbumsAdapter(requireContext())
+        adapter = AlbumsAdapter()
         binding.rvAlbum.adapter = adapter
         binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
         viewModel.albumsList.observe(viewLifecycleOwner) { data ->
@@ -133,7 +133,6 @@ class AlbumsFragment : Fragment() {
     private fun listenerView() {
         adapter.setOnClickLIstener(object : AlbumsAdapter.Listener {
             override fun onClickListener(data: DataTypeModel.AlbumList) {
-                val albumName = data.id
 
                 val bundle = bundleOf(
                     "albumId" to data.id,
@@ -151,7 +150,7 @@ class AlbumsFragment : Fragment() {
     }
 
     private fun addList() {
-        adapter = AlbumsAdapter(requireContext())
+        adapter = AlbumsAdapter()
         binding.rvAlbum.adapter = adapter
         binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
         val albumList = artistsList.map { it.albums }.flatten()

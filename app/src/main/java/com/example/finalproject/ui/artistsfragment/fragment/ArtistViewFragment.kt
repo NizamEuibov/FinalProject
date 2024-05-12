@@ -103,7 +103,7 @@ class ArtistViewFragment : Fragment() {
     }
 
     private fun getArtistWithId() {
-        adapter = ArtistViewAdapter(requireContext())
+        adapter = ArtistViewAdapter()
         binding.rvArtists.adapter = adapter
         binding.rvArtists.layoutManager = LinearLayoutManager(context)
         val artistList = artistsList.filter { it.id == id }
@@ -111,7 +111,7 @@ class ArtistViewFragment : Fragment() {
     }
 
     private fun simpleGetArtist() {
-        simpleArtistAdapter = SimpleArtistAdapter(requireContext())
+        simpleArtistAdapter = SimpleArtistAdapter()
         binding.rvArtists.adapter = simpleArtistAdapter
         binding.rvArtists.layoutManager = LinearLayoutManager(context)
         simpleArtistAdapter?.addList(artistsList)

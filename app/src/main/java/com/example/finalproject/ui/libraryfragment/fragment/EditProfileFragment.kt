@@ -26,8 +26,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class EditProfileFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentEditProfileBinding
     private val viewModel: UserNameViewModel by viewModels()
+    private var id: Int? = null
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        id = SharedPrefs.getUserId("UserId")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +60,15 @@ class EditProfileFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        id?.let {
+            viewModel.getUserName(it).observe(viewLifecycleOwner) { name ->
+                binding.etName.text =
+                    Editable.Factory.getInstance().newEditable(name)
+
+            }
+        }
+
         binding.ibCancel.setOnClickListener {
             dismiss()
         }

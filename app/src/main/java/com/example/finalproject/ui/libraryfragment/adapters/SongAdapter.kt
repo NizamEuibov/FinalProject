@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.libraryfragment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +8,7 @@ import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.SongsListBinding
 import javax.inject.Inject
 
-class SongAdapter @Inject constructor(val context: Context) :
+class SongAdapter @Inject constructor() :
     RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     private lateinit var binding: SongsListBinding
     private var dataList = mutableListOf<DataTypeModel.Tracks>()
@@ -34,7 +33,7 @@ class SongAdapter @Inject constructor(val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: DataTypeModel.Tracks, listener: Listener?) {
             with(binding) {
-                Glide.with(context).load(data.image).into(civSong)
+                Glide.with(itemView.context).load(data.image).into(civSong)
                 tvSong.text = data.name
                 itemView.setOnClickListener {
                     listener?.clickListener(data)

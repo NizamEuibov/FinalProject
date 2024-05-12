@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalproject.R
@@ -31,9 +30,6 @@ class SearchFragment : Fragment() {
             findNavController().navigate(R.id.action_searchFragment_to_searchAllFragment)
         }
         init()
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.albumsFragment, false)
-            .build()
         adapter.setOnClickListener(object : SearchAdapter.Listener {
             override fun onClickListener(data: CardListModel) {
                 when (data.text) {

@@ -2,7 +2,6 @@ package com.example.finalproject.data.localdatabase
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 
@@ -11,9 +10,9 @@ interface TrackDao {
     @Upsert
     suspend fun upsertTrack(track: TrackEntity)
 
-    @Delete
-    suspend fun deleteTrack(track: TrackEntity)
+    @Query("DELETE FROM tracks_like WHERE userId = :userId")
+    suspend fun deleteTrack(userId:Int)
 
-    @Query("SELECT * FROM track")
+    @Query("SELECT * FROM tracks_like")
     fun getTrack(): LiveData<List<TrackEntity>?>
 }

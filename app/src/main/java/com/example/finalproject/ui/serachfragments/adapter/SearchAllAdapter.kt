@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.serachfragments.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,7 @@ import com.example.finalproject.databinding.SearchAlbumListBinding
 import com.example.finalproject.databinding.SearchAllListBinding
 import javax.inject.Inject
 
-class SearchAllAdapter @Inject constructor(val context: Context) :
+class SearchAllAdapter @Inject constructor() :
     RecyclerView.Adapter<ViewHolder>() {
     private lateinit var binding: SearchAllListBinding
     private val dataList = mutableListOf<DataTypeModel>()
@@ -71,7 +70,7 @@ class SearchAllAdapter @Inject constructor(val context: Context) :
     inner class SearchAllViewHolder(private var binding: SearchAllListBinding) :
         ViewHolder(binding.root) {
         fun onBind(data: DataTypeModel.NameAndImage, listener: Listener?) {
-            Glide.with(context).load(data.image)
+            Glide.with(itemView.context).load(data.image)
                 .into(binding.civSearchAll)
             binding.tvSearchAll.text = data.name
             itemView.setOnClickListener {
@@ -84,7 +83,7 @@ class SearchAllAdapter @Inject constructor(val context: Context) :
     inner class SearchAllAlbumViewHolder(private val binding: SearchAlbumListBinding) :
         ViewHolder(binding.root) {
         fun onBind(data: DataTypeModel.AlbumList, listener: Listener?) {
-            Glide.with(context).load(data.image)
+            Glide.with(itemView.context).load(data.image)
                 .into(binding.civSearchAll)
             binding.tvSearchAll.text = data.name
             itemView.setOnClickListener {

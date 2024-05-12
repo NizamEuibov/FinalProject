@@ -1,6 +1,5 @@
 package com.example.finalproject.ui.artistsfragment.adapters
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,14 +10,14 @@ import com.example.finalproject.R
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.ArtistsListBinding
 
-class ArtistsAdapter(val context: Context) :
+class ArtistsAdapter() :
     RecyclerView.Adapter<ArtistsAdapter.ArtistsViewHolder>() {
     private var selectedList = mutableListOf<DataTypeModel.NameAndImage>()
     private  var selectedListener: SelectedListener?=null
     private val dataList = mutableListOf<DataTypeModel.NameAndImage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistsViewHolder {
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         val binding = ArtistsListBinding.inflate(inflater, parent, false)
         return ArtistsViewHolder(binding)
     }
@@ -56,14 +55,14 @@ class ArtistsAdapter(val context: Context) :
 
         fun onBind(data: DataTypeModel.NameAndImage, isSelected: Boolean) {
             with(binding) {
-                Glide.with(context).load(data.image).into(civArtist)
+                Glide.with(itemView.context).load(data.image).into(civArtist)
                 tvArtistList.text = data.name
                 if (isSelected) {
-                    itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.bbColor))
+                    itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.bbColor))
                 } else {
                     itemView.setBackgroundColor(
                         ContextCompat.getColor(
-                            context,
+                            itemView.context,
                             android.R.color.transparent
                         )
                     )

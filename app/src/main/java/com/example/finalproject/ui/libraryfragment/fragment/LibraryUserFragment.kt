@@ -12,6 +12,7 @@ import com.example.finalproject.databinding.FragmentLibraryUserBinding
 
 class LibraryUserFragment : Fragment() {
     private lateinit var binding:FragmentLibraryUserBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

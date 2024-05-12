@@ -104,7 +104,7 @@ class ArtistsFragment : Fragment() {
     }
 
     private fun artistsInformation() {
-        adapter = ArtistsAdapter(requireContext())
+        adapter = ArtistsAdapter()
         binding.rvArtists.adapter = adapter
         binding.rvArtists.layoutManager = GridLayoutManager(context, 3)
         adapter.addNotes(artistsList)
