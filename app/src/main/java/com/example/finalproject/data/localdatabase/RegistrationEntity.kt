@@ -10,5 +10,6 @@ data class RegistrationEntity(
     val email: String,
     val password: String,
     val gender: String,
-    val userName: String
+    val userName: String,
+    val login:Boolean
 )

@@ -422,7 +422,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         val name = listTracks.map { it.name }.toString().trim('[', ']')
         val audio = listTracks.map { it.audio }.toString().trim('[', ']')
         val image = listTracks.map { it.image }.toString().trim('[', ']')
-        val track = TrackEntity(id,userId, name, image, audio)
+        val track = TrackEntity(id, userId, name, image, audio)
         Log.d("Tracks5", "$listTracks")
         sendTrackToRepo.sendTrackToRepo(track)
     }
@@ -449,7 +449,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
 
 
     private fun deleteLikedTrack() {
-        userId?.let {  sendTrackToRepo.deleteTrackFromDatabase(it)}
+        userId?.let { sendTrackToRepo.deleteTrackFromDatabase(it) }
     }
 
     override fun onDestroy() {

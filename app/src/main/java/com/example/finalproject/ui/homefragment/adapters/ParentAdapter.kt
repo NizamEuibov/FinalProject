@@ -40,7 +40,7 @@ class ParentAdapter: RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
                 Glide.with(itemView.context).load(data.image)
                     .into(ivHomeImage)
                 tvHomeName.text=data.name
-           val childAdapter=ChildAdapter()
+           val childAdapter=ChildAdapter(listener)
                 rvHomeChild.adapter=childAdapter
                 rvHomeChild.layoutManager=LinearLayoutManager(itemView.context,LinearLayoutManager.HORIZONTAL,false)
                 childAdapter.addList(data.albums)
@@ -67,4 +67,3 @@ class ParentAdapter: RecyclerView.Adapter<ParentAdapter.ParentViewHolder>(){
     }
 
 }
-// single activity, click for child adapter

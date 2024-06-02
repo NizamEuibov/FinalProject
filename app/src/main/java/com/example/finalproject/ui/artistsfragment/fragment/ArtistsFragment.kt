@@ -114,8 +114,6 @@ class ArtistsFragment : Fragment() {
     private fun adapterClick() {
         adapter.setSelectedListener(object : ArtistsAdapter.SelectedListener {
             override fun onSelected(selectedItems: List<DataTypeModel.NameAndImage>) {
-
-
                 if (selectedItems.size < 3) {
                     binding.artistsButton.visibility = View.INVISIBLE
                 } else {

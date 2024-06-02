@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_loginnFragment_to_main_navigation_graph"
             app:destination="@id/main_navigation_graph" />
+        <action
+            android:id="@+id/action_loginnFragment_to_artistsFragment"
+            app:destination="@id/artistsFragment" />
     </fragment>
     <fragment
         android:id="@+id/passwordFragment"

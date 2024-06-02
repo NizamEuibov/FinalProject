@@ -37,8 +37,6 @@ class AlbumViewFragment : Fragment() {
         albumId = arguments?.getInt("albumId")
         albumName = arguments?.getString("albumName")
         albumImage = arguments?.getString("albumImage")
-
-
     }
 
 

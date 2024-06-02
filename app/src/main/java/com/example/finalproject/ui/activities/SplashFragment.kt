@@ -1,6 +1,7 @@
 package com.example.finalproject.ui.activities
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.finalproject.databinding.FragmentSplashBinding
+import com.example.finalproject.ui.`object`.ConstVal
 import com.example.finalproject.ui.`object`.SharedPrefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -30,7 +32,10 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Useridspalsh","${SharedPrefs.checkSignUp("SignedUp")}")
+        val sharedPreferences =
+            requireContext().getSharedPreferences(ConstVal.PREF_NAME, Context.MODE_PRIVATE)
+        SharedPrefs.sharedPrefs(sharedPreferences)
+        Log.d("Useridspalsh", "${SharedPrefs.getUserId("UserId")}")
         val icon = bindng.icSpotify
 
         animation = ObjectAnimator.ofFloat(icon, "alpha", 1f, 0.5f)
@@ -41,11 +46,12 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(1500)
-            if (SharedPrefs.getUserId("UserId") == null) {
-                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToRegistrationNavGraph())
+            if (SharedPrefs.checkSignUp("SignedUp") == true) {
+                findNavController().
+                navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigationGraph())
             } else {
-                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigationGraph())
-
+                findNavController().
+                navigate(SplashFragmentDirections.actionSplashFragmentToRegistrationNavGraph())
             }
         }
     }

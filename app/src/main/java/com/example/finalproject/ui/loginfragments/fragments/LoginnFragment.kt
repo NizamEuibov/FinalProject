@@ -23,7 +23,6 @@ import com.example.finalproject.ui.loginfragments.viewmodel.UiStateLogin
 import com.example.finalproject.ui.`object`.ConstVal.PREF_NAME
 import com.example.finalproject.ui.`object`.SharedPrefs
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -32,7 +31,7 @@ class LoginnFragment : Fragment() {
     private val viewModel: LogInViewModel by viewModels<LogInViewModel>()
     lateinit var email: String
     lateinit var password: String
-    lateinit var data: LoginModel
+    private var data: LoginModel?=null
     private var id: Int? = null
 
     override fun onCreateView(
@@ -45,6 +44,7 @@ class LoginnFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
         binding.buttonLogInn.setOnClickListener {
             getLogin()
         }
@@ -57,12 +57,8 @@ class LoginnFragment : Fragment() {
     }
 
 
-    private fun getLogin() {
-        email = binding.etForLogin.text.toString()
-        password = binding.etRegistration.text.toString()
-        data = LoginModel(email, password)
-
-        viewModel.checkData(data).observe(viewLifecycleOwner){data->
+    private fun init() {
+        viewModel.loginList.observe(viewLifecycleOwner){data->
             when(data){
                 is UiStateLogin.Loading ->{
                     binding.progressBar.visibility=
@@ -72,9 +68,8 @@ class LoginnFragment : Fragment() {
                     if (data.data){
                         lifecycleScope.launch {
                             getUserId(email)
-                            delay(1000)
-                            sharedPreferences()
                             findNavController().navigate(LoginnFragmentDirections.actionLoginnFragmentToMainNavigationGraph())
+
                         }
                     }
                 }
@@ -88,6 +83,15 @@ class LoginnFragment : Fragment() {
             }
 
         }
+        data?.let { viewModel.checkData(it) }
+    }
+
+
+    private fun getLogin(){
+        email = binding.etForLogin.text.toString()
+        password = binding.etRegistration.text.toString()
+        data = LoginModel(email, password)
+        viewModel.checkData(data!!)
     }
 
     private fun textWatcher() {
@@ -145,14 +149,9 @@ class LoginnFragment : Fragment() {
                 SharedPrefs.sharedPrefs(sharedPreferences)
                 SharedPrefs.SignUp("SignedUp", true)
                 SharedPrefs.putUserId("UserId", it)
+
             }
         }
     }
 
-    private fun sharedPreferences() {
-        val sharedPreferences =
-            requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        SharedPrefs.sharedPrefs(sharedPreferences)
-        SharedPrefs.SignUp("SignedUp", true)
-    }
 }

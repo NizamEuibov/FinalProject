@@ -1,19 +1,16 @@
 package com.example.finalproject.ui.homefragment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
-
 import com.example.finalproject.databinding.ChildHomeListBinding
 
-class ChildAdapter():RecyclerView.Adapter<ChildAdapter.ChildViewHolder>() {
+class ChildAdapter(private val selectedListener: ParentAdapter.SelectedListener?):RecyclerView.Adapter<ChildAdapter.ChildViewHolder>() {
     private lateinit var binding:ChildHomeListBinding
     private val dataList= mutableListOf<DataTypeModel.AlbumList>()
-    private var selectedListener:ParentAdapter.SelectedListener?=null
 
 
     override fun onCreateViewHolder(

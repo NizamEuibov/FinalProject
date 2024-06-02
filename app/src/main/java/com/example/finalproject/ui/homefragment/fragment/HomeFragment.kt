@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,6 +53,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+
+        Log.d("Signed Up","${SharedPrefs.getUserId("UserId")}")
     }
 
 
@@ -79,10 +82,6 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.getInformation()
-
-
-
-
     }
 
     private fun artistsIdFromDatabase() {
@@ -106,7 +105,12 @@ class HomeFragment : Fragment() {
 
         adapter.setOnItemClick(object :ParentAdapter.SelectedListener{
             override fun onItemListener(data: DataTypeModel.AlbumList) {
-                findNavController().navigate(R.id.action_homeFragment_to_albumViewFragment)
+                val bundle= bundleOf(
+                    "albumId" to data.id,
+                    "albumName" to data.name,
+                    "albumImage" to data.image
+                )
+                findNavController().navigate(R.id.action_homeFragment_to_albumViewFragment,bundle)
             }
 
         })

@@ -11,13 +11,12 @@ import javax.inject.Inject
 @HiltViewModel
 class LogInViewModel @Inject constructor(private val registrationRepository: RegistrationRepository) :
     ViewModel() {
+     val loginList = MutableLiveData<UiStateLogin>(UiStateLogin.None)
     fun userId(email: String): LiveData<Int?> {
         return registrationRepository.getUserId(email)
     }
 
-    fun checkData(data: LoginModel): LiveData<UiStateLogin> {
-        val loginList = MutableLiveData<UiStateLogin>(UiStateLogin.None)
-
+    fun checkData(data: LoginModel) {
         loginList.value = UiStateLogin.Loading(true)
         registrationRepository.loginModel.observeForever { list ->
             val check = list?.contains(data)
@@ -28,8 +27,6 @@ class LogInViewModel @Inject constructor(private val registrationRepository: Reg
             }
             loginList.value = UiStateLogin.Loading(false)
         }
-        return loginList
-
     }
 }
 

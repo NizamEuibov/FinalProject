@@ -87,7 +87,7 @@ class NameFragment : Fragment() {
 
     private fun sendName() {
         val name = binding.etRegistration.text.toString()
-        val user = RegistrationEntity(0, email, password, gender, name)
+        val user = RegistrationEntity(0, email, password, gender, name,true)
         viewModel.sendDataToRepository(user) { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Data sent successfully", Toast.LENGTH_SHORT)

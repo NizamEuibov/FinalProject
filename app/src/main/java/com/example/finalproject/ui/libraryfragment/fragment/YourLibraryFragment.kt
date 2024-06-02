@@ -49,7 +49,6 @@ class YourLibraryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-        libraryArtist()
         binding.bLibraryArtist.setOnClickListener {
             libraryArtist()
         }
@@ -124,7 +123,8 @@ class YourLibraryFragment : Fragment() {
         albumAdapter = AlbumAdapter()
         binding.rvLibrary.adapter = albumAdapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
-        albumAdapter.addList(artistsList.map { it.albums }.flatten())
+        val albums =artistsList.map { it.albums }.flatten()
+        albums.let { albumAdapter.addList(it)}
         albumAdapterClick()
     }
 
