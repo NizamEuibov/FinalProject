@@ -38,7 +38,7 @@ class TrackShareFragment : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
         id = arguments?.getInt("id")
         idAlbum = arguments?.getInt("idAlbum")
-        Log.d("Album", "$idAlbum")
+        Log.d("Album", "$id")
     }
 
     override fun onCreateView(
@@ -124,7 +124,7 @@ class TrackShareFragment : BottomSheetDialogFragment() {
 
                 is UIState.Data -> {
                     list = data.data!!
-                    if (id != null) {
+                    if (id != 0) {
                         trackInformation()
                     } else {
                         albumInformation()
@@ -172,10 +172,11 @@ class TrackShareFragment : BottomSheetDialogFragment() {
         val albumName =
             list.map { it.tracks.filter { it.albumId == idAlbum } }.map { it.map { it.albumName } }
                 .flatten()
-                .toString()
+
         val albumImage =
             list.map { it.tracks.filter { it.albumId == idAlbum } }.map { it.map { it.image } }
                 .flatten().toString().trim('[', ']')
+        Log.d("Album", albumImage)
 
         shareAlbum = albumImage
 
@@ -183,7 +184,7 @@ class TrackShareFragment : BottomSheetDialogFragment() {
         with(binding) {
             Glide.with(requireContext()).load(albumImage).into(ivTrack)
             tvArtistName.text = artistName.trim('[', ']')
-            tvTrackName.text = albumName.trim('[', ']')
+            tvTrackName.text = albumName.first()?.trim('[',']')
 
         }
     }
