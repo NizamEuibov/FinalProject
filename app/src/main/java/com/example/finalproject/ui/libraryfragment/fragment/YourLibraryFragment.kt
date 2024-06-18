@@ -86,6 +86,7 @@ class YourLibraryFragment : Fragment() {
 
                 is UIState.Data -> {
                     artistsList = data.data!!
+                    libraryArtist()
                 }
 
                 else -> {
