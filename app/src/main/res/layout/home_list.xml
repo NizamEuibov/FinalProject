@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivHomeImage"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginStart="20dp"
             android:background="@color/background"
             android:contentDescription="@string/todo"
+            app:shapeAppearanceOverlay="@style/Circle"
             android:src="@drawable/ic_fashion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

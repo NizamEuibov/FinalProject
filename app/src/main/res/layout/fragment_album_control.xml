@@ -11,6 +11,16 @@
         android:background="@color/background"
         tools:context=".ui.albumsfragment.fragment.AlbumControlFragment">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/controlGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ivAlbumControl,tvAlbumName,
+            tvAlbumName, tvArtistsName, tvAlbumControlLike,
+            tvAlbumControlArtist, tvAlbumControlShare,
+            tvAlbumControlLikeAll, tvAlbumControlAdd,
+            tvAlbumControlAddTo, tvAlbumControlGo, tbClose"/>
+
 
         <ImageView
             android:id="@+id/ivAlbumControl"

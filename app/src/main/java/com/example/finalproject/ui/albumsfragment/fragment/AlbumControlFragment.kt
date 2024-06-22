@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -90,8 +91,8 @@ class AlbumControlFragment : BottomSheetDialogFragment() {
         viewModel.albumsList.observe(viewLifecycleOwner) { data ->
             when (data) {
                 is UIState.Loading -> {
-                    binding.progressBar.visibility =
-                        if (data.isLoading) View.VISIBLE else View.GONE
+                    binding.progressBar.isVisible = data.isLoading
+                    binding.controlGroup.visibility = if (data.isLoading) View.INVISIBLE else View.VISIBLE
                 }
 
                 is UIState.Data -> {

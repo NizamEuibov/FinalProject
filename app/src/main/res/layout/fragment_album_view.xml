@@ -125,6 +125,13 @@
             android:contentDescription="@string/todo"
             android:layout_marginStart="31dp"
             />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/actionButtonsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="bAlbumViewPoint, bAlbumViewDownload, bAlbumViewHeart"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

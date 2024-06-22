@@ -4,29 +4,36 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="15dp"
+    android:layout_marginEnd="16dp"
     android:background="@color/background">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivHomeImage"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:background="@color/background"
         android:contentDescription="@string/todo"
         android:src="@drawable/ic_fashion"
+        app:shapeAppearanceOverlay="@style/RoundedRadius12"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvHomeName"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="gtergergjch"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivHomeImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

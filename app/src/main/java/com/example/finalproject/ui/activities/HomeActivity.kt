@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityHomeBinding
+import com.example.finalproject.extensions.setStatusBarColors
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setStatusBarColors(R.color.background)
 
         userId = intent.getIntExtra("userId", 0)
         Log.d("Selected2", "$userId")
