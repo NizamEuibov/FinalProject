@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -49,7 +48,7 @@ class SearchAllFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (!newText.isNullOrBlank()) {
-                    searchList(newText)
+                    searchList(newText.lowercase())
                 } else {
                     adapter.addList(listArtists)
                 }
@@ -110,7 +109,6 @@ class SearchAllFragment : Fragment() {
         }
         if (searchList.isEmpty()) {
             binding.vSearchBackground.visibility = View.VISIBLE
-            Toast.makeText(context, "No found data", Toast.LENGTH_SHORT).show()
         } else {
             binding.vSearchBackground.visibility = View.INVISIBLE
             adapter.addList(searchList)

@@ -62,7 +62,7 @@ class ArtistViewFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (!newText.isNullOrBlank()) {
-                    searchArtist(newText)
+                    searchArtist(newText.lowercase())
                 } else {
                     simpleArtistAdapter?.addList(artistsList)
                     adapter?.addList(artistsList)

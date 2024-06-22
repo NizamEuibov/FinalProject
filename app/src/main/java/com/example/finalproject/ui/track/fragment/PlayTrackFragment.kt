@@ -273,6 +273,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
             displayMusicTime(mediaPlayer.duration)
         }
         mediaPlayer.setOnCompletionListener {
+            mediaPlayer.stop()
             nextMusic()
         }
 //        audio.first()?.let { sendIntentToService(it) }

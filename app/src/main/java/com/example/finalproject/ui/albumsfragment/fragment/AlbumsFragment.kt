@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -50,7 +49,7 @@ class AlbumsFragment : Fragment() {
 
 
         binding.cvBack.setOnClickListener {
-            findNavController().popBackStack(R.id.artistViewFragment, false)
+           parentFragmentManager.popBackStack()
         }
 
 
@@ -62,7 +61,7 @@ class AlbumsFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (!newText.isNullOrBlank())
                     filteredAlbum(newText)
-                else {
+                else{
                     adapter.addImage(albumsList)
                 }
                 return true
@@ -122,7 +121,6 @@ class AlbumsFragment : Fragment() {
 
         if (filteredAlbum.isEmpty()) {
             binding.vAlbumFragment.visibility = View.VISIBLE
-            Toast.makeText(context, "No found data", Toast.LENGTH_SHORT).show()
         } else {
             binding.vAlbumFragment.visibility = View.INVISIBLE
             adapter.addImage(filteredAlbum)
