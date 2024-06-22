@@ -10,3 +10,6 @@ data class ArtistsEntity(
     val userId:Int,
    val artistsId :List<Int?>
 )
+
+
+

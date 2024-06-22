@@ -1,6 +1,7 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -124,7 +125,10 @@ class YourLibraryFragment : Fragment() {
         albumAdapter = AlbumAdapter()
         binding.rvLibrary.adapter = albumAdapter
         binding.rvLibrary.layoutManager = LinearLayoutManager(context)
+        Log.d("asdasdasdasd", "artistsList: $artistsList")
         val albums =artistsList.map { it.albums }.flatten()
+        Log.d("asdasdasdasdasa", "albums: $albums")
+
         albums.let { albumAdapter.addList(it)}
         albumAdapterClick()
     }

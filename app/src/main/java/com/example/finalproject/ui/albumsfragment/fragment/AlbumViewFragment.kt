@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -86,8 +87,8 @@ class AlbumViewFragment : Fragment() {
         viewModel.trackList.observe(viewLifecycleOwner) { data ->
             when (data) {
                 is UIState.Loading -> {
-                    binding.progressBar.visibility =
-                        if (data.isLoading) View.VISIBLE else View.GONE
+                    binding.progressBar.isVisible = data.isLoading
+                    binding.actionButtonsGroup.isVisible = !data.isLoading
                 }
 
                 is UIState.Data -> {
