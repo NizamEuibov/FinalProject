@@ -26,7 +26,8 @@ class AlbumsFragment : Fragment() {
     private lateinit var adapter: AlbumsAdapter
     private val viewModel: AlbumViewModel by viewModels()
     private var albumsList: List<DataTypeModel.AlbumList> = emptyList()
-    private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
+    private var albumsListAll: MutableList<DataTypeModel.AlbumList> = mutableListOf()
+    private val artistsList: MutableList<DataTypeModel.NameAndImage> = mutableListOf()
     private var id: Int? = null
 
 
@@ -52,17 +53,17 @@ class AlbumsFragment : Fragment() {
            parentFragmentManager.popBackStack()
         }
 
-
         binding.svAlbum.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (!newText.isNullOrBlank())
+                if (!newText.isNullOrBlank()){
                     filteredAlbum(newText)
+                }
                 else{
-                    adapter.addImage(albumsList)
+                    adapter.addImage(albumsListAll)
                 }
                 return true
             }
@@ -84,7 +85,10 @@ class AlbumsFragment : Fragment() {
                 }
 
                 is UIState.Data -> {
-                    artistsList = data.data!!
+                    data.data?.let {
+                        artistsList.addAll(it)
+                    }
+
                     if (id != null) {
                         albumList()
                     } else {
@@ -111,7 +115,6 @@ class AlbumsFragment : Fragment() {
             adapter.addImage(artistsList.filter { it.id == id }.map { it.albums }.flatten())
         } else
             adapter.addImage(albumsList)
-
 
     }
 
@@ -151,8 +154,9 @@ class AlbumsFragment : Fragment() {
         adapter = AlbumsAdapter()
         binding.rvAlbum.adapter = adapter
         binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
-        val albumList = artistsList.map { it.albums }.flatten()
-        adapter.addImage(albumList)
+        albumsListAll = artistsList.map { it.albums }.flatten().toMutableList()
+
+        adapter.addImage(albumsListAll)
     }
 }
 //back edende melumat itir
