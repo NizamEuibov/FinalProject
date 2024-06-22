@@ -64,6 +64,7 @@ class HomeFragment : Fragment() {
                 is UIState.Loading -> {
                     binding.progressBar.visibility =
                         if (data.isLoading) View.VISIBLE else View.GONE
+                    Log.d("CheckData","")
                 }
 
                 is UIState.Data -> {

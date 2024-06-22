@@ -68,6 +68,7 @@ class LibrarySettingFragment : Fragment() {
                 SharedPrefs.removeSignUp("SignedUp")
                 val intent = Intent(requireActivity(),MainActivity::class.java)
                 startActivity(intent)
+                activity?.finish()
             }
             .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()

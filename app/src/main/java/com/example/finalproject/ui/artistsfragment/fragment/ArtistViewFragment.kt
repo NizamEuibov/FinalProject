@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -134,7 +133,6 @@ class ArtistViewFragment : Fragment() {
         val searchList = artistsList.filter { it.name.lowercase().contains(query) }
         if (searchList.isEmpty()) {
             binding.vArtist.visibility = View.VISIBLE
-            Toast.makeText(context, "No data found", Toast.LENGTH_SHORT).show()
         } else {
             binding.vArtist.visibility = View.INVISIBLE
             simpleArtistAdapter?.addList(searchList)
