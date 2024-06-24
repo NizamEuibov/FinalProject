@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GenderFragment : Fragment() {
     private var binding: FragmentGenderBinding? = null
-   private val list = arrayOf("man", "woman", "none")
+   private val list = arrayOf("Male", "Female", "None")
 
     private val email: String? by lazy {
         arguments?.getString("email")

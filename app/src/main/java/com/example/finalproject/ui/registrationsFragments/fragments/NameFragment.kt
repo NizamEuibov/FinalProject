@@ -90,10 +90,6 @@ class NameFragment : Fragment() {
         val user = RegistrationEntity(0, email, password, gender, name,true)
         viewModel.sendDataToRepository(user) { success ->
             if (success) {
-                Toast.makeText(requireContext(), "Data sent successfully", Toast.LENGTH_SHORT)
-                    .show()
-
-
                 val bundle = bundleOf(
                     "email" to email
                 )

@@ -51,7 +51,7 @@ class SearchFragment : Fragment() {
     private fun init() {
         adapter = SearchAdapter()
         binding.rvSearch.adapter = adapter
-        binding.rvSearch.layoutManager = GridLayoutManager(context, 2)
+        binding.rvSearch.layoutManager = GridLayoutManager(requireContext(), 2)
         adapter.addLists(cardList)
 
     }

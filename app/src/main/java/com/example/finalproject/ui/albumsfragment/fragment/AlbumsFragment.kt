@@ -120,7 +120,7 @@ class AlbumsFragment : Fragment() {
 
 
     private fun filteredAlbum(query: String) {
-        val filteredAlbum = albumsList.filter { it.name?.lowercase()?.contains(query) == true }
+        val filteredAlbum = albumsListAll.filter { it.name?.lowercase()?.contains(query) == true }
 
         if (filteredAlbum.isEmpty()) {
             binding.vAlbumFragment.visibility = View.VISIBLE

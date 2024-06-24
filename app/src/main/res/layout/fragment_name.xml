@@ -73,7 +73,7 @@
         android:textColor="@color/white"
         android:layout_marginStart="31dp"
         android:layout_marginEnd="32dp"
-        android:paddingStart="10dp"
+        android:paddingHorizontal="10dp"
         android:background="@drawable/edittextcorner"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
     <TextView
         android:id="@+id/tvTextName"
         android:layout_width="150dp"
-        android:layout_height="15dp"
+        android:layout_height="17dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="252dp"
@@ -111,7 +111,7 @@
     <LinearLayout
         android:id="@+id/tvLayout1"
         android:layout_width="333dp"
-        android:layout_height="98dp"
+        android:layout_height="110dp"
         android:layout_marginStart="39dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="56dp"
@@ -122,36 +122,36 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="11dp"
+            android:layout_height="17dp"
             android:text="@string/cv1First"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tvUse"
             android:layout_width="155dp"
-            android:layout_height="11dp"
+            android:layout_height="15dp"
             android:layout_marginTop="21dp"
             android:layout_marginEnd="177dp"
             android:layout_marginBottom="21dp"
             android:text="@string/cv1Second"
             android:textColor="@color/grey"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="26dp"
+            android:layout_height="32dp"
             android:text="@string/cv1Third"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/tvLayout2"
         android:layout_width="310dp"
-        android:layout_height="115dp"
+        android:layout_height="132dp"
         android:layout_marginStart="39dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="78dp"
@@ -165,44 +165,44 @@
         <TextView
             android:id="@+id/tvPolicy"
             android:layout_width="match_parent"
-            android:layout_height="11dp"
+            android:layout_height="15dp"
             android:text="@string/cv2First"
             android:textColor="@color/grey"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:layout_width="155dp"
-            android:layout_height="11dp"
+            android:layout_height="15dp"
             android:layout_marginTop="34dp"
             android:layout_marginEnd="177dp"
             android:layout_marginBottom="34dp"
             android:text="@string/cv2Second"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="32dp"
             android:text="@string/cv2Third"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb2Name"
         android:layout_width="26dp"
         android:layout_height="25dp"
         app:layout_constraintStart_toEndOf="@id/tvLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/rb1Name"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="24dp"
         />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rb1Name"
         android:layout_width="26dp"
         android:layout_height="25dp"
