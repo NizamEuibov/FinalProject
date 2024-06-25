@@ -110,7 +110,7 @@ class SearchAllFragment : Fragment() {
         if (searchList.isEmpty()) {
             binding.vSearchBackground.visibility = View.VISIBLE
         } else {
-            binding.vSearchBackground.visibility = View.INVISIBLE
+            binding.vSearchBackground.visibility = View.GONE
             adapter.addList(searchList)
         }
 

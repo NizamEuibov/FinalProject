@@ -55,7 +55,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bLibraryArtist"
             android:layout_width="wrap_content"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:text="@string/tab_artist"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -70,7 +70,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bLibraryAlbum"
             android:layout_width="wrap_content"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:text="@string/tab_album"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -85,7 +85,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bLibraryPlaylists"
             android:layout_width="wrap_content"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:text="@string/tab_playlists"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -100,7 +100,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bLibraryPodcasts"
             android:layout_width="wrap_content"
-            android:layout_height="33dp"
+            android:layout_height="35dp"
             android:text="@string/tab_podcasts"
             android:textColor="@color/white"
             android:textSize="12sp"

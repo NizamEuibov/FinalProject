@@ -50,7 +50,7 @@ class AlbumsFragment : Fragment() {
 
 
         binding.cvBack.setOnClickListener {
-           parentFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack()
         }
 
         binding.svAlbum.setOnQueryTextListener(object : OnQueryTextListener {
@@ -59,10 +59,9 @@ class AlbumsFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (!newText.isNullOrBlank()){
+                if (!newText.isNullOrBlank()) {
                     filteredAlbum(newText)
-                }
-                else{
+                } else {
                     adapter.addImage(albumsListAll)
                 }
                 return true
@@ -120,12 +119,12 @@ class AlbumsFragment : Fragment() {
 
 
     private fun filteredAlbum(query: String) {
-        val filteredAlbum = albumsListAll.filter { it.name?.lowercase()?.contains(query) == true }
-
+        val filteredAlbum = albumsListAll.filter { it.name?.lowercase()?.contains(query) ?: false }
+        Log.d("user555", "$filteredAlbum")
         if (filteredAlbum.isEmpty()) {
             binding.vAlbumFragment.visibility = View.VISIBLE
         } else {
-            binding.vAlbumFragment.visibility = View.INVISIBLE
+            binding.vAlbumFragment.visibility = View.GONE
             adapter.addImage(filteredAlbum)
         }
     }
@@ -155,7 +154,6 @@ class AlbumsFragment : Fragment() {
         binding.rvAlbum.adapter = adapter
         binding.rvAlbum.layoutManager = GridLayoutManager(context, 3)
         albumsListAll = artistsList.map { it.albums }.flatten().toMutableList()
-
         adapter.addImage(albumsListAll)
     }
 }

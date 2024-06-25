@@ -1,51 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:background="@color/background"
+    android:layout_height="wrap_content"
     android:layout_marginHorizontal="15dp"
     android:layout_marginVertical="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     android:padding="5dp">
 
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/civSearchAll"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_fashion"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:contentDescription="@string/todo"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-     android:contentDescription="@string/todo"
-        />
+        app:shapeAppearanceOverlay="@style/RoundedRadius6" />
 
     <TextView
         android:id="@+id/tvSearchAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="jkfvuykvh"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/civSearchAll"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        />
+        android:text="jkfvuykvh"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/civSearchAll"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvSearchAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/bbColor"
-        android:text="@string/List2_album"
-        app:layout_constraintStart_toEndOf="@id/civSearchAll"
-        app:layout_constraintTop_toBottomOf="@id/tvSearchAll"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
-        />
-
-
-
+        android:text="@string/List2_album"
+        android:textColor="@color/bbColor"
+        app:layout_constraintStart_toEndOf="@id/civSearchAll"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchAll" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

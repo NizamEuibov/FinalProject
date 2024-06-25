@@ -1,7 +1,6 @@
 package com.example.finalproject.ui.libraryfragment.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,10 +27,14 @@ class YourLibraryFragment : Fragment() {
     private val viewModel: ArtistsViewModel by viewModels()
     private val trackViewModel: TrackViewModel by viewModels()
     private lateinit var adapter: ArtistAdapter
-    private lateinit var albumAdapter: AlbumAdapter
+    private var albumAdapter = AlbumAdapter()
     private lateinit var songAdapter: SongAdapter
     private var name: String? = null
+    private var albumList: List<DataTypeModel.AlbumList> = emptyList()
     private var artistsList: List<DataTypeModel.NameAndImage> = emptyList()
+    private var songList: List<DataTypeModel.NameAndImage> = emptyList()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         name = arguments?.getString("name")
@@ -45,151 +48,88 @@ class YourLibraryFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
+        observeViewModels()
+    }
 
-        init()
-        binding.bLibraryArtist.setOnClickListener {
-            libraryArtist()
-        }
-        binding.bLibraryAlbum.setOnClickListener {
-            libraryAlbum()
-        }
-        binding.bLibraryPlaylists.setOnClickListener {
-            init1()
-        }
+    private fun setupUI() {
+        binding.bLibraryArtist.setOnClickListener { libraryArtist() }
+        binding.bLibraryAlbum.setOnClickListener { libraryAlbum() }
+        binding.bLibraryPlaylists.setOnClickListener { librarySong() }
 
         binding.civUserImage.setOnClickListener {
-            val bundle = bundleOf(
-                "name" to name
-            )
-            findNavController().navigate(
-                R.id.action_yourLibraryFragment_to_library,
-                bundle
-            )
+            val bundle = bundleOf("name" to name)
+            findNavController().navigate(R.id.action_yourLibraryFragment_to_library, bundle)
         }
 
         binding.ivLiked.setOnClickListener {
             findNavController().navigate(R.id.action_yourLibraryFragment_to_likedSongsFragment)
         }
-
-
     }
 
-    private fun init() {
+    private fun observeViewModels() {
         viewModel.artistsLiveData.observe(viewLifecycleOwner) { data ->
             when (data) {
-                is UIState.Loading -> {
-                    binding.progressBar.visibility =
-                        if (data.isLoading) View.VISIBLE else View.GONE
-                }
-
+                is UIState.Loading -> binding.progressBar.visibility = if (data.isLoading) View.VISIBLE else View.GONE
                 is UIState.Data -> {
-                    artistsList = data.data!!
+                    artistsList = data.data?: emptyList()
+                    albumList = artistsList.flatMap { it.albums }
                     libraryArtist()
                 }
-
-                else -> {
-                    UIState.Error(ERROR)
-                }
+                else ->{ UIState.Error(ERROR)}
             }
         }
         viewModel.fetchArtists()
-    }
-
-    private fun libraryArtist() {
-        adapter = ArtistAdapter()
-        binding.rvLibrary.adapter = adapter
-        binding.rvLibrary.layoutManager = LinearLayoutManager(context)
-        adapter.addList(artistsList)
-        artistAdapterClick()
-    }
-
-
-    private fun artistAdapterClick() {
-        adapter.setOnClickListener(object : ArtistAdapter.Listener {
-            override fun clickListener(data: DataTypeModel.NameAndImage) {
-                val bundle = bundleOf(
-                    "id" to data.id
-                )
-                findNavController().navigate(
-                    R.id.action_yourLibraryFragment_to_albumsFragment,
-                    bundle
-                )
-            }
-        })
-    }
-
-    private fun libraryAlbum() {
-        albumAdapter = AlbumAdapter()
-        binding.rvLibrary.adapter = albumAdapter
-        binding.rvLibrary.layoutManager = LinearLayoutManager(context)
-        Log.d("asdasdasdasd", "artistsList: $artistsList")
-        val albums =artistsList.map { it.albums }.flatten()
-        Log.d("asdasdasdasdasa", "albums: $albums")
-
-        albums.let { albumAdapter.addList(it)}
-        albumAdapterClick()
-    }
-
-
-    private fun albumAdapterClick() {
-        albumAdapter.setOnClickListener(object : AlbumAdapter.Listener {
-            override fun clickListener(data: DataTypeModel.AlbumList) {
-                val bundle = bundleOf(
-                    "albumId" to data.id
-                )
-                findNavController().navigate(
-                    R.id.action_yourLibraryFragment_to_albumViewFragment,
-                    bundle
-                )
-            }
-        })
-    }
-
-    private fun init1() {
 
         trackViewModel.trackList.observe(viewLifecycleOwner) { data ->
             when (data) {
-                is UIState.Loading -> {
-                    binding.progressBar.visibility =
-                        if (data.isLoading) View.VISIBLE else View.GONE
-                }
-
+                is UIState.Loading -> binding.progressBar.visibility = if (data.isLoading) View.VISIBLE else View.GONE
                 is UIState.Data -> {
-                    artistsList = data.data!!
-                    librarySong()
+                    songList =data.data?: emptyList()
                 }
-
-                else -> {
-                    UIState.Error(ERROR)
-                }
+                else ->{ UIState.Error(ERROR)}
             }
         }
         trackViewModel.fetchTracks()
     }
 
+    private fun libraryArtist() {
+        adapter = ArtistAdapter()
+        binding.rvLibrary.adapter = adapter
+        binding.rvLibrary.layoutManager = LinearLayoutManager(requireContext())
+        adapter.addList(artistsList)
+        adapter.setOnClickListener(object : ArtistAdapter.Listener {
+            override fun clickListener(data: DataTypeModel.NameAndImage) {
+                val bundle = bundleOf("id" to data.id)
+                findNavController().navigate(R.id.action_yourLibraryFragment_to_albumsFragment, bundle)
+            }
+        })
+    }
+
+    private fun libraryAlbum() {
+        binding.rvLibrary.adapter = albumAdapter
+        binding.rvLibrary.layoutManager = LinearLayoutManager(requireContext())
+        albumAdapter.addList(albumList)
+        albumAdapter.setOnClickListener(object : AlbumAdapter.Listener {
+            override fun clickListener(data: DataTypeModel.AlbumList) {
+                val bundle = bundleOf("albumId" to data.id)
+                findNavController().navigate(R.id.action_yourLibraryFragment_to_albumViewFragment, bundle)
+            }
+        })
+    }
+
     private fun librarySong() {
         songAdapter = SongAdapter()
         binding.rvLibrary.adapter = songAdapter
-        binding.rvLibrary.layoutManager = LinearLayoutManager(context)
-        val songList = artistsList.map { it.tracks }.flatten()
-        songAdapter.addList(songList)
-        songAdapterClick()
-    }
+        binding.rvLibrary.layoutManager = LinearLayoutManager(requireContext())
 
-    private fun songAdapterClick() {
+        songAdapter.addList(songList.flatMap { it.tracks })
         songAdapter.setOnClickListener(object : SongAdapter.Listener {
             override fun clickListener(data: DataTypeModel.Tracks) {
-                val bundle = bundleOf(
-                    "id" to data.id,
-                    "albumName" to data.albumName
-                )
-                findNavController().navigate(
-                    R.id.action_yourLibraryFragment_to_playTrackFragment,
-                    bundle
-                )
+                val bundle = bundleOf("id" to data.id, "albumName" to data.albumName)
+                findNavController().navigate(R.id.action_yourLibraryFragment_to_playTrackFragment, bundle)
             }
         })
     }

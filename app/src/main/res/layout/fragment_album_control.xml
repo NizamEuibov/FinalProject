@@ -19,7 +19,7 @@
             tvAlbumName, tvArtistsName, tvAlbumControlLike,
             tvAlbumControlArtist, tvAlbumControlShare,
             tvAlbumControlLikeAll, tvAlbumControlAdd,
-            tvAlbumControlAddTo, tvAlbumControlGo, tbClose"/>
+            tvAlbumControlAddTo, tvAlbumControlGo"/>
 
 
         <ImageView

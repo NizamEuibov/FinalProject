@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -63,6 +64,7 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         albumName = arguments?.getString("albumName")
         userId = SharedPrefs.getUserId("UserId")
         Log.d("id12", "$id")
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -186,8 +188,8 @@ class PlayTrackFragment : BottomSheetDialogFragment() {
         viewModel.trackList.observe(viewLifecycleOwner) { data ->
             when (data) {
                 is UIState.Loading -> {
-                    binding.progressBar.visibility =
-                        if (data.isLoading) View.VISIBLE else View.GONE
+                    binding.progressBar.isVisible=data.isLoading
+                    binding.controlGroup.visibility = if (data.isLoading) View.INVISIBLE else View.VISIBLE
                 }
 
                 is UIState.Data -> {

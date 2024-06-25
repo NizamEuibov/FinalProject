@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
 import com.example.finalproject.databinding.SearchAlbumListBinding
-import javax.inject.Inject
 
-class AlbumAdapter @Inject constructor() :
+class AlbumAdapter  :
     RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     private lateinit var binding: SearchAlbumListBinding
     private var dataList = mutableListOf<DataTypeModel.AlbumList>()

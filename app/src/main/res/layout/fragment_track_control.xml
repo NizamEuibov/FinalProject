@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -17,59 +17,59 @@
             android:id="@+id/ivTrackImage"
             android:layout_width="165dp"
             android:layout_height="165dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="21dp"
             android:layout_marginHorizontal="132dp"
-            android:contentDescription="@string/todo" />
+            android:layout_marginTop="21dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTrackName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivTrackImage"
             app:layout_constraintBottom_toTopOf="@+id/tvArtistsName"
-            android:layout_marginTop="50dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTrackImage" />
 
         <TextView
             android:id="@+id/tvArtistsName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:textColor="@color/bbColor"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTrackName"
-            android:layout_marginTop="15dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrackName" />
 
         <ImageButton
             android:id="@+id/ibLike"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_heart"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlLike"
-            app:layout_constraintTop_toTopOf="@id/tvAlbumControlLike"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlLike"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlLike"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlLike"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvAlbumControlLike" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlLike"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="35dp"
             android:text="@string/tvlike"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toTopOf="@id/tvAlbumControlHide"
             app:layout_constraintStart_toEndOf="@id/ibLike"
             app:layout_constraintTop_toBottomOf="@+id/tvArtistsName"
@@ -80,166 +80,164 @@
             android:id="@+id/ibHide"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_hide"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlHide"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlHide"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlHide"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_hide"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlHide"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlHide"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlHide" />
 
         <TextView
             android:id="@+id/tvAlbumControlHide"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/hide"
             android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlShare"
             app:layout_constraintStart_toEndOf="@id/ibHide"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlLike"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlShare"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="23dp" />
+            tools:ignore="RtlSymmetry" />
 
 
         <ImageButton
             android:id="@+id/ibShare"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_share"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlShare"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlShare"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlShare"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_share"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlShare"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlShare"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlShare" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlShare"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tvShare"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlLikeAll"
             app:layout_constraintStart_toEndOf="@id/ibShare"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlHide"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlLikeAll"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
+            tools:ignore="RtlSymmetry" />
 
 
         <ImageButton
             android:id="@+id/ibLikeAllSongs"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_heart"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlLikeAll"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlLikeAll"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlLikeAll"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlLikeAll"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlLikeAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlLikeAll" />
 
         <TextView
             android:id="@+id/tvAlbumControlLikeAll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tvlike_all"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAdd"
             app:layout_constraintStart_toEndOf="@id/ibLikeAllSongs"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlShare"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAdd"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
+            tools:ignore="RtlSymmetry" />
 
         <ImageButton
             android:id="@+id/ibAddToPlatList"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_add"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlAdd"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlAdd"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlAdd"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlAdd"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlAdd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlAdd" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tvadd"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAddTo"
             app:layout_constraintStart_toEndOf="@id/ibAddToPlatList"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlLikeAll"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlAddTo"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
-
+            tools:ignore="RtlSymmetry" />
 
 
         <ImageButton
             android:id="@+id/ibAddToQueue"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_add_to"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlAddTo"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlAddTo"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlAddTo"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_add_to"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlAddTo"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlAddTo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlAddTo" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlAddTo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tvadd_to"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlGo"
             app:layout_constraintStart_toEndOf="@id/ibAddToQueue"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlAdd"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlGo"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
-
+            tools:ignore="RtlSymmetry" />
 
 
         <ImageButton
             android:id="@+id/ibGoToRadio"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_go"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlGo"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlGo"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlGo"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_go"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlGo"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlGo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlGo" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlGo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="23dp"
-           android:layout_marginStart="8dp"
             android:text="@string/tv_go"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -249,138 +247,131 @@
             tools:ignore="RtlSymmetry" />
 
 
-
         <ImageButton
             android:id="@+id/ibViewAlbum"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_view_album"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlAlbum"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlAlbum"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlAlbum"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_view_album"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlAlbum"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlAlbum"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlAlbum" />
 
         <TextView
             android:id="@+id/tvAlbumControlAlbum"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tv_view_album"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlArtist"
             app:layout_constraintStart_toEndOf="@id/ibViewAlbum"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlGo"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlArtist"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
-
+            tools:ignore="RtlSymmetry" />
 
 
         <ImageButton
             android:id="@+id/ibViewArtist"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_view_artists"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlArtist"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlArtist"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlArtist"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_view_artists"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlArtist"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlArtist"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlArtist" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlArtist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tv_view_artist"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlSong"
             app:layout_constraintStart_toEndOf="@id/ibViewArtist"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlAlbum"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlSong"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
-
+            tools:ignore="RtlSymmetry" />
 
 
         <ImageButton
             android:id="@+id/ibSong"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_song_credits"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlSong"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlSong"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlSong"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_song_credits"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlSong"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlSong"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlSong" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlSong"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tv_song_credits"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlSleep"
             app:layout_constraintStart_toEndOf="@id/ibSong"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlArtist"
-            app:layout_constraintBottom_toTopOf="@id/tvAlbumControlSleep"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
-
+            tools:ignore="RtlSymmetry" />
 
 
         <ImageButton
             android:id="@+id/ibSleep"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_sleep"
-            android:background="@color/background"
             android:layout_marginStart="45dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlSleep"
-            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlSleep"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlSleep"
+            android:background="@color/background"
             android:contentDescription="@string/todo"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/ic_sleep"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAlbumControlSleep"
+            app:layout_constraintEnd_toStartOf="@+id/tvAlbumControlSleep"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAlbumControlSleep" />
 
 
         <TextView
             android:id="@+id/tvAlbumControlSleep"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="23dp"
             android:text="@string/tv_sleep_timer"
             android:textColor="@color/white"
-            android:layout_marginStart="8dp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/ibSleep"
             app:layout_constraintTop_toBottomOf="@id/tvAlbumControlSong"
-            tools:ignore="RtlSymmetry"
-            android:layout_marginTop="23dp" />
-
-
-
+            tools:ignore="RtlSymmetry" />
 
 
         <TextView
             android:id="@+id/tbClose"
             android:layout_width="52dp"
             android:layout_height="29dp"
-            android:textSize="16sp"
+            android:layout_marginTop="20dp"
             android:text="@string/tbClose"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/tvAlbumControlSleep"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAlbumControlSleep" />
 
 
         <ProgressBar
@@ -391,6 +382,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/controlGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ibShare,ibLike,ibAddToPlatList,ibAddToQueue,ibGoToRadio
+                               ,ibHide,ibLikeAllSongs,
+ibSleep,ibSong,ibViewAlbum,ibViewArtist,tvTrackName
+,tvAlbumControlAdd,tvAlbumControlAddTo,
+tvAlbumControlAlbum,tvAlbumControlArtist,tvAlbumControlGo
+,tvAlbumControlHide,tvAlbumControlLike,tvAlbumControlLikeAll,
+tvAlbumControlShare,tvAlbumControlSleep,tvAlbumControlSong,tvArtistsName" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

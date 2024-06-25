@@ -252,4 +252,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/controlGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ib3Point,tvAlbumName,tvArtistName,
+        tvEndDuration,tvMotion2,tvStartDuration,tvTrackName,ibLike,ibNext,
+        ibPause,ibPlay,ibPlayList,ibPrevious,ibRepeat,ibShare,ibShuffle,skbTrack "
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

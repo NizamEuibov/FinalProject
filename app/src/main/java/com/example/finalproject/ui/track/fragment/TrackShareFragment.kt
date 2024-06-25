@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.finalproject.data.networkdata.models.DataTypeModel
@@ -118,8 +119,9 @@ class TrackShareFragment : BottomSheetDialogFragment() {
         viewModel.trackList.observe(viewLifecycleOwner) { data ->
             when (data) {
                 is UIState.Loading -> {
-                    binding.progressBar.visibility =
-                        if (data.isLoading) View.VISIBLE else View.GONE
+                    binding.progressBar.isVisible = data.isLoading
+                    binding.controlGroup.visibility =
+                        if (data.isLoading) View.INVISIBLE else View.VISIBLE
                 }
 
                 is UIState.Data -> {
@@ -184,7 +186,7 @@ class TrackShareFragment : BottomSheetDialogFragment() {
         with(binding) {
             Glide.with(requireContext()).load(albumImage).into(ivTrack)
             tvArtistName.text = artistName.trim('[', ']')
-            tvTrackName.text = albumName.first()?.trim('[',']')
+            tvTrackName.text = albumName.first()?.trim('[', ']')
 
         }
     }
